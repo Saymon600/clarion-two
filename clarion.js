@@ -39,7 +39,7 @@ bot.on("messageCreate", (msg) => {
     }
 
     if(msg.content.startsWith("!nanisore") && msg.channel.id === gameboard ||
-       msg.content.startsWith("!nanisoree")) {
+       msg.content.startsWith("!nanisore") && msg.channel.id === ricefields) {
         var kanji = "";
         var reading = "";
         var english = "";
@@ -47,7 +47,6 @@ bot.on("messageCreate", (msg) => {
         if(search.toLowerCase() === "fowz"){
             search = "unemployed";
         }
-        console.log("a");
         request('http://jisho.org/api/v1/search/words?keyword=' + encodeURI(search), function (error,response,body) {
             if(!error && response.statusCode == 200) {
                 var json = JSON.parse(String(body));
@@ -79,7 +78,6 @@ bot.on("messageCreate", (msg) => {
                             reply[reply.length] = "Reading: " + reading;
                         }
                     }
-                    console.log(reply);
                     bot.createMessage(msg.channel.id,reply.join("\n"));
                 }else{
                 	bot.createMessage(msg.channel.id, "Didn't find anything, tee hee");
