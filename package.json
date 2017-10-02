@@ -10,6 +10,12 @@
     "type": "git",
     "url": " https://git.heroku.com/clarion-two.git"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Saymon",
+  "license": "ISC",
+  "dependencies": {
+    "eris": "0.7.2",
+    "fs": "0.0.1-security",
+    "moment": "2.18.1",
+    "request": "2.83.0"
+  }
 }
