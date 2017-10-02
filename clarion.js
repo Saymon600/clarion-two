@@ -14,7 +14,7 @@ var ricefields = "170203812273848320";
 var Saymon = "87554809212727296";
 
 app.get('*', function(req, res){
-  res.sendfile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/public/index.html');
 });
 app.listen(port, function() {
     console.log('Clarion is running on port ' + port);
@@ -35,6 +35,7 @@ bot.on("messageCreate", (msg) => {
 
     if(msg.content === "!pin2") {
         bot.createMessage(msg.channel.id, "p-pon!");
+        console.log(moment().format("LLL"));
     }
 
     if(msg.content.startsWith("!nanisore") && msg.channel.id === gameboard ||
@@ -46,6 +47,7 @@ bot.on("messageCreate", (msg) => {
         if(search.toLowerCase() === "fowz"){
             search = "unemployed";
         }
+        console.log("a");
         request('http://jisho.org/api/v1/search/words?keyword=' + encodeURI(search), function (error,response,body) {
             if(!error && response.statusCode == 200) {
                 var json = JSON.parse(String(body));
@@ -77,7 +79,8 @@ bot.on("messageCreate", (msg) => {
                             reply[reply.length] = "Reading: " + reading;
                         }
                     }
-                    bot.createMessage(msg.channel.id,"<@" + msg.author.id + ">\n" + reply.join("\n"));
+                    console.log(reply);
+                    bot.createMessage(msg.channel.id,reply.join("\n"));
                 }else{
                 	bot.createMessage(msg.channel.id, "Didn't find anything, tee hee");
                 }
