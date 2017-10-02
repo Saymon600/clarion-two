@@ -43,7 +43,7 @@ bot.on("messageCreate", (msg) => {
         var kanji = "";
         var reading = "";
         var english = "";
-        var search = message.content.split(" ").slice(1).join(" ");
+        var search = msg.content.split(" ").slice(1).join(" ");
         if(search.toLowerCase() === "fowz"){
             search = "unemployed";
         }
