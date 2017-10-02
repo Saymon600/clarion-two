@@ -39,7 +39,7 @@ bot.on("messageCreate", (msg) => {
     }
 
     if(msg.content.startsWith("!nanisore") && msg.channel.id === gameboard ||
-       msg.content.startsWith("!nanisore") && msg.channel.id === ricefields) {
+       msg.content.startsWith("!nanisoree")) {
         var kanji = "";
         var reading = "";
         var english = "";
