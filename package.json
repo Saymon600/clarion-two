@@ -5,7 +5,7 @@
   "main": "clarion.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node clarion.js"
+    "start": "node clarion.js &"
   },
   "repository": {
     "type": "git",
