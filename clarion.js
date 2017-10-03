@@ -19,6 +19,27 @@ app.get('/', function(req, res){
 app.get('/mr-data', function(req, res){
   res.sendFile(__dirname + '/mr-data/index.html');
 });
+
+
+app.get('app/mr-data/public/css/converter.css', function(req, res){
+  res.sendFile(__dirname + '/mr-data/public/css/converter.css');
+});
+app.get('app/mr-data/public/js/jquery.js', function(req, res){
+  res.sendFile(__dirname + '/mr-data/public/js/jquery.js');
+});
+app.get('app/mr-data/public/js/CSVParser.js', function(req, res){
+  res.sendFile(__dirname + '/mr-data/public/js/CSVParser.js');
+});
+app.get('app/mr-data/public/js/DataGridRenderer.js', function(req, res){
+  res.sendFile(__dirname + '/mr-data/public/js/DataGridRenderer.js');
+});
+app.get('app/mr-data/public/js/converter.js', function(req, res){
+  res.sendFile(__dirname + '/mr-data/public/js/converter.js');
+});
+app.get('app/mr-data/public/js/Controller.js', function(req, res){
+  res.sendFile(__dirname + '/mr-data/public/js/Controller.js');
+});
+
 app.listen(port, function() {
     console.log(moment().format("LLL") + ': Clarion is running on port ' + port);
 });
