@@ -17,7 +17,7 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
 app.get('/mr-data', function(req, res){
-  res.sendFile('/mr-data/index.html');
+  res.sendFile(__dirname + '/mr-data/index.html');
 });
 app.listen(port, function() {
     console.log(moment().format("LLL") + ': Clarion is running on port ' + port);
