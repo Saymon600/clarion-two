@@ -13,11 +13,14 @@ var mobagedock = "198225182639259649";
 var ricefields = "170203812273848320";
 var Saymon = "87554809212727296";
 
-app.get('*', function(req, res){
+app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
+app.get('/mr-data', function(req, res){
+  res.sendFile(__dirname + '/public/mr-data/index.html');
+});
 app.listen(port, function() {
-    console.log('Clarion is running on port ' + port);
+    console.log(moment().format("LLL") + ': Clarion is running on port ' + port);
 });
 
 
@@ -39,7 +42,7 @@ bot.on("messageCreate", (msg) => {
     }
 
     if(msg.content.startsWith("!nanisore") && msg.channel.id === gameboard ||
-       msg.content.startsWith("!nanisore") && msg.channel.id === ricefields) {
+       msg.content.startsWith("!nanisore") && msg.channel.id === ricefields){
         var kanji = "";
         var reading = "";
         var english = "";
