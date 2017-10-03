@@ -22,22 +22,22 @@ app.get('/mr-data', function(req, res){
 
 
 app.get('app/mr-data/public/css/converter.css', function(req, res){
-  res.sendFile(__dirname + '/mr-data/public/css/converter.css');
+  res.sendFile(__dirname + '/mr-data/css/converter.css');
 });
 app.get('app/mr-data/public/js/jquery.js', function(req, res){
-  res.sendFile(__dirname + '/mr-data/public/js/jquery.js');
+  res.sendFile(__dirname + '/mr-data/js/jquery.js');
 });
 app.get('app/mr-data/public/js/CSVParser.js', function(req, res){
-  res.sendFile(__dirname + '/mr-data/public/js/CSVParser.js');
+  res.sendFile(__dirname + '/mr-data/js/CSVParser.js');
 });
 app.get('app/mr-data/public/js/DataGridRenderer.js', function(req, res){
-  res.sendFile(__dirname + '/mr-data/public/js/DataGridRenderer.js');
+  res.sendFile(__dirname + '/mr-data/js/DataGridRenderer.js');
 });
 app.get('app/mr-data/public/js/converter.js', function(req, res){
-  res.sendFile(__dirname + '/mr-data/public/js/converter.js');
+  res.sendFile(__dirname + '/mr-data/js/converter.js');
 });
 app.get('app/mr-data/public/js/Controller.js', function(req, res){
-  res.sendFile(__dirname + '/mr-data/public/js/Controller.js');
+  res.sendFile(__dirname + '/mr-data/js/Controller.js');
 });
 
 app.listen(port, function() {
