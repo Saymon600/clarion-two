@@ -27,14 +27,17 @@ bot.on("ready", () => {
 
 bot.on("messageCreate", (msg) => {
 
+	//C001
     if(msg.content === "!ping" && msg.channel.id === gameboard) {
         bot.createMessage(msg.channel.id, "p-pon!");
     }
 
+    //C002
     if(msg.content === "!pin2") {
         bot.createMessage(msg.channel.id, "p-pon!");
     }
 
+    //C003
     if(msg.content.startsWith("!nanisore") && msg.channel.id === gameboard ||
        msg.content.startsWith("!nanisore") && msg.channel.id === ricefields){
         var kanji = "";
@@ -86,6 +89,7 @@ bot.on("messageCreate", (msg) => {
         });
     }
 
+    //C004
     if(msg.content.startsWith("!roll") && msg.channel.id === gameboard) {
         var dice = msg.content.split(" ").slice(1).join(" ");
         var split = dice.split("d");
@@ -120,6 +124,7 @@ bot.on("messageCreate", (msg) => {
         }
     }
 
+    //C005
     if(msg.content.startsWith("!choose") && msg.channel.id === gameboard ||
        msg.content.startsWith("!choose") && msg.channel.id === mobagedock) {
         var message = msg.content.split(" ").slice(1).join(" ");
@@ -132,6 +137,7 @@ bot.on("messageCreate", (msg) => {
         }
     }
 
+    //C006
     if(msg.content.startsWith("!ask") && msg.channel.id === gameboard ||
        msg.content.startsWith("!ask") && msg.channel.id === mobagedock) {
         var message = msg.content.split(" ").slice(1).join(" ");
@@ -161,6 +167,7 @@ bot.on("messageCreate", (msg) => {
        	}
     }
 
+    //C007
     if(msg.content === "!bastao" && msg.channel.id === gameboard) {
         var members = msg.channel.guild.members;
         var hadRole = false;
@@ -183,6 +190,7 @@ bot.on("messageCreate", (msg) => {
         }
     }
 
+    //C008
     if(msg.content === "!sem-bastao" && msg.channel.id === gameboard) {
         var members = msg.channel.guild.members;;
         members.forEach(function(member){
@@ -196,6 +204,7 @@ bot.on("messageCreate", (msg) => {
        	bot.createMessage(msg.channel.id, 'Storytime is over now.');
     }
 
+    //C009
     if(msg.content === "!raid" && msg.channel.id === gameboard ||
        msg.content === "!raid" && msg.channel.id === mobagedock) {
         var members = msg.channel.guild.members;
@@ -218,6 +227,7 @@ bot.on("messageCreate", (msg) => {
        	});
     }
 
+    //C010
     if(msg.content === "!spoiler" && msg.channel.id === gameboard) {
         var members = msg.channel.guild.members;
         members.forEach(function(member){
@@ -239,9 +249,16 @@ bot.on("messageCreate", (msg) => {
        	});
     }
 
+    //C011
+    if(msg.content === "!cn" && msg.channel.id === gameboard){
+    	var nick = msg.content.split(" ").slice(1).join(" ");
+    	bot.editNickname(msg.channel;guild.id,nick);
+        bot.createMessage(msg.channel.id, "You have strange tastes...");
+    }
+
 });
 
-//Routes
+//Routes R001
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
@@ -249,7 +266,7 @@ app.get('/mr-data', function(req, res){
   res.sendFile(__dirname + '/mr-data/index.html');
 });
 
-//Content routes
+//Content routes for mr-data-converter R002
 app.get('/mr-data/css/converter.css', function(req, res){
   res.sendFile(__dirname + '/mr-data/css/converter.css');
 });
@@ -269,8 +286,23 @@ app.get('/mr-data/js/Controller.js', function(req, res){
   res.sendFile(__dirname + '/mr-data/js/Controller.js');
 });
 
+//init
 app.listen(port, function() {
     console.log(moment().format("LLL") + ': Clarion is running on port ' + port);
 });
-
 bot.connect();
+
+/*
+Table of Contents
+C001: ping
+C002: pin2
+C003: nanisore
+C004: roll
+C005: choose
+C006: ask
+C007: bastao
+C008: sem-bastao
+C009: raid
+C010: spoiler
+C011: change nick
+*/
