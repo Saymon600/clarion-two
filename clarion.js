@@ -365,7 +365,7 @@ bot.on("messageCreate", (msg) => {
     	var uptime = moment.duration(bot.uptime);
     	strUptime = zeroPad(uptime.hours(),2) + ":" + zeroPad(uptime.minutes(),2);
 
-    	message = message + "Uptime: " + uptime + "\n";
+    	message = message + "Uptime: " + stUptime + "\n";
 
     	bot.createMessage(msg.channel.id,message);
     }
