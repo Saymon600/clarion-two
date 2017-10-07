@@ -433,10 +433,10 @@ bot.on("messageCreate", (msg) => {
 
 //Routes R001
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/index.html');
 });
 app.get('/clarion', function(req, res){
-  res.sendFile(__dirname + '/public/clarion.html');
+  res.sendFile(__dirname + '/clarion.html');
 });
 app.get('/mr-data', function(req, res){
   res.sendFile(__dirname + '/mr-data/index.html');
