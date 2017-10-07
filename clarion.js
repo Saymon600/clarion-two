@@ -252,7 +252,7 @@ bot.on("messageCreate", (msg) => {
     //C011
     if(msg.content === "!cn" && msg.channel.id === gameboard){
     	var nick = msg.content.split(" ").slice(1).join(" ");
-    	bot.editNickname(msg.channel;guild.id,nick);
+    	bot.editNickname(msg.channel.guild.id,nick);
         bot.createMessage(msg.channel.id, "You have strange tastes...");
     }
 
