@@ -11,6 +11,7 @@ var autismbox = "87350922878922752";
 var gameboard = "141583443896041472";
 var mobagedock = "198225182639259649";
 var ricefields = "170203812273848320";
+var firekeeper = "87350922878922752";
 var Saymon = "87554809212727296";
 
 var bot = new Eris("MzYzODQ1NTI2NzExNTY2MzM2.DLMrYg.zG28pp2E8PR43uY3subsXrzFblI");
@@ -158,7 +159,13 @@ bot.on("messageCreate", (msg) => {
 
     if(msg.content === "!bastao" && msg.channel.id === gameboard) {
         var roles = msg.channel.guild.roles;
-        for(var a in roles){
+        var a = 0;
+        roles.forEach(function(role){
+        	if(a == 0)
+        		console.log(role);
+        	a++;
+        })
+        /*for(var a in roles){
         	console.log(roles[a]["name"]);
             if(roles[a]['name'] === 'Firekeeper'){
             	console.log("1");
@@ -180,7 +187,7 @@ bot.on("messageCreate", (msg) => {
                 	}
                 }
             }
-        }
+        }*/
     }
 
     if(msg.content === "!sem-bastao" && msg.channel.id === gameboard) {
