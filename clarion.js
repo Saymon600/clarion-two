@@ -464,22 +464,11 @@ app.get('/mr-data/js/Controller.js', function(req, res){
 
 //Content routes for Homepage R003
 app.get('/favicon.png', function(req, res){
-  res.sendFile(__dirname + '/public/favicon.png');
+  res.sendFile(__dirname + '/favicon.png');
 });
-app.get('/assets/plugins/bootstrap/css/bootstrap.min.css', function(req, res){
-  res.sendFile(__dirname + '/public/assets/plugins/bootstrap/css/bootstrap.min.css');
-});
-app.get('/assets/plugins/font-awesome/css/font-awesome.css', function(req, res){
-  res.sendFile(__dirname + '/public/assets/plugins/font-awesome/css/font-awesome.css');
-});
-app.get('/assets/plugins/elegant_font/css/style.css', function(req, res){
-  res.sendFile(__dirname + '/public/assets/plugins/elegant_font/css/style.css');
-});
-app.get('/assets/css/styles.css', function(req, res){
-  res.sendFile(__dirname + '/public/assets/css/styles.css');
-});
-app.get('/assets/*', function(req, res){
-  res.sendFile(__dirname + '/public/assets/*');
+
+app.get('*', function(req, res){
+  res.sendFile(__dirname + '*');
 });
 
 
