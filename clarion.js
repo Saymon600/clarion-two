@@ -127,8 +127,8 @@ bot.on("messageCreate", (msg) => {
         }
     }
 
-    if(msg.content.startsWith("!ask") /*&& msg.channel.id === gameboard ||
-       msg.content.startsWith("!ask") && msg.channel.id === mobagedock*/) {
+    if(msg.content.startsWith("!ask") && msg.channel.id === gameboard ||
+       msg.content.startsWith("!ask") && msg.channel.id === mobagedock) {
         var message = msg.content.split(" ").slice(1).join(" ");
        	var r = Math.floor((Math.random() * 7)) + 1;
        	switch(r){
@@ -154,6 +154,47 @@ bot.on("messageCreate", (msg) => {
        			bot.createMessage(msg.channel.id, "Don't ask me this.");
        			break;
        	}
+    }
+
+    if(msg.content === "!bastao" && msg.channel.id === gameboard) {
+        var roles = msg.guild.roles;
+        for(var a = 0; a < roles.length; a++){
+            if(roles[a].name === 'Firekeeper'){
+                var fire = msg.guild.members;
+                for(var b = 0; b < fire.length; b++){
+                	if(fire[b].id == msg.author.id){
+                		var hadRole = false;
+	                	for(var c = 0; c < fire[b].roles.length; c++){
+	                		if(fire[b].roles[c] == roles[a].id){
+	                			bot.removeGuildMemberRole(msg.guild.id,msg.author.id,roles[a].id,"Finished story on bonfire");
+	                			bot.createMessage(msg.channel.id, "本当にもう終わりなの？");
+	                			hadRole = true;
+	                		}
+	                	}
+	                	if(!hadRole){
+	                		bot.addGuildMemberRole(msg.guild.id,msg.author.id,roles[a].id,"Starting story on bonfire");
+	                		bot.createMessage(msg.channel.id, 'You are the firekeeper now, make sure to tell us a good story.');
+                		}
+                	}
+                }
+            }
+        }
+    }
+
+    if(msg.content === "!sem-bastao" && msg.channel.id === gameboard) {
+        var roles = msg.guild.roles;
+        for(var a = 0; a < roles.length; a++){
+            if(roles[a].name === 'Firekeeper'){
+                var fire = msg.guild.members;
+                for(var b = 0; b < fire.length; b++){
+	                for(var c = 0; c < fire[b].roles.length; c++){
+	                	if(fire[b].roles[c] == roles[a].id){
+	                		bot.removeGuildMemberRole(msg.guild.id,msg.author.id,roles[a].id,"Finished story on bonfire");
+	                	}
+	                }
+                }
+            }
+        }
     }
 
 });
