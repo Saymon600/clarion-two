@@ -115,7 +115,8 @@ bot.on("messageCreate", (msg) => {
         }
     }
 
-    if(msg.content.startsWith("!choose") /*&& msg.channel.id === gameboard*/) {
+    if(msg.content.startsWith("!choose") && msg.channel.id === gameboard ||
+       msg.content.startsWith("!choose") && msg.channel.id === mobagedock) {
         var message = msg.content.split(" ").slice(1).join(" ");
         message = message.split(",");
         if(message.length > 1){
