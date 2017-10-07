@@ -466,7 +466,7 @@ app.get('/mr-data/js/Controller.js', function(req, res){
 app.get('/favicon.png', function(req, res){
   res.sendFile(__dirname + '/favicon.png');
 });
-app.get('/assets/css/styles.css', function(req, res){
+/*app.get('/assets/css/styles.css', function(req, res){
   res.sendFile(__dirname + '/assets/css/styles.css');
 });
 app.get('/assets/plugins/bootstrap/css/bootstrap.min.css', function(req, res){
@@ -480,13 +480,8 @@ app.get('/assets/plugins/elegant_font/css/style.css', function(req, res){
 });
 app.get('/assets/images/empty.gif', function(req, res){
   res.sendFile(__dirname + '/assets/images/empty.gif');
-});
+});*/
 app.use("/assets",express.static(__dirname + '/assets'));
-
-
-
-
-
 
 
 //Functions Util F001
