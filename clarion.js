@@ -142,13 +142,21 @@ bot.on("messageCreate", (msg) => {
        			bot.createMessage(msg.channel.id, "lmao\nOf course not.");
        			break;
        		case 4:
-       			bot.createMessage(msg.channel.id, "Y-yeah.",{file:fs.readFile(__dirname + "/ask/ehh.png"),name:"ehh.png"});
+       			bot.createMessage(msg.channel.id, "Y-yeah.",{file:fs.readFileSync(__dirname + "/ask/ehh.png"),name:"ehh.png"});
        			break;
        		case 5:
        			bot.createMessage(msg.channel.id, "Nope.");
        			break;
        		case 6:
-       			bot.createMessage(msg.channel.id, "", {file:fs.readFile(__dirname + "/ask/gowild.png"),name:"gowild.png"});
+       			bot.createMessage(msg.channel.id, "", {file:fs.readFileSync(__dirname + "/ask/gowild.png"),name:"gowild.png"});
+       			console.log("lol");
+       			fs.readFileSync(__dirname + "/ask/gowild.png",function(err,buffer){
+       				if(err){
+       					throw err;
+       				}else{
+       					bot.createMessage(msg.channel.id, "", {file:fs.readFileSync(__dirname + "/ask/gowild.png"),name:"gowild.png"});
+       				}
+       			})
        			break;
        		case 7:
        			bot.createMessage(msg.channel.id, "Don't ask me this.");
