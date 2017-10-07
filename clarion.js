@@ -199,7 +199,6 @@ bot.on("messageCreate", (msg) => {
     if(msg.content === "!raid" && msg.channel.id === gameboard ||
        msg.content === "!raid" && msg.channel.id === mobagedock) {
         var members = msg.channel.guild.members;
-        var a = 0;
         members.forEach(function(member){
         	if(member.id == msg.author.id){
         		var roles = member.roles;
@@ -221,7 +220,6 @@ bot.on("messageCreate", (msg) => {
 
     if(msg.content === "!spoiler" && msg.channel.id === gameboard) {
         var members = msg.channel.guild.members;
-        var a = 0;
         members.forEach(function(member){
         	if(member.id == msg.author.id){
         		var roles = member.roles;
