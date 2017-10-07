@@ -161,8 +161,9 @@ bot.on("messageCreate", (msg) => {
         var roles = msg.channel.guild.roles;
         var a = 0;
         roles.forEach(function(role){
-        	if(a == 0)
+        	if(a == 0){
         		console.log(role);
+        	}
         	a++;
         })
         /*for(var a in roles){
