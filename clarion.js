@@ -364,7 +364,7 @@ bot.on("messageCreate", (msg) => {
     	bot.createMessage(msg.channel.id,message);
     }
 
-    if(msg.content.indexOf("rol") and msg.channel.id == mobagedock){
+    if(msg.content.indexOf("rol") && msg.channel.id == mobagedock){
     	var random = Math.floor((Math.random() * 20) + 1);
     	var random2 = Math.floor((Math.random() * 7) + 1);
     	if(random == 3){
@@ -394,7 +394,7 @@ bot.on("messageCreate", (msg) => {
     	}
     }
 
-    if(msg.content.indexOf("whal") and msg.channel.id == mobagedock){
+    if(msg.content.indexOf("whal") && msg.channel.id == mobagedock){
     	var random = Math.floor((Math.random() * 20) + 1);
     	var random2 = Math.floor((Math.random() * 2) + 1);
     	if(random == 12){
