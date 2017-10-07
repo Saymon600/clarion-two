@@ -173,13 +173,13 @@ bot.on("messageCreate", (msg) => {
 	        	roles.forEach(function(role){
 	        		if(role == firekeeper){
 	        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,firekeeper,"Finished story on bonfire");
-	                	//bot.createMessage(msg.channel.id, "本当にもう終わりなの？");
+	                	bot.createMessage(msg.channel.id, "本当にもう終わりなの？");
 	                	hadRole = true;
 	        		}
 	        	});
 	        	if(!hadRole){
 	                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,firekeeper,"Starting story on bonfire");
-	                //bot.createMessage(msg.channel.id, 'You are the firekeeper now, make sure to tell us a good story.');
+	                bot.createMessage(msg.channel.id, 'You are the firekeeper now, make sure to tell us a good story.');
                	}
         	}
        	});
@@ -199,6 +199,52 @@ bot.on("messageCreate", (msg) => {
                 }
             }
         }
+    }
+
+    if(msg.content === "!raid" && msg.channel.id === gameboard) {
+        var members = msg.channel.guild.members;
+        var a = 0;
+        members.forEach(function(member){
+        	if(member.id == msg.author.id){
+        		var roles = member.roles;
+        		console.log(roles);
+	        	var hadRole = false;
+	        	roles.forEach(function(role){
+	        		if(role == firekeeper){
+	        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,firekeeper,"Finished story on bonfire");
+	                	bot.createMessage(msg.channel.id, "本当にもう終わりなの？");
+	                	hadRole = true;
+	        		}
+	        	});
+	        	if(!hadRole){
+	                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,firekeeper,"Starting story on bonfire");
+	                bot.createMessage(msg.channel.id, 'You are the firekeeper now, make sure to tell us a good story.');
+               	}
+        	}
+       	});
+    }
+
+    if(msg.content === "!spoiler" && msg.channel.id === gameboard) {
+        var members = msg.channel.guild.members;
+        var a = 0;
+        members.forEach(function(member){
+        	if(member.id == msg.author.id){
+        		var roles = member.roles;
+        		console.log(roles);
+	        	var hadRole = false;
+	        	roles.forEach(function(role){
+	        		if(role == spoiler){
+	        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,spoiler);
+	                	bot.createMessage(msg.channel.id, "本当にもう終わりなの？");
+	                	hadRole = true;
+	        		}
+	        	});
+	        	if(!hadRole){
+	                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,spoiler);
+	                bot.createMessage(msg.channel.id, 'Are you sick?');
+               	}
+        	}
+       	});
     }
 
 });
