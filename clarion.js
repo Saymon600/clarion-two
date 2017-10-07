@@ -1,7 +1,7 @@
 const Eris = require("eris");
-var moment = require('moment');
-var fs = require('fs');
-var request = require('request');
+const moment = require('moment');
+const fs = require('fs');
+const request = require('request');
 
 var express = require('express');
 var app = express();
@@ -142,13 +142,13 @@ bot.on("messageCreate", (msg) => {
        			bot.createMessage(msg.channel.id, "lmao\nOf course not.");
        			break;
        		case 4:
-       			bot.createMessage(msg.channel.id, "Y-yeah.",__dirname + "/ask/gowild.png");
+       			bot.createMessage(msg.channel.id, "Y-yeah.",fs.readFile(__dirname + "/ask/ehh.png");
        			break;
        		case 5:
        			bot.createMessage(msg.channel.id, "Nope.");
        			break;
        		case 6:
-       			bot.createMessage(msg.channel.id, "", __dirname + "/ask/gowild.png");
+       			bot.createMessage(msg.channel.id, "", fs.readFile(__dirname + "/ask/gowild.png");
        			break;
        		case 7:
        			bot.createMessage(msg.channel.id, "Don't ask me this.");
