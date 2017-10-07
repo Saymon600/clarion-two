@@ -363,7 +363,7 @@ bot.on("messageCreate", (msg) => {
     	var message = "Clarion current stats:\n";
 
     	var uptime = moment.duration(bot.uptime);
-    	uptime = uptime.format("HH:mm:ss");
+    	uptime = uptime().format("HH:mm:ss");
     	console.log(uptime);
 
     	message = message + "Uptime: " + uptime + "\n";
