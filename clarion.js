@@ -13,38 +13,6 @@ var mobagedock = "198225182639259649";
 var ricefields = "170203812273848320";
 var Saymon = "87554809212727296";
 
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/public/index.html');
-});
-app.get('/mr-data', function(req, res){
-  res.sendFile(__dirname + '/mr-data/index.html');
-});
-
-
-app.get('/mr-data/css/converter.css', function(req, res){
-  res.sendFile(__dirname + '/mr-data/css/converter.css');
-});
-app.get('/mr-data/js/jquery.js', function(req, res){
-  res.sendFile(__dirname + '/mr-data/js/jquery.js');
-});
-app.get('/mr-data/js/CSVParser.js', function(req, res){
-  res.sendFile(__dirname + '/mr-data/js/CSVParser.js');
-});
-app.get('/mr-data/js/DataGridRenderer.js', function(req, res){
-  res.sendFile(__dirname + '/mr-data/js/DataGridRenderer.js');
-});
-app.get('/mr-data/js/converter.js', function(req, res){
-  res.sendFile(__dirname + '/mr-data/js/converter.js');
-});
-app.get('/mr-data/js/Controller.js', function(req, res){
-  res.sendFile(__dirname + '/mr-data/js/Controller.js');
-});
-
-app.listen(port, function() {
-    console.log(moment().format("LLL") + ': Clarion is running on port ' + port);
-});
-
-
 var bot = new Eris("MzYzODQ1NTI2NzExNTY2MzM2.DLMrYg.zG28pp2E8PR43uY3subsXrzFblI");
 
 bot.on("ready", () => {
@@ -113,7 +81,73 @@ bot.on("messageCreate", (msg) => {
         });
     }
 
+    if(msg.content.startsWith("!roll") /*&& msg.channel.id === gameboard*/) {
+        bot.createMessage(msg.channel.id, "p-pon!");
+        var dice = msg.content.split(" ").slice(1).join(" ");
+        var split = dice.split("d");
+        var rep = parseInt(split[0]);
+        var sides = parseInt(split[1]);
+        if(rep > 0 && rep < 101){
+            if(sides > 1 && sides < 1001){
+                var rollHist = "("
+                var r = 0;
+                var totalRoll = 0;
+                for(var a = 0; a < rep; a++){
+                    if(a > 0 && a < rep){
+                        rollHist = rollHist + " + ";
+                    }
+                    r = Math.floor((Math.random() * sides) + 1);
+                    rollHist = rollHist + r;
+                    totalRoll = totalRoll + r;
+                }
+                rollHist = rollHist + ")"
+                bot.createMessage(msg.channel.id, "<@" + msg.author.id + ">, " + "You rolled " + totalRoll + " " + rollHist);
+            }else{
+                if(sides > 1000)
+                    bot.createMessage(msg.channel.id, "<@" + msg.author.id + ">, " + "Please choose a smaller dice.");
+                if(sides <= 1)
+                    bot.createMessage(msg.channel.id, "<@" + msg.author.id + ">, " + "Are you idiot?");
+            }
+        }else{
+            if(rep > 100)
+                bot.createMessage(msg.channel.id, "<@" + msg.author.id + ">, " + "You can't roll more than 100 dices");
+            if(rep < 1)
+                bot.createMessage(msg.channel.id, "<@" + msg.author.id + ">, " + "Are you idiot?");
+        }
+    }
+
 });
 
+//Routes
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/public/index.html');
+});
+app.get('/mr-data', function(req, res){
+  res.sendFile(__dirname + '/mr-data/index.html');
+});
+
+//Content routes
+app.get('/mr-data/css/converter.css', function(req, res){
+  res.sendFile(__dirname + '/mr-data/css/converter.css');
+});
+app.get('/mr-data/js/jquery.js', function(req, res){
+  res.sendFile(__dirname + '/mr-data/js/jquery.js');
+});
+app.get('/mr-data/js/CSVParser.js', function(req, res){
+  res.sendFile(__dirname + '/mr-data/js/CSVParser.js');
+});
+app.get('/mr-data/js/DataGridRenderer.js', function(req, res){
+  res.sendFile(__dirname + '/mr-data/js/DataGridRenderer.js');
+});
+app.get('/mr-data/js/converter.js', function(req, res){
+  res.sendFile(__dirname + '/mr-data/js/converter.js');
+});
+app.get('/mr-data/js/Controller.js', function(req, res){
+  res.sendFile(__dirname + '/mr-data/js/Controller.js');
+});
+
+app.listen(port, function() {
+    console.log(moment().format("LLL") + ': Clarion is running on port ' + port);
+});
 
 bot.connect();
