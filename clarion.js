@@ -33,7 +33,6 @@ bot.on("messageCreate", (msg) => {
 
     if(msg.content === "!pin2") {
         bot.createMessage(msg.channel.id, "p-pon!");
-        console.log(moment().format("LLL"));
     }
 
     if(msg.content.startsWith("!nanisore") && msg.channel.id === gameboard ||
@@ -164,7 +163,6 @@ bot.on("messageCreate", (msg) => {
 
     if(msg.content === "!bastao" && msg.channel.id === gameboard) {
         var members = msg.channel.guild.members;
-        var a = 0;
         var hadRole = false;
         members.forEach(function(member){
         	var roles = member.roles;
@@ -186,22 +184,20 @@ bot.on("messageCreate", (msg) => {
     }
 
     if(msg.content === "!sem-bastao" && msg.channel.id === gameboard) {
-        var roles = msg.channel.guild.roles;
-        for(var a = 0; a < roles.length; a++){
-            if(roles[a].name === 'Firekeeper'){
-                var fire = msg.channel.guild.members;
-                for(var b = 0; b < fire.length; b++){
-	                for(var c = 0; c < fire[b].roles.length; c++){
-	                	if(fire[b].roles[c] == roles[a].id){
-	                		bot.removeGuildMemberRole(msg.channel.guild.id,fire[b].id,roles[a].id,"Finished story on bonfire");
-	                	}
-	                }
-                }
-            }
-        }
+        var members = msg.channel.guild.members;;
+        members.forEach(function(member){
+        	var roles = member.roles;
+        	roles.forEach(function(role){
+	        	if(role == firekeeper){
+	        		bot.removeGuildMemberRole(msg.channel.guild.id,member.id,firekeeper);
+	        	}
+	        });
+       	});
+       	bot.createMessage(msg.channel.id, 'Storytime is over now.');
     }
 
-    if(msg.content === "!raid" && msg.channel.id === gameboard) {
+    if(msg.content === "!raid" && msg.channel.id === gameboard ||
+       msg.content === "!raid" && msg.channel.id === mobagedock) {
         var members = msg.channel.guild.members;
         var a = 0;
         members.forEach(function(member){
