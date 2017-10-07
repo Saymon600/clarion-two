@@ -157,8 +157,8 @@ bot.on("messageCreate", (msg) => {
     }
 
     if(msg.content === "!bastao" && msg.channel.id === gameboard) {
-        var roles = msg.guild;
-        console.log(msg);
+        var roles = msg.channel.guild.roles;
+        console.log(roles);
         return;
         for(var a = 0; a < roles.length; a++){
             if(roles[a].name === 'Firekeeper'){
