@@ -386,17 +386,6 @@ bot.on("messageCreate", (msg) => {
     	bot.createMessage(msg.channel.id,message);
     }
 
-
-
-C011: change nick
-C012: change playing game
-C013: change status
-C014: Porra Fowz
-C015: stats
-
-    	bot.createMessage(msg.channel.id,message);
-    }
-
 });
 
 //Routes R001
