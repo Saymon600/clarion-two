@@ -463,19 +463,19 @@ app.get('/mr-data/js/Controller.js', function(req, res){
 });
 
 //Content routes for Homepage R003
-app.get('/public/favicon.png', function(req, res){
+app.get('/favicon.png', function(req, res){
   res.sendFile(__dirname + '/public/favicon.png');
 });
-app.get('/public/assets/plugins/bootstrap/css/bootstrap.min.css', function(req, res){
+app.get('/assets/plugins/bootstrap/css/bootstrap.min.css', function(req, res){
   res.sendFile(__dirname + '/public/assets/plugins/bootstrap/css/bootstrap.min.css');
 });
-app.get('/public/assets/plugins/font-awesome/css/font-awesome.css', function(req, res){
+app.get('/assets/plugins/font-awesome/css/font-awesome.css', function(req, res){
   res.sendFile(__dirname + '/public/assets/plugins/font-awesome/css/font-awesome.css');
 });
-app.get('assets/plugins/elegant_font/css/style.css', function(req, res){
+app.get('/assets/plugins/elegant_font/css/style.css', function(req, res){
   res.sendFile(__dirname + '/public/assets/plugins/elegant_font/css/style.css');
 });
-app.get('/public/assets/css/styles.css', function(req, res){
+app.get('/assets/css/styles.css', function(req, res){
   res.sendFile(__dirname + '/public/assets/css/styles.css');
 });
 
