@@ -127,6 +127,35 @@ bot.on("messageCreate", (msg) => {
         }
     }
 
+    if(msg.content.startsWith("!ask") /*&& msg.channel.id === gameboard ||
+       msg.content.startsWith("!ask") && msg.channel.id === mobagedock*/) {
+        var message = msg.content.split(" ").slice(1).join(" ");
+       	var r = Math.floor((Math.random() * 7)) + 1;
+       	switch(r){
+       		case 1:
+       			bot.createMessage(msg.channel.id, ":thinking:\nNo.");
+       			break;
+       		case 2:
+       			bot.createMessage(msg.channel.id, ":thinking:\nYes.");
+       			break;
+       		case 3:
+       			bot.createMessage(msg.channel.id, "lmao\nOf course not.");
+       			break;
+       		case 4:
+       			bot.createMessage(msg.channel.id, "Y-yeah.",__dirname + "/ask/gowild.png");
+       			break;
+       		case 5:
+       			bot.createMessage(msg.channel.id, "Nope.");
+       			break;
+       		case 6:
+       			bot.createMessage(msg.channel.id, "", __dirname + "/ask/gowild.png");
+       			break;
+       		case 7:
+       			bot.createMessage(msg.channel.id, "Don't ask me this.");
+       			break;
+       	}
+    }
+
 });
 
 //Routes
