@@ -357,7 +357,7 @@ bot.on("messageCreate", (msg) => {
 	        	}
 	       	});
         }else{
-            bot.sendMessage(message,'Porra Fowz');
+            bot.createMessage(msg.channel.id,'Porra Fowz');
         }
     }
 
