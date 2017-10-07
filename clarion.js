@@ -120,9 +120,9 @@ bot.on("messageCreate", (msg) => {
         message = message.split(",");
         if(message.length > 1){
             var r = Math.floor((Math.random() * message.length));
-            msg.createMessage(msg.channel.id, "<@" + msg.author.id + ">, " + "I think " + msg[r] + " is the best.");
+            bot.createMessage(msg.channel.id, "<@" + msg.author.id + ">, " + "I think " + msg[r] + " is the best.");
         }else{
-            msg.createMessage(msg.channel.id, "<@" + msg.author.id + ">, " + "I need options, but c-can I choose you?");
+            bot.createMessage(msg.channel.id, "<@" + msg.author.id + ">, " + "I need options, but c-can I choose you?");
         }
     }
 
