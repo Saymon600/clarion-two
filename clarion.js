@@ -158,23 +158,23 @@ bot.on("messageCreate", (msg) => {
 
     if(msg.content === "!bastao" && msg.channel.id === gameboard) {
         var roles = msg.channel.guild.roles;
-        console.log(roles);
         return;
         for(var a = 0; a < roles.length; a++){
             if(roles[a].name === 'Firekeeper'){
-                var fire = msg.guild.members;
+            	console.log("1");
+                var fire = msg.channel.guild.members;
                 for(var b = 0; b < fire.length; b++){
                 	if(fire[b].id == msg.author.id){
                 		var hadRole = false;
 	                	for(var c = 0; c < fire[b].roles.length; c++){
 	                		if(fire[b].roles[c] == roles[a].id){
-	                			bot.removeGuildMemberRole(msg.guild.id,msg.author.id,roles[a].id,"Finished story on bonfire");
+	                			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,roles[a].id,"Finished story on bonfire");
 	                			bot.createMessage(msg.channel.id, "本当にもう終わりなの？");
 	                			hadRole = true;
 	                		}
 	                	}
 	                	if(!hadRole){
-	                		bot.addGuildMemberRole(msg.guild.id,msg.author.id,roles[a].id,"Starting story on bonfire");
+	                		bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,roles[a].id,"Starting story on bonfire");
 	                		bot.createMessage(msg.channel.id, 'You are the firekeeper now, make sure to tell us a good story.');
                 		}
                 	}
@@ -184,14 +184,14 @@ bot.on("messageCreate", (msg) => {
     }
 
     if(msg.content === "!sem-bastao" && msg.channel.id === gameboard) {
-        var roles = msg.guild.roles;
+        var roles = msg.channel.guild.roles;
         for(var a = 0; a < roles.length; a++){
             if(roles[a].name === 'Firekeeper'){
-                var fire = msg.guild.members;
+                var fire = msg.channel.guild.members;
                 for(var b = 0; b < fire.length; b++){
 	                for(var c = 0; c < fire[b].roles.length; c++){
 	                	if(fire[b].roles[c] == roles[a].id){
-	                		bot.removeGuildMemberRole(msg.guild.id,msg.author.id,roles[a].id,"Finished story on bonfire");
+	                		bot.removeGuildMemberRole(msg.channel.guild.id,fire[b].id,roles[a].id,"Finished story on bonfire");
 	                	}
 	                }
                 }
