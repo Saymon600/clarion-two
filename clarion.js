@@ -363,8 +363,7 @@ bot.on("messageCreate", (msg) => {
     	var message = "Clarion current stats:\n";
 
     	var uptime = moment.duration(bot.uptime);
-    	uptime = uptime().format("HH:mm:ss");
-    	console.log(uptime);
+    	strUptime = zeroPad(uptime.hours(),2) + ":" + zeroPad(uptime.minutes(),2);
 
     	message = message + "Uptime: " + uptime + "\n";
 
@@ -400,6 +399,12 @@ app.get('/mr-data/js/converter.js', function(req, res){
 app.get('/mr-data/js/Controller.js', function(req, res){
   res.sendFile(__dirname + '/mr-data/js/Controller.js');
 });
+
+//Functions Util F001
+function zeroPad(num,size){
+	var zero = size - num.toString().length + 1;
+	return Array(+(zero > 0 && zero)).join("0") + num;
+}
 
 //init
 app.listen(port, function() {
