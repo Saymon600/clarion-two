@@ -363,9 +363,9 @@ bot.on("messageCreate", (msg) => {
     	var message = "Clarion current stats:\n";
 
     	var uptime = moment.duration(bot.uptime);
-    	strUptime = zeroPad(uptime.hours(),2) + ":" + zeroPad(uptime.minutes(),2);
+    	var strUptime = zeroPad(uptime.hours(),2) + ":" + zeroPad(uptime.minutes(),2);
 
-    	message = message + "Uptime: " + stUptime + "\n";
+    	message = message + "Uptime: " + strUptime + "\n";
 
     	bot.createMessage(msg.channel.id,message);
     }
