@@ -266,7 +266,7 @@ bot.on("messageCreate", (msg) => {
     //C012
     if(msg.content.startsWith("!cp") && msg.channel.id === gameboard){
     	var game = msg.content.split(" ").slice(1).join(" ");
-    	fs.writeFileSync(__dirname + "/lastplaying.txt", game, function(err) {
+    	fs.writeFile(__dirname + "/lastplaying.txt", game, function(err) {
             if(err){
                 console.log(moment().format("LLL"),err);
             }
