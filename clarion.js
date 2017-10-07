@@ -466,7 +466,7 @@ app.get('/mr-data/js/Controller.js', function(req, res){
 app.get('/favicon.png', function(req, res){
   res.sendFile(__dirname + '/favicon.png');
 });
-/*app.get('/assets/css/styles.css', function(req, res){
+app.get('/assets/css/styles.css', function(req, res){
   res.sendFile(__dirname + '/assets/css/styles.css');
 });
 app.get('/assets/plugins/bootstrap/css/bootstrap.min.css', function(req, res){
@@ -475,25 +475,13 @@ app.get('/assets/plugins/bootstrap/css/bootstrap.min.css', function(req, res){
 app.get('/assets/plugins/font-awesome/css/font-awesome.css', function(req, res){
   res.sendFile(__dirname + '/assets/plugins/font-awesome/css/font-awesome.css');
 });
-app.get('/assets/plugins/elegant_font/css/fonts/ElegantIcons.ttf', function(req, res){
-  res.sendFile(__dirname + '/assets/plugins/elegant_font/css/fonts/ElegantIcons.ttf');
-});
 app.get('/assets/plugins/elegant_font/css/style.css', function(req, res){
   res.sendFile(__dirname + '/assets/plugins/elegant_font/css/style.css');
 });
-app.get('/assets/plugins/font-awesome/fonts/fontawesome-webfont.woff2?v=4.6.3', function(req, res){
-  res.sendFile(__dirname + '/assets/plugins/font-awesome/fonts/fontawesome-webfont.woff2?v=4.6.3');
-});
-app.get('/assets/plugins/font-awesome/fonts/fontawesome-webfont.woff?v=4.6.3', function(req, res){
-  res.sendFile(__dirname + '/assets/plugins/font-awesome/fonts/fontawesome-webfont.woff?v=4.6.3');
-});
-app.get('/assets/plugins/font-awesome/fonts/fontawesome-webfont.ttf?v=4.6.3', function(req, res){
-  res.sendFile(__dirname + '/assets/plugins/font-awesome/fonts/fontawesome-webfont.ttf?v=4.6.3');
-});
 app.get('/assets/images/empty.gif', function(req, res){
   res.sendFile(__dirname + '/assets/images/empty.gif');
-});*/
-app.use(express.static(__dirname + '/assets'));
+});
+app.use("/assets",express.static(__dirname + '/assets'));
 
 
 
