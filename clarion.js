@@ -160,6 +160,7 @@ bot.on("messageCreate", (msg) => {
         var roles = msg.channel.guild.roles;
         return;
         for(var a = 0; a < roles.length; a++){
+        	console.log(roles[a].name);
             if(roles[a].name === 'Firekeeper'){
             	console.log("1");
                 var fire = msg.channel.guild.members;
