@@ -435,6 +435,9 @@ bot.on("messageCreate", (msg) => {
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
+app.get('/clarion', function(req, res){
+  res.sendFile(__dirname + '/public/clarion.html');
+});
 app.get('/mr-data', function(req, res){
   res.sendFile(__dirname + '/mr-data/index.html');
 });
@@ -458,6 +461,24 @@ app.get('/mr-data/js/converter.js', function(req, res){
 app.get('/mr-data/js/Controller.js', function(req, res){
   res.sendFile(__dirname + '/mr-data/js/Controller.js');
 });
+
+//Content routes for Homepage R003
+app.get('/public/favicon.png', function(req, res){
+  res.sendFile(__dirname + '/public/favicon.png');
+});
+app.get('/public/assets/plugins/bootstrap/css/bootstrap.min.css', function(req, res){
+  res.sendFile(__dirname + '/public/assets/plugins/bootstrap/css/bootstrap.min.css');
+});
+app.get('/public/assets/plugins/font-awesome/css/font-awesome.css', function(req, res){
+  res.sendFile(__dirname + '/public/assets/plugins/font-awesome/css/font-awesome.css');
+});
+app.get('assets/plugins/elegant_font/css/style.css', function(req, res){
+  res.sendFile(__dirname + '/public/assets/plugins/elegant_font/css/style.css');
+});
+app.get('/public/assets/css/styles.css', function(req, res){
+  res.sendFile(__dirname + '/public/assets/css/styles.css');
+});
+
 
 //Functions Util F001
 function zeroPad(num,size){
