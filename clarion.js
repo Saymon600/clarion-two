@@ -81,8 +81,7 @@ bot.on("messageCreate", (msg) => {
         });
     }
 
-    if(msg.content.startsWith("!roll") /*&& msg.channel.id === gameboard*/) {
-        bot.createMessage(msg.channel.id, "p-pon!");
+    if(msg.content.startsWith("!roll") && msg.channel.id === gameboard) {
         var dice = msg.content.split(" ").slice(1).join(" ");
         var split = dice.split("d");
         var rep = parseInt(split[0]);
@@ -113,6 +112,17 @@ bot.on("messageCreate", (msg) => {
                 bot.createMessage(msg.channel.id, "<@" + msg.author.id + ">, " + "You can't roll more than 100 dices");
             if(rep < 1)
                 bot.createMessage(msg.channel.id, "<@" + msg.author.id + ">, " + "Are you idiot?");
+        }
+    }
+
+    if(msg.content.startsWith("!choose") /*&& msg.channel.id === gameboard*/) {
+        var message = msg.content.split(" ").slice(1).join(" ");
+        message = message.split(",");
+        if(message.length > 1){
+            var r = Math.floor((Math.random() * message.length));
+            msg.createMessage(msg.channel.id, "<@" + msg.author.id + ">, " + "I think " + msg[r] + " is the best.");
+        }else{
+            msg.createMessage(msg.channel.id, "<@" + msg.author.id + ">, " + "I need options, but c-can I choose you?");
         }
     }
 
