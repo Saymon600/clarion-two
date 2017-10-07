@@ -177,7 +177,7 @@ bot.on("messageCreate", (msg) => {
 	        		}
 	        	});
 	        	if(!hadRole){
-	                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,roles.id,"Starting story on bonfire");
+	                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,firekeeper,"Starting story on bonfire");
 	                bot.createMessage(msg.channel.id, 'You are the firekeeper now, make sure to tell us a good story.');
                	}
         	}
