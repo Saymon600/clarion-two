@@ -364,17 +364,60 @@ bot.on("messageCreate", (msg) => {
     	bot.createMessage(msg.channel.id,message);
     }
 
+    if(msg.content.indexOf("rol") and msg.channel.id == mobagedock){
+    	var random = Math.floor((Math.random() * 20) + 1);
+    	var random2 = Math.floor((Math.random() * 7) + 1);
+    	if(random == 3){
+    		switch(random2){
+    			case 1:
+    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/gudako/01.gif"),name:"01.gif"});
+    				break;
+    			case 2:
+    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/gudako/02.gif"),name:"02.gif"});
+    				break;
+    			case 3:
+    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/gudako/03.jpg"),name:"03.jpg"});
+    				break;
+    			case 4:
+    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/gudako/04.png"),name:"04.png"});
+    				break;
+    			case 5:
+    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/gudako/05.jpg"),name:"05.jpg"});
+    				break;
+    			case 6:
+    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/gudako/06.png"),name:"06.png"});
+    				break;
+    			case 7:
+    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/gudako/07.jpg"),name:"07.jpg"});
+    				break;
+    		}
+    	}
+    }
+
+    if(msg.content.indexOf("whal") and msg.channel.id == mobagedock){
+    	var random = Math.floor((Math.random() * 20) + 1);
+    	var random2 = Math.floor((Math.random() * 2) + 1);
+    	if(random == 12){
+    		if(random2 == 1){
+    			//mastodon
+    			bot.createMessage(msg.channel.id,"https://www.youtube.com/watch?v=v-Su1YXQYek");
+    		}else{
+    			bot.createMessage(msg.channel.id,"https://www.youtube.com/watch?v=xwNYc01qY2k");
+    		}
+    	}
+    }
+
     //C999
     if(msg.content ==="!help" && msg.channel.id === gameboard){
     	var message = "<@" + msg.author.id + ">, ";
     	message = message + "Clarion commands:\n";
-    	message = message + "!ping: :zulul:\n";
+    	message = message + "!ping: 10ms\n";
     	message = message + "!nanisore: search something in Jisho database\n";
     	message = message + "!roll: roll dices for you (number of dices + 'd' + dice sides, ex.: 1d6)\n";
     	message = message + "!choose: make a choice for you (separate choices with , please)\n";
     	message = message + "!ask: ask me something and I'll answer with yes or no\n";
     	message = message + "!bastao: Tell a story in bonfire, my friend\n";
-    	message = message + "!sem-bastao: remove firekeepers from bonfire :lul:\n";
+    	message = message + "!sem-bastao: remove firekeepers from bonfire.\n";
     	message = message + "!raid: idk what is this, but they'll ping you with some strange gbf raid code\n";
     	message = message + "!spoiler: access the secret park\n";
     	message = message + "!cn: Change my nick in this server.\n";
@@ -452,5 +495,7 @@ C012: change playing game
 C013: change status
 C014: Porra Fowz
 C015: stats
+C016: roll mobage dock
+C017: whale mobage dock 
 C999: Help
 */
