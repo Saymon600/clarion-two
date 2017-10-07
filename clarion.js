@@ -250,8 +250,15 @@ bot.on("messageCreate", (msg) => {
     }
 
     //C011
-    if(msg.content === "!cn" && msg.channel.id === gameboard){
+    if(msg.content.startsWith("!cn") && msg.channel.id === gameboard){
     	var nick = msg.content.split(" ").slice(1).join(" ");
+    	bot.editNickname(msg.channel.guild.id,nick);
+        bot.createMessage(msg.channel.id, "You have strange tastes...");
+    }
+
+    //C011
+    if(msg.content.startsWith("!cp") && msg.channel.id === gameboard){
+    	var game = msg.content.split(" ").slice(1).join(" ");
     	bot.editNickname(msg.channel.guild.id,nick);
         bot.createMessage(msg.channel.id, "You have strange tastes...");
     }
