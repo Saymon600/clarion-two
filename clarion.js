@@ -174,7 +174,7 @@ bot.on("messageCreate", (msg) => {
 	                bot.createMessage(msg.channel.id, "本当にもう終わりなの？");
 	                hadRole = true;
 	        	}else{
-	        		bot.createMessage(msg.channel.id, "We already have a firekeeper, you dumb.");
+	        		//bot.createMessage(msg.channel.id, "We already have a firekeeper, you dumb.");
 	        		hadRole = true;
 	        	}
 	        });
