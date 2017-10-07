@@ -284,8 +284,6 @@ bot.on("messageCreate", (msg) => {
     	}else{
     		bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/img/jii.jpg"),name:"jii.jpg"});
     	}
-    	
-        
     }
 
     //C014
@@ -359,6 +357,17 @@ bot.on("messageCreate", (msg) => {
         }else{
             bot.createMessage(msg.channel.id,'Porra Fowz');
         }
+    }
+
+    if(msg.content ==="!stats" && msg.channel.id === gameboard){
+    	var message = "Clarion current stats:\n";
+
+    	var uptime = moment.duration(bot.uptime);
+    	uptime = uptime.hours() + ":" + uptime.minutes();
+    	
+    	message = message + "Uptime: " + uptime + "\n";
+
+    	bot.createMessage(msg.channel.id,message);
     }
 
 });
