@@ -478,6 +478,9 @@ app.get('/assets/plugins/elegant_font/css/style.css', function(req, res){
 app.get('/assets/css/styles.css', function(req, res){
   res.sendFile(__dirname + '/public/assets/css/styles.css');
 });
+app.get('/assets/*', function(req, res){
+  res.sendFile(__dirname + '/public/assets/*');
+});
 
 
 //Functions Util F001
