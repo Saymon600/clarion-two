@@ -165,24 +165,24 @@ bot.on("messageCreate", (msg) => {
     if(msg.content === "!bastao" && msg.channel.id === gameboard) {
         var members = msg.channel.guild.members;
         var a = 0;
+        var hadRole = false;
         members.forEach(function(member){
-        	if(member.id == msg.author.id){
-        		var roles = member.roles;
-        		console.log(roles);
-	        	var hadRole = false;
-	        	roles.forEach(function(role){
-	        		if(role == firekeeper){
-	        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,firekeeper,"Finished story on bonfire");
-	                	bot.createMessage(msg.channel.id, "本当にもう終わりなの？");
-	                	hadRole = true;
-	        		}
-	        	});
-	        	if(!hadRole){
-	                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,firekeeper,"Starting story on bonfire");
-	                bot.createMessage(msg.channel.id, 'You are the firekeeper now, make sure to tell us a good story.');
-               	}
-        	}
+        	var roles = member.roles;
+        	roles.forEach(function(role){
+	        	if(role == firekeeper && member.id == msg.author.id){
+	        		bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,firekeeper,"Finished story on bonfire");
+	                bot.createMessage(msg.channel.id, "本当にもう終わりなの？");
+	                hadRole = true;
+	        	}else{
+	        		bot.createMessage(msg.channel.id, "We already have a firekeeper, you dumb.");
+	        		hadRole = true;
+	        	}
+	        });
        	});
+       	if(!hadRole){
+	        bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,firekeeper,"Starting story on bonfire");
+	        bot.createMessage(msg.channel.id, 'You are the firekeeper now, make sure to tell us a good story.');
+        }
     }
 
     if(msg.content === "!sem-bastao" && msg.channel.id === gameboard) {
@@ -207,18 +207,17 @@ bot.on("messageCreate", (msg) => {
         members.forEach(function(member){
         	if(member.id == msg.author.id){
         		var roles = member.roles;
-        		console.log(roles);
 	        	var hadRole = false;
 	        	roles.forEach(function(role){
 	        		if(role == firekeeper){
-	        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,firekeeper,"Finished story on bonfire");
-	                	bot.createMessage(msg.channel.id, "本当にもう終わりなの？");
+	        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,raid);
+	                	bot.createMessage(msg.channel.id, "Raid role added");
 	                	hadRole = true;
 	        		}
 	        	});
 	        	if(!hadRole){
-	                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,firekeeper,"Starting story on bonfire");
-	                bot.createMessage(msg.channel.id, 'You are the firekeeper now, make sure to tell us a good story.');
+	                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,raid);
+	                bot.createMessage(msg.channel.id, 'Raid role removed');
                	}
         	}
        	});
@@ -230,12 +229,11 @@ bot.on("messageCreate", (msg) => {
         members.forEach(function(member){
         	if(member.id == msg.author.id){
         		var roles = member.roles;
-        		console.log(roles);
 	        	var hadRole = false;
 	        	roles.forEach(function(role){
 	        		if(role == spoiler){
 	        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,spoiler);
-	                	bot.createMessage(msg.channel.id, "本当にもう終わりなの？");
+	                	bot.createMessage(msg.channel.id, "Take care!");
 	                	hadRole = true;
 	        		}
 	        	});
