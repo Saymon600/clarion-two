@@ -466,9 +466,17 @@ app.get('/mr-data/js/Controller.js', function(req, res){
 app.get('/favicon.png', function(req, res){
   res.sendFile(__dirname + '/favicon.png');
 });
-
-app.get('*', function(req, res){
-  res.sendFile(__dirname + '*');
+app.get('/assets/plugins/bootstrap/css/bootstrap.min.css', function(req, res){
+  res.sendFile(__dirname + '/assets/plugins/bootstrap/css/bootstrap.min.css');
+});
+app.get('/assets/plugins/font-awesome/css/font-awesome.css', function(req, res){
+  res.sendFile(__dirname + '/assets/plugins/font-awesome/css/font-awesome.css');
+});
+app.get('/assets/plugins/elegant_font/css/style.css', function(req, res){
+  res.sendFile(__dirname + '/assets/plugins/elegant_font/css/style.css');
+});
+app.get('/assets/css/styles.css', function(req, res){
+  res.sendFile(__dirname + '/assets/css/styles.css');
 });
 
 
