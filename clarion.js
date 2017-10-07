@@ -303,7 +303,7 @@ bot.on("messageCreate", (msg) => {
                 "/!\\ ご注意ください /!\\",
                 "ロリコン発見",
                 "/!\\ /!\\ /!\\",
-            ].join("\n"));
+            ].join("\n");
             bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/img/pf.jpg"),name:"pf.jpg"});
 	        var members = msg.channel.guild.members;
 	        members.forEach(function(member){
