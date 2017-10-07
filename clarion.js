@@ -142,13 +142,13 @@ bot.on("messageCreate", (msg) => {
        			bot.createMessage(msg.channel.id, "lmao\nOf course not.");
        			break;
        		case 4:
-       			bot.createMessage(msg.channel.id, "Y-yeah.",fs.readFile(__dirname + "/ask/ehh.png");
+       			bot.createMessage(msg.channel.id, "Y-yeah.",fs.readFile(__dirname + "/ask/ehh.png"));
        			break;
        		case 5:
        			bot.createMessage(msg.channel.id, "Nope.");
        			break;
        		case 6:
-       			bot.createMessage(msg.channel.id, "", fs.readFile(__dirname + "/ask/gowild.png");
+       			bot.createMessage(msg.channel.id, "", fs.readFile(__dirname + "/ask/gowild.png"));
        			break;
        		case 7:
        			bot.createMessage(msg.channel.id, "Don't ask me this.");
