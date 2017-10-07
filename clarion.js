@@ -206,13 +206,13 @@ bot.on("messageCreate", (msg) => {
 	        	roles.forEach(function(role){
 	        		if(role == raid){
 	        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,raid);
-	                	bot.createMessage(msg.channel.id, "Raid role added");
+	                	bot.createMessage(msg.channel.id, "Raid role removed");
 	                	hadRole = true;
 	        		}
 	        	});
 	        	if(!hadRole){
 	                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,raid);
-	                bot.createMessage(msg.channel.id, 'Raid role removed');
+	                bot.createMessage(msg.channel.id, 'Raid role added');
                	}
         	}
        	});
@@ -227,13 +227,13 @@ bot.on("messageCreate", (msg) => {
 	        	roles.forEach(function(role){
 	        		if(role == spoiler){
 	        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,spoiler);
-	                	bot.createMessage(msg.channel.id, "Take care!");
+	                	bot.createMessage(msg.channel.id,'Are you sick?');
 	                	hadRole = true;
 	        		}
 	        	});
 	        	if(!hadRole){
 	                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,spoiler);
-	                bot.createMessage(msg.channel.id, 'Are you sick?');
+	                bot.createMessage(msg.channel.id,"Take care!");
                	}
         	}
        	});
