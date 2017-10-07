@@ -149,14 +149,6 @@ bot.on("messageCreate", (msg) => {
        			break;
        		case 6:
        			bot.createMessage(msg.channel.id, "", {file:fs.readFileSync(__dirname + "/ask/gowild.png"),name:"gowild.png"});
-       			console.log("lol");
-       			fs.readFileSync(__dirname + "/ask/gowild.png",function(err,buffer){
-       				if(err){
-       					throw err;
-       				}else{
-       					bot.createMessage(msg.channel.id, "", {file:fs.readFileSync(__dirname + "/ask/gowild.png"),name:"gowild.png"});
-       				}
-       			})
        			break;
        		case 7:
        			bot.createMessage(msg.channel.id, "Don't ask me this.");
