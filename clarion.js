@@ -20,6 +20,13 @@ var siscon = "205716683992727552";
 var Saymon = "87554809212727296";
 
 var bot = new Eris("MzYzODQ1NTI2NzExNTY2MzM2.DLMrYg.zG28pp2E8PR43uY3subsXrzFblI");
+var lastplaying = '';
+fs.readFileSync(__dirname + "/lastplaying.txt",function (err,data){
+    if(err){
+        console.log(moment().format("LLL"),err);
+    }
+    lastplaying = data.toString();
+});
 
 bot.on("ready", () => {
     console.log("Onii-chan, I'm ready");
@@ -256,11 +263,29 @@ bot.on("messageCreate", (msg) => {
         bot.createMessage(msg.channel.id, "You have strange tastes...");
     }
 
-    //C011
+    //C012
     if(msg.content.startsWith("!cp") && msg.channel.id === gameboard){
     	var game = msg.content.split(" ").slice(1).join(" ");
-    	bot.editNickname(msg.channel.guild.id,nick);
-        bot.createMessage(msg.channel.id, "You have strange tastes...");
+    	fs.writeFileSync("/var/node/clarion/lastplaying.txt", game, function(err) {
+            if(err){
+                console.log(moment().format("LLL"),err);
+            }
+        });
+    	bot.editStatus(bot.status,{name:game});
+        bot.createMessage(msg.channel.id, "Do I really need to play this? :sick:");
+    }
+
+    //C013
+    if(msg.content.startsWith("!cs") && msg.channel.id === gameboard){
+    	var status = msg.content.split(" ").slice(1).join(" ");
+    	if(msg.author.id == Saymon){
+    		bot.editStatus(status);
+    		bot.createMessage(msg.channel.id, "畏まりました");
+    	}else{
+    		bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/img/jii.jpg"),name:"jii.jpg"});
+    	}
+    	
+        
     }
 
 });
@@ -312,4 +337,6 @@ C008: sem-bastao
 C009: raid
 C010: spoiler
 C011: change nick
+C012: change playing game
+C013: change status
 */
