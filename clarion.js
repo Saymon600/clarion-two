@@ -205,7 +205,7 @@ bot.on("messageCreate", (msg) => {
         		var roles = member.roles;
 	        	var hadRole = false;
 	        	roles.forEach(function(role){
-	        		if(role == firekeeper){
+	        		if(role == raid){
 	        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,raid);
 	                	bot.createMessage(msg.channel.id, "Raid role added");
 	                	hadRole = true;
