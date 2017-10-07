@@ -5,7 +5,7 @@ const request = require('request');
 
 var express = require('express');
 var app = express();
-var port = process.env.PORT || 8080;
+var port = process.env.PORT;
 
 var autismbox = "87350922878922752";
 var gameboard = "141583443896041472";
@@ -20,13 +20,7 @@ var siscon = "205716683992727552";
 var Saymon = "87554809212727296";
 
 var bot = new Eris("MzYzODQ1NTI2NzExNTY2MzM2.DLMrYg.zG28pp2E8PR43uY3subsXrzFblI");
-var lastplaying = '';
-fs.readFile(__dirname + "/lastplaying.txt",function (err,data){
-    if(err){
-        console.log(moment().format("LLL"),err);
-    }
-    lastplaying = data.toString();
-});
+
 
 bot.on("ready", () => {
     console.log("Onii-chan, I'm ready");
@@ -370,6 +364,39 @@ bot.on("messageCreate", (msg) => {
     	bot.createMessage(msg.channel.id,message);
     }
 
+    //C999
+    if(msg.content ==="!help" && msg.channel.id === gameboard){
+    	var message = "<@" + msg.author.id + ">, ";
+    	message = message + "Clarion commands:\n";
+    	message = message + "!ping: :zulul:\n";
+    	message = message + "!nanisore: search something in Jisho database\n";
+    	message = message + "!roll: roll dices for you (number of dices + 'd' + dice sides, ex.: 1d6)\n";
+    	message = message + "!choose: make a choice for you (separate choices with , please)\n";
+    	message = message + "!ask: ask me something and I'll answer with yes or no\n";
+    	message = message + "!bastao: Tell a story in bonfire, my friend\n";
+    	message = message + "!sem-bastao: remove firekeepers from bonfire :lul:\n";
+    	message = message + "!raid: idk what is this, but they'll ping you with some strange gbf raid code\n";
+    	message = message + "!spoiler: access the secret park\n";
+    	message = message + "!cn: Change my nick in this server.\n";
+    	message = message + "!cp: Change my playing game name.\n";
+    	message = message + "!cs: you can't change my status, dummy\n";
+    	message = message + "!pf: Prato feito or something like that\n";
+    	message = message + "!stats: my stats\n";
+
+    	bot.createMessage(msg.channel.id,message);
+    }
+
+
+
+C011: change nick
+C012: change playing game
+C013: change status
+C014: Porra Fowz
+C015: stats
+
+    	bot.createMessage(msg.channel.id,message);
+    }
+
 });
 
 //Routes R001
@@ -407,6 +434,13 @@ function zeroPad(num,size){
 }
 
 //init
+var lastplaying = '';
+fs.readFile(__dirname + "/lastplaying.txt",function (err,data){
+    if(err){
+        console.log(moment().format("LLL"),err);
+    }
+    lastplaying = data.toString();
+});
 app.listen(port, function() {
     console.log(moment().format("LLL") + ': Clarion is running on port ' + port);
 });
@@ -428,4 +462,6 @@ C011: change nick
 C012: change playing game
 C013: change status
 C014: Porra Fowz
+C015: stats
+C999: Help
 */
