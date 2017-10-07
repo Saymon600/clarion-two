@@ -476,7 +476,7 @@ app.get('/assets/plugins/font-awesome/css/font-awesome.css', function(req, res){
   res.sendFile(__dirname + '/assets/plugins/font-awesome/css/font-awesome.css');
 });
 app.get('/assets/plugins/font-awesome/fonts/fontawesome-webfont.woff?v=4.6.3', function(req, res){
-  res.sendFile(__dirname + '/assets/plugins/font-awesome/fonts/fontawesome-webfont.woff?v=4.6.3');
+  res.sendFile(__dirname + '/assets/plugins/font-awesome/fonts/fontawesome-webfont.woff');
 });
 app.get('/assets/plugins/elegant_font/css/fonts/ElegantIcons.ttf', function(req, res){
   res.sendFile(__dirname + '/assets/plugins/elegant_font/css/fonts/ElegantIcons.ttf');
