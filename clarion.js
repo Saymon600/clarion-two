@@ -288,6 +288,79 @@ bot.on("messageCreate", (msg) => {
         
     }
 
+    //C014
+    if(msg.content === "!pf" && msg.channel.id === gameboard) {
+        var random = Math.floor((Math.random() * 20) + 1);
+        var message = "";
+        if(random == 1){
+            message = [
+                "",
+                "/!\\ /!\\ /!\\",
+                "/!\\ ALERTA /!\\",
+                "LOLICON ENCONTRADO",
+                "/!\\ ALERT /!\\",
+                "LOLICON DETECTED",
+                "/!\\ ご注意ください /!\\",
+                "ロリコン発見",
+                "/!\\ /!\\ /!\\",
+            ].join("\n"));
+            bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/img/pf.jpg"),name:"pf.jpg"});
+	        var members = msg.channel.guild.members;
+	        members.forEach(function(member){
+	        	if(member.id == msg.author.id){
+	        		var roles = member.roles;
+		        	var hadRole = false;
+		        	roles.forEach(function(role){
+		        		if(role == lolicon){
+		        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,lolicon);
+		                	bot.createMessage(msg.channel.id, "You're already a lolicon! But hey, you're free now!");
+		                	hadRole = true;
+		        		}
+		        	});
+		        	if(!hadRole){
+		                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,lolicon);
+		                bot.createMessage(msg.channel.id, 'OHOHOHOHO! Enjoy your stay.');
+	               	}
+	        	}
+	       	});
+        }else if(random == 11){
+            message = [
+                "",
+                "/!\\ /!\\ /!\\",
+                "/!\\ ALERTA /!\\",
+                "LOLICON ENCONTRADO",
+                "/!\\ ALERT /!\\",
+                "LOLICON DETECTED",
+                "/!\\ ご注意ください /!\\",
+                "ロリコン発見",
+                "/!\\ /!\\ /!\\",
+            ].join("\n");
+            bot.createMessage(msg.channel.id,message);
+            var members = msg.channel.guild.members;
+	        members.forEach(function(member){
+	        	if(member.id == msg.author.id){
+	        		var roles = member.roles;
+		        	var hadRole = false;
+		        	roles.forEach(function(role){
+		        		if(role == lolicon){
+		        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,lolicon);
+		        			message = "You're free to go!";
+		                	bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/img/free.gif"),name:"free.gif"});
+		                	hadRole = true;
+		        		}
+		        	});
+		        	if(!hadRole){
+		                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,lolicon);
+		                message = "You're under arrest!";
+                        bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/img/prison.gif"),name:"prison.gif"});
+	               	}
+	        	}
+	       	});
+        }else{
+            bot.sendMessage(message,'Porra Fowz');
+        }
+    }
+
 });
 
 //Routes R001
@@ -339,4 +412,5 @@ C010: spoiler
 C011: change nick
 C012: change playing game
 C013: change status
+C014: Porra Fowz
 */
