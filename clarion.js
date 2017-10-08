@@ -364,7 +364,7 @@ bot.on("messageCreate", (msg) => {
     	bot.createMessage(msg.channel.id,message);
     }
 
-    if(msg.content.indexOf("rol") && msg.channel.id == mobagedock){
+    if(msg.content.indexOf("rol") !== -1 && msg.channel.id == mobagedock){
     	var random = Math.floor((Math.random() * 20) + 1);
     	var random2 = Math.floor((Math.random() * 7) + 1);
     	if(random == 3){
@@ -394,7 +394,7 @@ bot.on("messageCreate", (msg) => {
     	}
     }
 
-    if(msg.content.indexOf("whal") && msg.channel.id == mobagedock){
+    if(msg.content.indexOf("whal") !== -1 && msg.channel.id == mobagedock){
     	var random = Math.floor((Math.random() * 20) + 1);
     	var random2 = Math.floor((Math.random() * 2) + 1);
     	if(random == 12){
@@ -466,21 +466,6 @@ app.get('/mr-data/js/Controller.js', function(req, res){
 app.get('/favicon.png', function(req, res){
   res.sendFile(__dirname + '/favicon.png');
 });
-/*app.get('/assets/css/styles.css', function(req, res){
-  res.sendFile(__dirname + '/assets/css/styles.css');
-});
-app.get('/assets/plugins/bootstrap/css/bootstrap.min.css', function(req, res){
-  res.sendFile(__dirname + '/assets/plugins/bootstrap/css/bootstrap.min.css');
-});
-app.get('/assets/plugins/font-awesome/css/font-awesome.css', function(req, res){
-  res.sendFile(__dirname + '/assets/plugins/font-awesome/css/font-awesome.css');
-});
-app.get('/assets/plugins/elegant_font/css/style.css', function(req, res){
-  res.sendFile(__dirname + '/assets/plugins/elegant_font/css/style.css');
-});
-app.get('/assets/images/empty.gif', function(req, res){
-  res.sendFile(__dirname + '/assets/images/empty.gif');
-});*/
 app.use("/assets",express.static(__dirname + '/assets'));
 
 
