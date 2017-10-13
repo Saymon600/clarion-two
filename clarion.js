@@ -8,7 +8,7 @@ var sql;
 
 var express = require('express');
 var app = express();
-var port = process.env.PORT;
+var port = process.env.PORT || 3030;
 
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
@@ -470,10 +470,10 @@ function testDB(msg, type){
 
 function createPervert(msg, type){
     sql = "insert into perverts (id, hentai_power_level, last_1, hentai_type, last_roll_date) values (" 
-    + msg.author.id + ", " + 9 + ", " + 9 + type + ", " + moment().format("YYYY-MM-DD") + ");";
+    + msg.author.id + ", " + 9 + ", " + 9 + "," + type + ", " + moment().format("YYYY-MM-DD") + ");";
 
     db.run(sql,[], function(err){
-        if (err) {console.error(err.message)}
+        if (err) {return console.error(err.message)}
         bot.createMessage(msg.channel.id, "Pervert created, お兄様!");
         db.close();
     });
@@ -542,6 +542,7 @@ fs.readFile(__dirname + "/lastplaying.txt",function (err,data){
 app.listen(port, function() {
     console.log(moment().format("LLL") + ': Clarion is running on port ' + port);
 });
+
 bot.connect();
 
 /*
