@@ -452,7 +452,7 @@ bot.on("messageCreate", (msg) => {
 
 function testDB(msg, type){
     // msg.author.id == Saymon
-    sql = "select * from perverts where id = '" + msg.author.id + "' and type = '" + type + "';"
+    sql = "select * from perverts where id = '" + msg.author.id + "' and hentai_type = '" + type + "';"
     db = new sqlite3.Database('./clarion.db', sqlite3.OPEN_READWRITE, (err) => {
         if (err) {console.error(err.message)}
         console.log('Connected to the database.');
