@@ -7,6 +7,13 @@ var express = require('express');
 var app = express();
 var port = process.env.PORT;
 
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+  next()
+});
+
 var autismbox = "87350922878922752";
 var gameboard = "141583443896041472";
 var mobagedock = "198225182639259649";
@@ -18,6 +25,7 @@ var lolicon = "151401843530924032";
 var futalover = "185157123129344000";
 var siscon = "205716683992727552";
 var Saymon = "87554809212727296";
+var augustop = "94937291998375936";
 
 var bot = new Eris("MzYzODQ1NTI2NzExNTY2MzM2.DLMrYg.zG28pp2E8PR43uY3subsXrzFblI");
 
@@ -272,7 +280,7 @@ bot.on("messageCreate", (msg) => {
     //C013
     if(msg.content.startsWith("!cs") && msg.channel.id === gameboard){
     	var status = msg.content.split(" ").slice(1).join(" ");
-    	if(msg.author.id == Saymon){
+    	if(msg.author.id == Saymon || msg.author.id === augustop){
     		bot.editStatus(status);
     		bot.createMessage(msg.channel.id, "畏まりました");
     	}else{
