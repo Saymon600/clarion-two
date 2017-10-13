@@ -458,7 +458,7 @@ function testDB(msg, type){
         console.log('Connected to the database.');
         db.get(sql, [], (err, row) => {
             if (err) {return console.error(err.message)}
-            if(row !== undefined){
+            if(row === undefined){
                 createPervert(msg, type);
             }else{
                 // updatePervert(msg, type);
