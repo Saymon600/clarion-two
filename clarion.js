@@ -2,6 +2,9 @@ const Eris = require("eris");
 const moment = require('moment');
 const fs = require('fs');
 const request = require('request');
+var sqlite3 = require('sqlite3').verbose();
+var db;
+var sql;
 
 var express = require('express');
 var app = express();
@@ -361,6 +364,8 @@ bot.on("messageCreate", (msg) => {
         }
     }
 
+
+    //C015
     if(msg.content ==="!stats" && msg.channel.id === gameboard){
     	var message = "Clarion current stats:\n";
 
@@ -372,6 +377,7 @@ bot.on("messageCreate", (msg) => {
     	bot.createMessage(msg.channel.id,message);
     }
 
+    //C016
     if(msg.content.indexOf("rol") !== -1 && msg.channel.id == mobagedock){
     	var random = Math.floor((Math.random() * 20) + 1);
     	var random2 = Math.floor((Math.random() * 7) + 1);
@@ -402,6 +408,7 @@ bot.on("messageCreate", (msg) => {
     	}
     }
 
+    //C017
     if(msg.content.indexOf("whal") !== -1 && msg.channel.id == mobagedock){
     	var random = Math.floor((Math.random() * 20) + 1);
     	var random2 = Math.floor((Math.random() * 2) + 1);
@@ -413,6 +420,10 @@ bot.on("messageCreate", (msg) => {
     			bot.createMessage(msg.channel.id,"https://www.youtube.com/watch?v=xwNYc01qY2k");
     		}
     	}
+    }
+
+    if(msg.content ==="!loli" && msg.channel.id === gameboard){
+        testDB(msg, 'loli');
     }
 
     //C999
@@ -438,6 +449,43 @@ bot.on("messageCreate", (msg) => {
     }
 
 });
+
+function testDB(msg, type){
+    // msg.author.id == Saymon
+    sql = "select * from perverts where id = '" + msg.author.id + "' and type = '" + type + "';"
+    db = new sqlite3.Database('./clarion.db', sqlite3.OPEN_READWRITE, (err) => {
+        if (err) {console.error(err.message)}
+        console.log('Connected to the database.');
+        db.get(sql, (err, row) => (() => {
+            if (err) {return console.error(err.message)}
+            if(row !== undefined){
+                createPervert(msg, type);
+            }else{
+                // updatePervert(msg, type);
+                bot.createMessage(msg.channel.id, "Pervert already there,　お兄様!");
+            }
+        });
+    });
+}
+
+function createPervert(msg, type){
+    sql = "insert into perverts (id, hentai_power_level, last_1, hentai_type, last_roll_date) values (" 
+    + msg.author.id + ", " + 9 + ", " + 9 + type + ", " + moment().format("YYYY-MM-DD") + ");";
+
+    db.run(sql, function(err){
+        if (err) {console.error(err.message)}
+        bot.createMessage(msg.channel.id, "Pervert created, お兄様!");
+        db.close();
+    });
+}
+
+function updatePervert(msg, type){
+    
+}
+
+function closeDB(){
+    db.close();
+}
 
 //Routes R001
 app.get('/', function(req, res){
