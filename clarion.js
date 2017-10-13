@@ -469,9 +469,9 @@ function testDB(msg, type){
 }
 
 function createPervert(msg, type){
-    sql = "insert into perverts (id, hentai_power_level, last_1, hentai_type, last_roll_date) values (" 
-    + msg.author.id + ", " + 9 + ", " + 9 + "," + type + ", " + moment().format("YYYY-MM-DD") + ");";
-
+    sql = "insert into perverts (id, hentai_power_level, last_1, hentai_type, last_roll_date) values ('" 
+    + msg.author.id + "', " + 9 + ", " + 9 + ",'" + type + "', " + moment().format("YYYY-MM-DD") + ");";
+    console.log(sql);
     db.run(sql,[], function(err){
         if (err) {return console.error(err.message)}
         bot.createMessage(msg.channel.id, "Pervert created, お兄様!");
