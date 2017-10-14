@@ -17,7 +17,7 @@ app.use(function (req, res, next) {
 });
 
 require('./config/router.js')(app, express);
-require('./controller/msgController.js')(app, bot, moment);
+require('./controller/messageController.js')(app, bot, moment);
 
 
 
@@ -26,7 +26,7 @@ app.listen(port, function() {
     console.log(moment().format("LLL") + ': Clarion is running on port ' + port);
 });
 
-// bot.connect();
+bot.connect();
 
 bot.on("ready", () => {
     console.log("Onii-chan, I'm ready");
