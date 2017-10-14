@@ -11,7 +11,7 @@ module.exports = {
 
    	myLoli: function(msg, bot){
     	dbManager.getPervert(msg,bot,"loli");
-   	}
+   	},
 
    	reset: function(msg, bot){
    		var status = msg.content.split(" ").slice(1).join(" ");
