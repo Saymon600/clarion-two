@@ -96,22 +96,22 @@ module.exports = function(app, bot, moment) {
 	    }
 
 	    //C017
-	    if(msg.content.startsWith("!loli") && channel === constants.GAMEBOARD_CHANNEL){
+	    if(msg.content === "!loli" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return loli.rollLoli(msg, bot);
 	    }
 
 	    //C018 
-	    if(msg.content.startsWith("!lolistats") && channel === constants.GAMEBOARD_CHANNEL){
+	    if(msg.content === "!lolistats" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return loli.statsLoli(msg, bot);
 	    }
 
 	    //C998
-	    if(msg.content.startsWith("!resetloli") && channel === constants.GAMEBOARD_CHANNEL){
+	    if(msg.content === "!resetloli" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return loli.reset(msg, bot);
 	    }
 
 	    //C999
-	    if(msg.content.startsWith("!help") && channel === constants.GAMEBOARD_CHANNEL){
+	    if(msg.content === "!help" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return gameboard.help(msg, bot);
 	    }
 
