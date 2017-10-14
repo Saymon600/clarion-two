@@ -14,6 +14,7 @@ const siscon = "205716683992727552";
 const Saymon = "87554809212727296";
 const augustop = "94937291998375936";
 const dbManager = require('./databaseManager.js');
+var lastplaying = '';
 
 module.exports = function(app, bot, moment) {
 
@@ -440,6 +441,13 @@ module.exports = function(app, bot, moment) {
 		var zero = size - num.toString().length + 1;
 		return Array(+(zero > 0 && zero)).join("0") + num;
 	}
+
+	fs.readFile(__dirname + "/lastplaying.txt",function (err,data){
+    if(err){
+        console.log(moment().format("LLL"),err);
+    }
+    lastplaying = data.toString();
+});
 
 };
 
