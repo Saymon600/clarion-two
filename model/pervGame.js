@@ -14,11 +14,21 @@ module.exports = {
    	},
 
     informAboutRoll: function(msg, bot, type, roll, total){
+        let politeness = "Sasuga";
+        if(msg.author.id === constants.R0X_USER){
+            politeness = "Very r0x"
+        }
         if(roll === 7){
             let role;
             switch(type){
                 case "loli":
                     role = constants.LOLICON_ROLE;
+                break;
+                case "futa":
+                    role = constants.FUTALOVER_ROLE;
+                break;
+                case "imouto":
+                    role = constants.SISCON_ROLE;
                 break;
             }
             var members = msg.channel.guild.members;
@@ -37,15 +47,23 @@ module.exports = {
                 }
             });
             if(type === "loli"){
-                bot.createMessage(msg.channel.id, "I'm giving you " + roll + " lolis and the honorable role of a true Lolicon. You have a total of " + total + " lolis. Sasuga <@" + msg.author.id + ">-sama" );
+                bot.createMessage(msg.channel.id, "I'm giving you " + roll + " lolis and the honorable role of a true Lolicon. You have a total of " + total + " lolis. "+ politeness +" <@" + msg.author.id + ">-sama" );
+                return;
+            }
+            if(type === "futa"){
+                bot.createMessage(msg.channel.id, "I'm giving you " + roll + " futas and the honorable role of a true pervert. You have a total of " + total + " futas. "+ politeness +" <@" + msg.author.id + ">-sama" );
+                return;
+            }
+            if(type === "imouto"){
+                bot.createMessage(msg.channel.id, "I'm giving you " + roll + " imoutos and the honorable role of a true siscon. You have a total of " + total + " imoutos. "+ politeness +" <@" + msg.author.id + ">-sama" );
                 return;
             }
         }else if(roll === 0){
             bot.createMessage(msg.channel.id, "I'll not give a "+ type +"s, hmpf. You have a total of " + total + " lolis. Go away weeb <@" + msg.author.id + ">" );
         }else if (roll === 1){
-            bot.createMessage(msg.channel.id, "I'm giving you one "+ type +". You have a total of " + total + " "+ type +"s. Sasuga <@" + msg.author.id + ">" );
+            bot.createMessage(msg.channel.id, "I'm giving you one "+ type +". You have a total of " + total + " "+ type +"s. "+ politeness +" <@" + msg.author.id + ">" );
         }else{
-            bot.createMessage(msg.channel.id, "I'm giving you " + roll + " "+ type +"s. You have a total of " + total + " lolis. Sasuga <@" + msg.author.id + ">" );
+            bot.createMessage(msg.channel.id, "I'm giving you " + roll + " "+ type +"s. You have a total of " + total + " lolis. "+ politeness +" <@" + msg.author.id + ">" );
         }
     },
 
@@ -78,8 +96,6 @@ module.exports = {
             message.push("List of some awesome people:");
             var ranked = this.rankNames(msg, rows);
             for(var a = 0; a < ranked.length; a++){
-                // var split = lolitas[a].last.split("-");
-                // last_data = split[2] + "/" + split[1] + "/" + split[0];
                 message.push((a + 1) + ") " + ranked[a].name + ": " + ranked[a].total + " "+ type +"s. Last played: " + ranked[a].lastDate);
             }
             bot.createMessage(msg.channel.id, message.join("\n"));
@@ -93,5 +109,30 @@ module.exports = {
     	}else{
     		bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/../views/reaction_images/jii.jpg"),name:"jii.jpg"});
     	}
-   	}
+   	},
+
+    releaseAll: function(msg, bot){
+        if(msg.author.id !== SAYMON_USER && msg.author.id !== AUGUSTOP_USER && msg.author.id !== CLARION_USER){
+            bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/../views/reaction_images/jii.jpg"),name:"jii.jpg"});
+            return;
+        }
+        var members = msg.channel.guild.members;
+        members.forEach(function(member){
+            if(member.id === msg.author.id){
+                var roles = member.roles;
+                roles.forEach(function(role){
+                    if(role === constants.LOLICON_ROLE){
+                        bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.LOLICON_ROLE);
+                    }
+                    if(role === constants.FUTALOVER_ROLE){
+                        bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.FUTALOVER_ROLE);
+                    }
+                    if(role === constants.SISCON_ROLE){
+                        bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.SISCON_ROLE);
+                    }
+                });
+            }
+        });
+        bot.createMessage(msg.channel.id, "Releasing some filthy weebs");
+    }
 }

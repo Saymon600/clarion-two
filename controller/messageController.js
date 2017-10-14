@@ -110,6 +110,41 @@ module.exports = function(app, bot, moment) {
 	    	return perv.rank(msg, bot, "loli");
 	    }
 
+	    //C020
+	    if(msg.content === "!futa" && channel === constants.GAMEBOARD_CHANNEL){
+	    	return perv.roll(msg, bot, "futa");
+	    }
+
+	    //C021 
+	    if(msg.content === "!futastats" && channel === constants.GAMEBOARD_CHANNEL){
+	    	return perv.stats(msg, bot, "futa");
+	    }
+
+	    //C022
+	    if(msg.content === "!futarank" && channel === constants.GAMEBOARD_CHANNEL){
+	    	return perv.rank(msg, bot, "futa");
+	    }
+
+	    //C023
+	    if(msg.content === "!imouto" && channel === constants.GAMEBOARD_CHANNEL){
+	    	return perv.roll(msg, bot, "imouto");
+	    }
+
+	    //C024 
+	    if(msg.content === "!imoutostats" && channel === constants.GAMEBOARD_CHANNEL){
+	    	return perv.stats(msg, bot, "imouto");
+	    }
+
+	    //C025
+	    if(msg.content === "!imoutorank" && channel === constants.GAMEBOARD_CHANNEL){
+	    	return perv.rank(msg, bot, "imouto");
+	    }
+
+	    //C997 not tested
+	    if(msg.content === "!releaseall" && channel === constants.GAMEBOARD_CHANNEL){
+	    	return perv.releaseAll(msg, bot);
+	    }
+
 	    //C998 not tested
 	    if(msg.content === "!resetloli" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return perv.reset(msg, bot, "loli");
