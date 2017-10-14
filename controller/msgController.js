@@ -150,13 +150,13 @@ module.exports = function(app, bot, moment) {
 	       			bot.createMessage(msg.channel.id, "lmao\nOf course not.");
 	       			break;
 	       		case 4:
-	       			bot.createMessage(msg.channel.id, "Y-yeah.",{file:fs.readFileSync(__dirname + "/ask/ehh.png"),name:"ehh.png"});
+	       			bot.createMessage(msg.channel.id, "Y-yeah.",{file:fs.readFileSync(__dirname + "/../views/reaction_images/ehh.png"),name:"ehh.png"});
 	       			break;
 	       		case 5:
 	       			bot.createMessage(msg.channel.id, "Nope.");
 	       			break;
 	       		case 6:
-	       			bot.createMessage(msg.channel.id, "", {file:fs.readFileSync(__dirname + "/ask/gowild.png"),name:"gowild.png"});
+	       			bot.createMessage(msg.channel.id, "", {file:fs.readFileSync(__dirname + "/../views/reaction_images/gowild.png"),name:"gowild.png"});
 	       			break;
 	       		case 7:
 	       			bot.createMessage(msg.channel.id, "Don't ask me this.");
@@ -268,8 +268,7 @@ module.exports = function(app, bot, moment) {
 	    //C013
 	    if(msg.content.startsWith("!cs") && msg.channel.id === gameboard){
 	    	var status = msg.content.split(" ").slice(1).join(" ");
-	    	// if(msg.author.id == Saymon || msg.author.id === augustop){
-	    	if(msg.author.id == Saymon){
+	    	if(msg.author.id == Saymon || msg.author.id === augustop){
 	    		bot.editStatus(status);
 	    		bot.createMessage(msg.channel.id, "畏まりました");
 	    	}else{
@@ -293,7 +292,7 @@ module.exports = function(app, bot, moment) {
 	                "ロリコン発見",
 	                "/!\\ /!\\ /!\\",
 	            ].join("\n");
-	            bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/img/pf.jpg"),name:"pf.jpg"});
+	            bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/../views/reaction_images/pf.jpg"),name:"pf.jpg"});
 		        var members = msg.channel.guild.members;
 		        members.forEach(function(member){
 		        	if(member.id == msg.author.id){
@@ -334,14 +333,14 @@ module.exports = function(app, bot, moment) {
 			        		if(role == lolicon){
 			        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,lolicon);
 			        			message = "You're free to go!";
-			                	bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/img/free.gif"),name:"free.gif"});
+			                	bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/../views/reaction_images/free.gif"),name:"free.gif"});
 			                	hadRole = true;
 			        		}
 			        	});
 			        	if(!hadRole){
 			                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,lolicon);
 			                message = "You're under arrest!";
-	                        bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/img/prison.gif"),name:"prison.gif"});
+	                        bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/../views/reaction_images/prison.gif"),name:"prison.gif"});
 		               	}
 		        	}
 		       	});
@@ -370,25 +369,25 @@ module.exports = function(app, bot, moment) {
 	    	if(random == 3){
 	    		switch(random2){
 	    			case 1:
-	    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/gudako/01.gif"),name:"01.gif"});
+	    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/01.gif"),name:"01.gif"});
 	    				break;
 	    			case 2:
-	    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/gudako/02.gif"),name:"02.gif"});
+	    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/02.gif"),name:"02.gif"});
 	    				break;
 	    			case 3:
-	    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/gudako/03.jpg"),name:"03.jpg"});
+	    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/03.jpg"),name:"03.jpg"});
 	    				break;
 	    			case 4:
-	    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/gudako/04.png"),name:"04.png"});
+	    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/04.png"),name:"04.png"});
 	    				break;
 	    			case 5:
-	    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/gudako/05.jpg"),name:"05.jpg"});
+	    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/05.jpg"),name:"05.jpg"});
 	    				break;
 	    			case 6:
-	    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/gudako/06.png"),name:"06.png"});
+	    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/06.png"),name:"06.png"});
 	    				break;
 	    			case 7:
-	    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/gudako/07.jpg"),name:"07.jpg"});
+	    				bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/07.jpg"),name:"07.jpg"});
 	    				break;
 	    		}
 	    	}
