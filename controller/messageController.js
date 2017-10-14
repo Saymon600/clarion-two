@@ -7,6 +7,7 @@ const rice = require('./../model/riceChannel.js');
 const autism = require('./../model/autismChannel.js');
 const gameboard = require('./../model/gameboardChannel.js');
 const mobage = require('./../model/mobageChannel.js');
+const loli = require('./../model/loliGame.js');
 const dbManager = require('./databaseManager.js');
 var lastplaying = '';
 
@@ -94,10 +95,10 @@ module.exports = function(app, bot, moment) {
 	    	return mobage.whale(msg, bot, fs);
 	    }
 
-	    // //C017
-	    // if(msg.content.startsWith("!loli") && channel === constants.GAMEBOARD_CHANNEL){
-	    // 	return gameboard.help(msg, bot);
-	    // }
+	    //C017
+	    if(msg.content.startsWith("!loli") && channel === constants.GAMEBOARD_CHANNEL){
+	    	return loli.rollLoli(msg, bot);
+	    }
 
 	    //C999
 	    if(msg.content.startsWith("!help") && channel === constants.GAMEBOARD_CHANNEL){

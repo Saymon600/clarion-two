@@ -5,7 +5,7 @@ var sqlValues;
 
 module.exports = {
 
-	testDB: function(msg, bot, type){
+	testDB: function(msg, bot, type, roll){
 	    client = new Client({
 	          user: 'izhdpobumyufya',
 	          host: 'ec2-54-221-207-192.compute-1.amazonaws.com',
@@ -20,29 +20,39 @@ module.exports = {
 	        if (err) {return console.error(err.message)}
 	        console.log('Connected to the database.');
 	        if(res.rows[0] === undefined){
-	            createPervert(msg, type);
+	            createPervert(msg, type, roll);
 	        }else{
-	            // updatePervert(msg, type);
+	            updatePervert(msg, type, roll);
 	            bot.createMessage(msg.channel.id, "Pervert already there, お兄様!");
 	            client.end();
 	        }
 	    });
 	},
 
-	createPervert: function(msg, bot, type){
+	createPervert: function(msg, bot, type, roll){
 	    sql = "insert into perverts (id, hentai_level, last_roll_1, hentai_type, last_roll_date) values ($1, $2, $3, $4, $5)";
-	    sqlValues =[msg.author.id, 9, 9, type, moment().format("YYYY-MM-DD")];
+	    sqlValues =[msg.author.id, roll, roll, type, moment().format("YYYY-MM-DD")];
 	    console.log(sql);
 	    console.log(sqlValues);
 	    client.query(sql, sqlValues, (err) => {
 	        if (err) {return console.error(err.message)}
 	        bot.createMessage(msg.channel.id, "Pervert created, お兄様!");
+	    	bot.createMessage(msg.channel.id, "<@" + msg.author.id + ">, rolled " + roll + " " + type + "(s)");
 	        client.end();
 	    });
 	},
 
-	updatePervert: function(msg, bot, type){
-		
+	updatePervert: function(msg, bot, type, roll){
+		sql = "UPDATE perverts SET last_roll_5 = last_roll_4, last_roll_4 = last_roll_3, last_roll_3 = last_roll_2, last_roll_2 = last_roll_1, last_roll_1 = $1, hentai_level = $2, last_roll_date = $3 WHERE id = $4 and hentai_type = $5";
+	    sqlValues =[roll, roll, moment().format("YYYY-MM-DD"), msg.author.id, type];
+	    console.log(sql);
+	    console.log(sqlValues);
+	    client.query(sql, sqlValues, (err) => {
+	        if (err) {return console.error(err.message)}
+	        bot.createMessage(msg.channel.id, "Pervert updated, お兄様!");
+	    	bot.createMessage(msg.channel.id, "<@" + msg.author.id + ">, rolled " + roll + " " + type + "(s)");
+	        client.end();
+	    });
 	}
 
 };
