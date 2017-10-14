@@ -7,7 +7,7 @@ module.exports = {
     	var r = Math.floor((Math.random() * 8) + 1);
         roll = r - 1;
     	dbManager.testDB(msg,bot,"loli",roll);
-   	}
+   	},
 
    	myLoli: function(msg, bot){
     	dbManager.getPervert(msg,bot,"loli");
