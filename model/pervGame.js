@@ -123,13 +123,13 @@ module.exports = {
                 var roles = member.roles;
                 roles.forEach(function(role){
                     if(role === constants.LOLICON_ROLE){
-                        bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.LOLICON_ROLE);
+                        bot.removeGuildMemberRole(msg.channel.guild.id,member.id,constants.LOLICON_ROLE);
                     }
                     if(role === constants.FUTALOVER_ROLE){
-                        bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.FUTALOVER_ROLE);
+                        bot.removeGuildMemberRole(msg.channel.guild.id,member.id.id,constants.FUTALOVER_ROLE);
                     }
                     if(role === constants.SISCON_ROLE){
-                        bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.SISCON_ROLE);
+                        bot.removeGuildMemberRole(msg.channel.guild.id,member.id.id,constants.SISCON_ROLE);
                     }
                 });
             }
