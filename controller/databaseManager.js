@@ -74,7 +74,7 @@ module.exports = {
 	        var average = (res.rows[0].last_roll_1 + res.rows[0].last_roll_2 + res.rows[0].last_roll_3 + res.rows[0].last_roll_4 + res.rows[0].last_roll_5)/5;
 	        average = average.toFixed(2);
 	        var mensagem = "<@" + msg.author.id + ">, have " + res.rows[0].hentai_level + " " + type + "(s)\n";
-	        mensagem += "Last 5 rolls are: " + res.rows[0].last_roll_1 + ", " + res.rows[0].last_roll_2 + ", " + res.rows[0].last_roll_3 + ", " + res.rows[0].last_roll_4 + ", " + res.rows[0].last_roll_5 + "\n";
+	        mensagem += "Last 5 rolls are: " + parseInt(res.rows[0].last_roll_1) + ", " + parseInt(res.rows[0].last_roll_2) + ", " + parseInt(res.rows[0].last_roll_3) + ", " + parseInt(res.rows[0].last_roll_4) + ", " + parseInt(res.rows[0].last_roll_5) + "\n";
 	        mensagem += "Your average is " + average;
 	        bot.createMessage(msg.channel.id, mensagem);
 	        client.end();
@@ -88,7 +88,7 @@ module.exports = {
 		sqlValues =[type];
 	    console.log(sql);
 	    console.log(sqlValues);
-	    client.query(sql, (err,res) => {
+	    client.query(sql, sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
 	        console.log("Everything has an end Onii-chan!");
 	        client.end();
@@ -98,18 +98,21 @@ module.exports = {
 	createTables: function(msg, bot){
 		client = this.connect();
 		client.connect();
-		drop = "DROP TABLE perverts;";
-		sql = "CREATE TABLE perverts(id varchar (255),name varchar (255),hentai_level integer NOT NULL,hentai_type varchar (255),last_roll_date varchar (255) NOT NULL,last_roll_1 integer NOT NULL,last_roll_2 integer,last_roll_3 integer,last_roll_4 integer,last_roll_5 integer,PRIMARY KEY(id, hentai_type));";
+		//drop = "DROP TABLE perverts;";
+		sql = "CREATE TABLE bot(id SERIAL,nickname varchar (255),status varchar (255),last_playing varchar (255),PRIMARY KEY(id));";
+		sql2 = "INSERT INTO bot (nickname,status,last_playing) values ($1,$2,$3);"
+		sqlValues =["Clarion Mk-II","online","Dies Irae"];
 	    console.log(sql);
 	    
-	    client.query(drop, (err,res) => {
-	        if (err) {return console.error(err.message);}
-	        client.query(sql, (err,res) => {
+	    client.query(sql, (err,res) => {
+		    if (err) {return console.error(err.message);}
+		    console.log("Everything has an beggining Onii-chan!");
+		    client.query(sql2, sqlValues, (err,res) => {
 		        if (err) {return console.error(err.message);}
-		        console.log("Everything has an beggining Onii-chan!");
+		        console.log("Everything has an end Onii-chan!");
 		        client.end();
 		    });
-	    });
+		});
 	}
 
 };
