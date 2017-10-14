@@ -21,9 +21,10 @@ module.exports = {
 	        if (err) {return console.error(err.message)}
 	        console.log('Connected to the database.');
 	        if(res.rows[0] === undefined){
-	            this.createPervert(msg, type, roll);
+	            this.createPervert(msg, bot, type, roll);
 	        }else{
-	            this.updatePervert(msg, type, roll);
+	        	console.log(res.rows);
+	            this.updatePervert(msg, bot, type, roll);
 	            bot.createMessage(msg.channel.id, "Pervert already there, お兄様!");
 	            client.end();
 	        }
