@@ -3,9 +3,9 @@ var client;
 var sql;
 var sqlValues;
 
-module.exports = function(app, moment) {
+module.exports = {
 
-	function testDB(msg, type){
+	testDB: function(msg, bot, type){
 	    client = new Client({
 	          user: 'izhdpobumyufya',
 	          host: 'ec2-54-221-207-192.compute-1.amazonaws.com',
@@ -27,9 +27,9 @@ module.exports = function(app, moment) {
 	            client.end();
 	        }
 	    });
-	}
+	},
 
-	function createPervert(msg, type){
+	createPervert: function(msg, bot, type){
 	    sql = "insert into perverts (id, hentai_level, last_roll_1, hentai_type, last_roll_date) values ($1, $2, $3, $4, $5)";
 	    sqlValues =[msg.author.id, 9, 9, type, moment().format("YYYY-MM-DD")];
 	    console.log(sql);
@@ -39,10 +39,10 @@ module.exports = function(app, moment) {
 	        bot.createMessage(msg.channel.id, "Pervert created, お兄様!");
 	        client.end();
 	    });
-	}
+	},
 
-	function updatePervert(msg, type){
-	    
+	updatePervert: function(msg, bot, type){
+		
 	}
 
 };

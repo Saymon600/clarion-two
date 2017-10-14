@@ -26,6 +26,10 @@ app.listen(port, function() {
     console.log(moment().format("LLL") + ': Clarion is running on port ' + port);
 });
 
-bot.connect();
+// bot.connect();
+
+bot.on("ready", () => {
+    console.log("Onii-chan, I'm ready");
+});
 
 
