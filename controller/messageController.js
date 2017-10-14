@@ -100,6 +100,11 @@ module.exports = function(app, bot, moment) {
 	    	return loli.rollLoli(msg, bot);
 	    }
 
+	    //C018 
+	    if(msg.content.startsWith("!mylolis") && channel === constants.GAMEBOARD_CHANNEL){
+	    	return loli.myLoli(msg, bot);
+	    }
+
 	    //C999
 	    if(msg.content.startsWith("!help") && channel === constants.GAMEBOARD_CHANNEL){
 	    	return gameboard.help(msg, bot);
