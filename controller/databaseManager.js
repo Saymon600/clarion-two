@@ -58,13 +58,13 @@ module.exports = {
 	},
 
 	getPervert: function(msg, bot, type){
-		sql = "SELECT * FROM perverts WHERE id = $1 and hentai_type = $2";
+		sql = "SELECT * FROM perverts WHERE id = $1 and hentai_type = $2;";
 	    sqlValues =[msg.author.id,type];
 	    console.log(sql);
 	    console.log(sqlValues);
 	    client.query(sql, sqlValues, (err,res) => {
-	        if (err) {return console.error(err.message)}
-	        console.log(res.rows[0]);
+	        if (err) {return console.error(err.message);}
+	        console.log(res);
 	        client.end();
 	    });
 	}
