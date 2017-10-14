@@ -2,10 +2,10 @@
   "name": "clarion-two",
   "version": "0.0.3",
   "description": "",
-  "main": "clarion.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node clarion.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,8 @@
     "express": "4.16.1",
     "fs": "0.0.1-security",
     "moment": "2.18.1",
-    "request": "2.83.0",
-    "sqlite3": "^3.1.13"
+    "pg": "^7.3.0",
+    "pug": "^2.0.0-rc.4",
+    "request": "2.83.0"
   }
 }
