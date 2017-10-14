@@ -14,7 +14,7 @@ module.exports = {
    	},
 
     informAboutRoll: function(msg, bot, type, roll, total){
-        if(r === 7){
+        if(roll === 7){
             let role;
             switch(type){
                 case "loli":
@@ -41,9 +41,9 @@ module.exports = {
                 bot.sendMessage(msg.channel.id, "I'm giving you " + r + " lolis and the honorable role of a true Lolicon. You have a total of " + total + " lolis. Sasuga <@" + msg.author.id + ">-sama" );
                 return;
             }
-        }else if(r === 0){
+        }else if(roll === 0){
             bot.sendMessage(message, "I'll not give a "+ type +"s, hmpf. You have a total of " + total + " lolis. Go away weeb <@" + msg.author.id + ">" );
-        }else if (r === 1){
+        }else if (roll === 1){
             bot.sendMessage(message, "I'm giving you one "+ type +". You have a total of " + total + " "+ type +"s. Sasuga <@" + msg.author.id + ">" );
         }else{
             bot.sendMessage(message, "I'm giving you " + r + " "+ type +"s. You have a total of " + total + " lolis. Sasuga <@" + msg.author.id + ">" );
