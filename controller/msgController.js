@@ -1,3 +1,6 @@
+const fs = require('fs');
+const request = require('request');
+
 const autismbox = "87350922878922752";
 const gameboard = "141583443896041472";
 const mobagedock = "198225182639259649";

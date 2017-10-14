@@ -3,8 +3,6 @@ var app = express();
 var port = process.env.PORT || 3030;
 const Eris = require("eris");
 const moment = require('moment');
-const fs = require('fs');
-const request = require('request');
 var bot = new Eris("MzYzODQ1NTI2NzExNTY2MzM2.DLMrYg.zG28pp2E8PR43uY3subsXrzFblI");
 var lastplaying = '';
 
