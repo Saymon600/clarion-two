@@ -97,17 +97,17 @@ module.exports = function(app, bot, moment) {
 
 	    //C017
 	    if(msg.content === "!loli" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.roll(msg, bot, loli);
+	    	return perv.roll(msg, bot, "loli");
 	    }
 
 	    //C018 
 	    if(msg.content === "!lolistats" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.stats(msg, bot, loli);
+	    	return perv.stats(msg, bot, "loli");
 	    }
 
 	    //C998 not tested
 	    if(msg.content === "!resetloli" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.reset(msg, bot, loli);
+	    	return perv.reset(msg, bot, "loli");
 	    }
 
 	    //C999
