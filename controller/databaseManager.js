@@ -6,14 +6,19 @@ var sqlValues;
 
 module.exports = {
 
-	testDB: function(msg, bot, type, roll){
-	    client = new Client({
+	connect: function(){
+		client = new Client({
 	          user: 'izhdpobumyufya',
 	          host: 'ec2-54-221-207-192.compute-1.amazonaws.com',
 	          database: 'd5qsftiankav99',
 	          password: '32bc5c61e1d03e330f66dbd402ba9628e559e924d82477a847ad2cd99b39174e',
 	          port: 5432,
 	        });
+		return client;
+	},
+
+	testDB: function(msg, bot, type, roll){
+	    client = this.connect();
 	    client.connect();
 	    sql = "select * from perverts where id = $1 and hentai_type = $2;"
 	    sqlValues = [msg.author.id, type]
@@ -58,6 +63,8 @@ module.exports = {
 	},
 
 	getPervert: function(msg, bot, type){
+		client = this.connect();
+		client.connect();
 		sql = "SELECT * FROM perverts WHERE id = $1 and hentai_type = $2;";
 	    sqlValues =[msg.author.id,type];
 	    console.log(sql);
