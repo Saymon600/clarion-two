@@ -42,11 +42,11 @@ module.exports = {
                 return;
             }
         }else if(roll === 0){
-            bot.sendMessage(message, "I'll not give a "+ type +"s, hmpf. You have a total of " + total + " lolis. Go away weeb <@" + msg.author.id + ">" );
+            bot.sendMessage(msg.channel.id, "I'll not give a "+ type +"s, hmpf. You have a total of " + total + " lolis. Go away weeb <@" + msg.author.id + ">" );
         }else if (roll === 1){
-            bot.sendMessage(message, "I'm giving you one "+ type +". You have a total of " + total + " "+ type +"s. Sasuga <@" + msg.author.id + ">" );
+            bot.sendMessage(msg.channel.id, "I'm giving you one "+ type +". You have a total of " + total + " "+ type +"s. Sasuga <@" + msg.author.id + ">" );
         }else{
-            bot.sendMessage(message, "I'm giving you " + r + " "+ type +"s. You have a total of " + total + " lolis. Sasuga <@" + msg.author.id + ">" );
+            bot.sendMessage(msg.channel.id, "I'm giving you " + r + " "+ type +"s. You have a total of " + total + " lolis. Sasuga <@" + msg.author.id + ">" );
         }
     },
 
