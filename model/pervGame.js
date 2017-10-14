@@ -51,7 +51,7 @@ module.exports = {
 
     rank: function(msg, bot, type){
         dbManager.getPervertRank(msg, bot, type, function(rows){
-            let message = "";
+            let message = [];
             message.push("List of some awesome people:");
             for(var a = 0; a < rows.length; a++){
                 // var split = lolitas[a].last.split("-");
