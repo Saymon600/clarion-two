@@ -56,7 +56,7 @@ module.exports = {
             for(var a = 0; a < rows.length; a++){
                 // var split = lolitas[a].last.split("-");
                 // last_data = split[2] + "/" + split[1] + "/" + split[0];
-                message.push(a + 1; + ") " + rows[a].id + ": " + rows[a].hentai_level + " "+ type +"s. Last played: " + rows[a].last_date);
+                message.push((a + 1) + ") " + rows[a].id + ": " + rows[a].hentai_level + " "+ type +"s. Last played: " + rows[a].last_date);
             }
             bot.createMessage(msg.channel.id, message.join("\n"));
         });
