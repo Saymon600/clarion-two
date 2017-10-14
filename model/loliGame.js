@@ -1,5 +1,5 @@
 const constants = require('./util/constants.js');
-const dbManager = require('./databaseManager.js');
+const dbManager = require('../controller/databaseManager.js');
 
 module.exports = {
 
