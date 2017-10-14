@@ -2,9 +2,16 @@ const Eris = require("eris");
 const moment = require('moment');
 const fs = require('fs');
 const request = require('request');
-var sqlite3 = require('sqlite3').verbose();
-var db;
+const { Client } = require('pg')
+const client = new Client({
+  user: 'izhdpobumyufya',
+  host: 'ec2-54-221-207-192.compute-1.amazonaws.com',
+  database: 'd5qsftiankav99',
+  password: '32bc5c61e1d03e330f66dbd402ba9628e559e924d82477a847ad2cd99b39174e',
+  port: 5432,
+})
 var sql;
+var sqlValues;
 
 var express = require('express');
 var app = express();
@@ -451,31 +458,31 @@ bot.on("messageCreate", (msg) => {
 });
 
 function testDB(msg, type){
-    // msg.author.id == Saymon
-    sql = "select * from perverts where id = '" + msg.author.id + "' and hentai_type = '" + type + "';"
-    db = new sqlite3.Database('./clarion.db', sqlite3.OPEN_READWRITE, (err) => {
-        if (err) {console.error(err.message)}
+    client.connect();
+    sql = "select * from perverts where id = $1 and hentai_type = $2;"
+    sqlValues = [msg.author.id, type]
+    client.query(sql, sqlValues, (err, res) => {
+        if (err) {return console.error(err.message)}
         console.log('Connected to the database.');
-        db.get(sql, [], (err, row) => {
-            if (err) {return console.error(err.message)}
-            if(row === undefined){
-                createPervert(msg, type);
-            }else{
-                // updatePervert(msg, type);
-                bot.createMessage(msg.channel.id, "Pervert already there,　お兄様!");
-            }
-        });
+        if(res.rows[0] === undefined){
+            createPervert(msg, type);
+        }else{
+            // updatePervert(msg, type);
+            bot.createMessage(msg.channel.id, "Pervert already there,　お兄様!");
+            client.end();
+        }
     });
 }
 
 function createPervert(msg, type){
-    sql = "insert into perverts (id, hentai_power_level, last_1, hentai_type, last_roll_date) values ('" 
-    + msg.author.id + "', " + 9 + ", " + 9 + ",'" + type + "', " + moment().format("YYYY-MM-DD") + ");";
+    sql = "insert into perverts (id, hentai_power_level, last_1, hentai_type, last_roll_date) values ($1, $2, $3, $4, $5)";
+    sqlValues =[msg.author.id, 9, 9, type, moment().format("YYYY-MM-DD")];
     console.log(sql);
-    db.run(sql,[], function(err){
+    console.log(sqlValues);
+    client.query(sql, sqlValues, (err) => {
         if (err) {return console.error(err.message)}
         bot.createMessage(msg.channel.id, "Pervert created, お兄様!");
-        db.close();
+        client.end();
     });
 }
 
