@@ -66,17 +66,17 @@ module.exports = {
                 }
             }
         });
-        // rankedMembers = rankedMembers.sort(function compare(a,b) {
-        //   return b.total < a.total
-        // });
+        rankedMembers = rankedMembers.sort(function compare(a,b) {
+          return b.total < a.total
+        });
         return rankedMembers;
     },
 
     rank: function(msg, bot, type){
-        dbManager.getPervertRank(msg, bot, type, function(rows){
+        dbManager.getPervertRank(msg, bot, type, (rows) =>{
             let message = [];
             message.push("List of some awesome people:");
-            let ranked = this.rankNames(msg, rows);
+            var ranked = this.rankNames(msg, rows);
             for(var a = 0; a < ranked.length; a++){
                 // var split = lolitas[a].last.split("-");
                 // last_data = split[2] + "/" + split[1] + "/" + split[0];
