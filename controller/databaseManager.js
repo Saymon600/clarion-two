@@ -86,7 +86,7 @@ module.exports = {
 		client = this.connect();
 		client.connect();
 		sql = "SELECT * FROM perverts WHERE hentai_type = $1 order by hentai_level;";
-	    sqlValues =[id,type];
+	    sqlValues =[type];
 	    console.log(sql);
 	    console.log(sqlValues);
 	    client.query(sql, sqlValues, (err,res) => {
