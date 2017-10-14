@@ -53,13 +53,35 @@ module.exports = {
         dbManager.getPervertRank(msg, bot, type, function(rows){
             let message = [];
             message.push("List of some awesome people:");
+            let ranked = rankNames(msg, rows);
             for(var a = 0; a < rows.length; a++){
                 // var split = lolitas[a].last.split("-");
                 // last_data = split[2] + "/" + split[1] + "/" + split[0];
-                message.push((a + 1) + ") " + rows[a].id + ": " + rows[a].hentai_level + " "+ type +"s. Last played: " + rows[a].last_date);
+                message.push((a + 1) + ") " + ranked[a].name + ": " + ranked[a].total + " "+ type +"s. Last played: " + ranked[a].lastDate);
             }
             bot.createMessage(msg.channel.id, message.join("\n"));
         });
+    },
+
+    rankNames: function(msg, rows){
+        var members = msg.channel.guild.members;
+        var rankedMembers = [];
+        members.forEach(function(member){
+            for (var i = 0; i < rows.length; i++) {
+                if(member.id === rows[i].id){
+                    rankedMembers.push({
+                        name: member.username,
+                        lastDate: rows[i].last_roll_date,
+                        total: rows[i].hentai_level
+                    })
+                    break;
+                }
+            }
+        };
+        rankedMembers = rankedMembers.sort(function compare(a,b) {
+          return b.total < a.total
+        });
+        return rankedMembers;
     },
 
    	reset: function(msg, bot, type){
