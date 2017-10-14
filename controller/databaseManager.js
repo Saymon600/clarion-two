@@ -82,17 +82,18 @@ module.exports = {
 	    });
 	},
 
-	getPervertRank: function(msg, bot, type){
+	getPervertRank: function(msg, bot, type, callback){
 		client = this.connect();
 		client.connect();
-		sql = "SELECT * FROM perverts WHERE hentai_type = $1 order by hentai_level;";
+		sql = "SELECT * FROM perverts WHERE hentai_type = $1 order by hentai_level desc;";
 	    sqlValues =[type];
 	    console.log(sql);
 	    console.log(sqlValues);
 	    client.query(sql, sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
-	        console.log(res.rows[0]);
+	        console.log(res.rows);
 	        bot.createMessage(msg.channel.id, "Preparing the rank, お兄様");
+	        callback(res.rows);
 	        client.end();
 	    });
 	},
