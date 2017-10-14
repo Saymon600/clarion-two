@@ -40,12 +40,9 @@ module.exports = {
 	createPervert: function(msg, bot, type, roll, callback){
 	    sql = "insert into perverts (id, name, hentai_level, last_roll_1, hentai_type, last_roll_date, last_roll_2,last_roll_3,last_roll_4,last_roll_5) values ($1, $2, $3, $4, $5, $6, 0, 0, 0, 0)";
 	    sqlValues =[msg.author.id, msg.author.username, roll, roll, type, moment().format("YYYY-MM-DD")];
-	    console.log(sql);
-	    console.log(sqlValues);
 	    client.query(sql, sqlValues, (err) => {
 	        if (err) {return console.error(err.message)}
 	       	callback(msg, bot, type, roll, roll)
-	    	//bot.createMessage(msg.channel.id, "<@" + msg.author.id + ">, rolled " + roll + " " + type + "(s)");
 	        client.end();
 	    });
 	},
@@ -53,8 +50,6 @@ module.exports = {
 	updatePervert: function(msg, bot, type, roll, total, callback){
 		sql = "UPDATE perverts SET last_roll_5 = last_roll_4, last_roll_4 = last_roll_3, last_roll_3 = last_roll_2, last_roll_2 = last_roll_1, last_roll_1 = $1, hentai_level = hentai_level + $2, last_roll_date = $3 WHERE id = $4 and hentai_type = $5";
 	    sqlValues =[roll, roll, moment().format("YYYY-MM-DD"), msg.author.id, type];
-	    console.log(sql);
-	    console.log(sqlValues);
 	    client.query(sql, sqlValues, (err) => {
 	        if (err) {return console.error(err.message)}
 	        callback(msg, bot, type, roll, total);
@@ -67,8 +62,6 @@ module.exports = {
 		client.connect();
 		sql = "SELECT * FROM perverts WHERE id = $1 and hentai_type = $2;";
 	    sqlValues =[msg.author.id,type];
-	    console.log(sql);
-	    console.log(sqlValues);
 	    client.query(sql, sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
 	        console.log(res.rows[0]);
@@ -87,12 +80,8 @@ module.exports = {
 		client.connect();
 		sql = "SELECT * FROM perverts WHERE hentai_type = $1 order by hentai_level desc;";
 	    sqlValues =[type];
-	    console.log(sql);
-	    console.log(sqlValues);
 	    client.query(sql, sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
-	        console.log(res.rows);
-	        bot.createMessage(msg.channel.id, "Preparing the rank, お兄様");
 	        callback(res.rows);
 	        client.end();
 	    });

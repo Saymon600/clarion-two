@@ -59,7 +59,7 @@ module.exports = {
                 return;
             }
         }else if(roll === 0){
-            bot.createMessage(msg.channel.id, "I'll not give a "+ type +"s, hmpf. You have a total of " + total + " lolis. Go away weeb <@" + msg.author.id + ">" );
+            bot.createMessage(msg.channel.id, "I'll not give a "+ type +", hmpf. You have a total of " + total + " lolis. Go away weeb <@" + msg.author.id + ">" );
         }else if (roll === 1){
             bot.createMessage(msg.channel.id, "I'm giving you one "+ type +". You have a total of " + total + " "+ type +"s. "+ politeness +" <@" + msg.author.id + ">" );
         }else{
@@ -112,7 +112,8 @@ module.exports = {
    	},
 
     releaseAll: function(msg, bot){
-        if(msg.author.id !== SAYMON_USER && msg.author.id !== AUGUSTOP_USER && msg.author.id !== CLARION_USER){
+
+        if(msg.author.id !== constants.SAYMON_USER && msg.author.id !== constants.AUGUSTOP_USER && msg.author.id !== constants.CLARION_USER){
             bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/../views/reaction_images/jii.jpg"),name:"jii.jpg"});
             return;
         }
