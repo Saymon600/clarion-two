@@ -67,7 +67,7 @@ module.exports = {
             }
         });
         rankedMembers = rankedMembers.sort(function compare(a,b) {
-          return b.total < a.total
+          return b.total > a.total
         });
         return rankedMembers;
     },
