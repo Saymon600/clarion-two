@@ -105,6 +105,11 @@ module.exports = function(app, bot, moment) {
 	    	return perv.stats(msg, bot, "loli");
 	    }
 
+	    //C019
+	    if(msg.content === "!lolirank" && channel === constants.GAMEBOARD_CHANNEL){
+	    	return perv.rank(msg, bot, "loli");
+	    }
+
 	    //C998 not tested
 	    if(msg.content === "!resetloli" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return perv.reset(msg, bot, "loli");
@@ -114,7 +119,6 @@ module.exports = function(app, bot, moment) {
 	    if(msg.content === "!help" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return gameboard.help(msg, bot);
 	    }
-
 
 	}
 

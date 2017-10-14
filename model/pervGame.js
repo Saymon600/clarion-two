@@ -28,7 +28,6 @@ module.exports = {
                     var hadRole = false;
                     roles.forEach(function(mrole){
                         if(mrole === role){
-                            bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id, role);
                             hadRole = true;
                         }
                     });
@@ -48,6 +47,10 @@ module.exports = {
         }else{
             bot.createMessage(msg.channel.id, "I'm giving you " + roll + " "+ type +"s. You have a total of " + total + " lolis. Sasuga <@" + msg.author.id + ">" );
         }
+    },
+
+    rank: function(msg, bot, type){
+        dbManager.getPervertRank(msg, bot, type);
     },
 
    	reset: function(msg, bot, type){

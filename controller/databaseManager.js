@@ -28,7 +28,7 @@ module.exports = {
 	        if(res.rows[0] === undefined){
 	            this.createPervert(msg, bot, type, roll, callback);
 	        }else if(res.rows[0].last_roll_date == moment().format("YYYY-MM-DD")){
-	            bot.createMessage(msg.channel.id, "You already rolled " + type + " today!");
+	            bot.createMessage(msg.channel.id, "You already rolled " + type + "s today!");
 	            client.end();
 	            return;
 	        }else{
@@ -58,7 +58,6 @@ module.exports = {
 	    client.query(sql, sqlValues, (err) => {
 	        if (err) {return console.error(err.message)}
 	        callback(msg, bot, type, roll, total);
-	    	// bot.createMessage(msg.channel.id, "<@" + msg.author.id + ">, rolled " + roll + " " + type + "(s)");
 	        client.end();
 	    });
 	},
@@ -75,10 +74,25 @@ module.exports = {
 	        console.log(res.rows[0]);
 	        var average = (res.rows[0].last_roll_1 + res.rows[0].last_roll_2 + res.rows[0].last_roll_3 + res.rows[0].last_roll_4 + res.rows[0].last_roll_5)/5;
 	        average = average.toFixed(2);
-	        var mensagem = "<@" + msg.author.id + ">, have " + res.rows[0].hentai_level + " " + type + "(s)\n";
+	        var mensagem = "<@" + msg.author.id + ">, you have a total of " + res.rows[0].hentai_level + " " + type + "s\n";
 	        mensagem += "Last 5 rolls are: " + parseInt(res.rows[0].last_roll_1) + ", " + parseInt(res.rows[0].last_roll_2) + ", " + parseInt(res.rows[0].last_roll_3) + ", " + parseInt(res.rows[0].last_roll_4) + ", " + parseInt(res.rows[0].last_roll_5) + "\n";
 	        mensagem += "Your average is " + average;
 	        bot.createMessage(msg.channel.id, mensagem);
+	        client.end();
+	    });
+	},
+
+	getPervertRank: function(msg, bot, type){
+		client = this.connect();
+		client.connect();
+		sql = "SELECT * FROM perverts WHERE hentai_type = $1 order by hentai_level;";
+	    sqlValues =[id,type];
+	    console.log(sql);
+	    console.log(sqlValues);
+	    client.query(sql, sqlValues, (err,res) => {
+	        if (err) {return console.error(err.message);}
+	        console.log(res.rows[0]);
+	        bot.createMessage(msg.channel.id, "Preparing the rank, お兄様");
 	        client.end();
 	    });
 	},

@@ -210,7 +210,8 @@ module.exports = {
    	},
 
    	stats: function(msg, bot, moment){
-    	var message = "Clarion current stats:\n";
+   		var message = "その指は鉄、その髪は檻、その囁きは甘き毒。これがわたし\n";
+    	// var message = "Clarion current stats:\n";
 
     	var uptime = moment.duration(bot.uptime);
     	var strUptime = this.zeroPad(uptime.hours(),2) + ":" + this.zeroPad(uptime.minutes(),2) + ":" + this.zeroPad(uptime.seconds(),2);
