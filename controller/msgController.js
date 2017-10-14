@@ -442,7 +442,7 @@ module.exports = function(app, bot, moment) {
 		return Array(+(zero > 0 && zero)).join("0") + num;
 	}
 
-	fs.readFile(__dirname + "/lastplaying.txt",function (err,data){
+	fs.readFile(__dirname + "/../lastplaying.txt",function (err,data){
     if(err){
         console.log(moment().format("LLL"),err);
     }
