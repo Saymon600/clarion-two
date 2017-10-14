@@ -93,7 +93,7 @@ module.exports = {
 	        console.log("Everything has an end Onii-chan!");
 	        client.end();
 	    });
-	}
+	},
 
 	createTables: function(msg, bot){
 		client = this.connect();
