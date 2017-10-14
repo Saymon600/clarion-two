@@ -38,7 +38,7 @@ module.exports = {
                 }
             });
             if(type === "loli"){
-                bot.createMessage(msg.channel.id, "I'm giving you " + r + " lolis and the honorable role of a true Lolicon. You have a total of " + total + " lolis. Sasuga <@" + msg.author.id + ">-sama" );
+                bot.createMessage(msg.channel.id, "I'm giving you " + roll + " lolis and the honorable role of a true Lolicon. You have a total of " + total + " lolis. Sasuga <@" + msg.author.id + ">-sama" );
                 return;
             }
         }else if(roll === 0){
@@ -46,7 +46,7 @@ module.exports = {
         }else if (roll === 1){
             bot.createMessage(msg.channel.id, "I'm giving you one "+ type +". You have a total of " + total + " "+ type +"s. Sasuga <@" + msg.author.id + ">" );
         }else{
-            bot.createMessage(msg.channel.id, "I'm giving you " + r + " "+ type +"s. You have a total of " + total + " lolis. Sasuga <@" + msg.author.id + ">" );
+            bot.createMessage(msg.channel.id, "I'm giving you " + roll + " "+ type +"s. You have a total of " + total + " lolis. Sasuga <@" + msg.author.id + ">" );
         }
     },
 
