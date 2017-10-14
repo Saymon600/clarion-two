@@ -475,7 +475,7 @@ function testDB(msg, type){
 }
 
 function createPervert(msg, type){
-    sql = "insert into perverts (id, hentai_level, last_1, hentai_type, last_roll_date) values ($1, $2, $3, $4, $5)";
+    sql = "insert into perverts (id, hentai_level, last_roll_1, hentai_type, last_roll_date) values ($1, $2, $3, $4, $5)";
     sqlValues =[msg.author.id, 9, 9, type, moment().format("YYYY-MM-DD")];
     console.log(sql);
     console.log(sqlValues);
