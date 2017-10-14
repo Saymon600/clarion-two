@@ -55,7 +55,7 @@ module.exports = {
 	    	bot.createMessage(msg.channel.id, "<@" + msg.author.id + ">, rolled " + roll + " " + type + "(s)");
 	        client.end();
 	    });
-	}
+	},
 
 	getPervert: function(msg, bot, type){
 		sql = "SELECT * FROM perverts WHERE id = $1 and hentai_type = $2";

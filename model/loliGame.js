@@ -8,4 +8,8 @@ module.exports = {
         roll = r - 1;
     	dbManager.testDB(msg,bot,"loli",roll);
    	}
+
+   	myLoli: function(msg, bot){
+    	dbManager.getPervert(msg,bot,"loli");
+   	}
 }
