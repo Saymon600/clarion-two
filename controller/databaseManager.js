@@ -71,7 +71,8 @@ module.exports = {
 	    console.log(sqlValues);
 	    client.query(sql, sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
-	        console.log(res.rows[0].anonymous);
+	        console.log(res.rows[0]);
+	        console.log(res.rows[0].id);
 	        client.end();
 	    });
 	}
