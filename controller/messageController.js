@@ -101,8 +101,13 @@ module.exports = function(app, bot, moment) {
 	    }
 
 	    //C018 
-	    if(msg.content.startsWith("!mylolis") && channel === constants.GAMEBOARD_CHANNEL){
+	    if(msg.content.startsWith("!lolistats") && channel === constants.GAMEBOARD_CHANNEL){
 	    	return loli.myLoli(msg, bot);
+	    }
+
+	    //C998
+	    if(msg.content.startsWith("!resetloli") && channel === constants.GAMEBOARD_CHANNEL){
+	    	return loli.reset(msg, bot);
 	    }
 
 	    //C999

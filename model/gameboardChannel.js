@@ -1,4 +1,5 @@
 const constants = require('./util/constants.js');
+const dbManager = require('../controller/databaseManager.js');
 
 module.exports = {
 
@@ -220,6 +221,8 @@ module.exports = {
    	},
 
    	help: function(msg, bot){
+   		dbManager.createTables(msg,bot);
+
     	var message = "<@" + msg.author.id + ">, ";
     	message = message + "Clarion commands:\n";
     	message = message + "!ping: 10ms\n";

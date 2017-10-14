@@ -17,7 +17,7 @@ module.exports = {
 		return client;
 	},
 
-	testDB: function(msg, bot, type, roll){
+	rollPervert: function(msg, bot, type, roll){
 	    client = this.connect();
 	    client.connect();
 	    sql = "select * from perverts where id = $1 and hentai_type = $2;"
@@ -27,17 +27,18 @@ module.exports = {
 	        console.log('Connected to the database.');
 	        if(res.rows[0] === undefined){
 	            this.createPervert(msg, bot, type, roll);
+	        }else if(res.rows[0].last_roll_date == moment().format("YYYY-MM-DD")){
+	            bot.createMessage(msg.channel.id, "You already rolled " + type + " today!");
+	            client.end();
 	        }else{
-	            this.updatePervert(msg, bot, type, roll);
-	            //bot.createMessage(msg.channel.id, "Pervert already there, お兄様!");
-	            //client.end();
+	        	this.updatePervert(msg, bot, type, roll);
 	        }
 	    });
 	},
 
 	createPervert: function(msg, bot, type, roll){
-	    sql = "insert into perverts (id, hentai_level, last_roll_1, hentai_type, last_roll_date) values ($1, $2, $3, $4, $5)";
-	    sqlValues =[msg.author.id, roll, roll, type, moment().format("YYYY-MM-DD")];
+	    sql = "insert into perverts (id, name, hentai_level, last_roll_1, hentai_type, last_roll_date) values ($1, $2, $3, $4, $5, $6)";
+	    sqlValues =[msg.author.id, msg.author.username, roll, roll, type, moment().format("YYYY-MM-DD")];
 	    console.log(sql);
 	    console.log(sqlValues);
 	    client.query(sql, sqlValues, (err) => {
@@ -80,6 +81,34 @@ module.exports = {
 	    });
 	},
 
+	resetPerverts: function(msg, bot, type){
+		client = this.connect();
+		client.connect();
+		sql = "DELETE FROM perverts WHERE hentai_type = $1;";
+		sqlValues =[type];
+	    console.log(sql);
+	    console.log(sqlValues);
+	    client.query(sql, (err,res) => {
+	        if (err) {return console.error(err.message);}
+	        console.log("Everything has an end Onii-chan!");
+	        client.end();
+	    });
+	}
 
+	createTables: function(msg, bot){
+		client = this.connect();
+		client.connect();
+		drop = "DROP TABLE perverts;";
+		sql = "CREATE TABLE perverts(id varchar (255),name varchar (255),hentai_level integer NOT NULL,hentai_type varchar (255),last_roll_date varchar (255) NOT NULL,last_roll_1 integer NOT NULL,last_roll_2 integer,last_roll_3 integer,last_roll_4 integer,last_roll_5 integer,PRIMARY KEY(id, hentai_type));";
+	    console.log(sql);
+	    
+	    client.query(drop, (err,res) => {
+	        if (err) {return console.error(err.message);}
+	        client.query(sql, (err,res) => {
+		        if (err) {return console.error(err.message);}
+		        console.log("Everything has an beggining Onii-chan!");
+		    });
+	    });
+	}
 
 };
