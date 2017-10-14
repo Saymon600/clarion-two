@@ -273,7 +273,7 @@ module.exports = function(app, bot, moment) {
 	    		bot.editStatus(status);
 	    		bot.createMessage(msg.channel.id, "畏まりました");
 	    	}else{
-	    		bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/../reaction_images/jii.jpg"),name:"jii.jpg"});
+	    		bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/../views/reaction_images/jii.jpg"),name:"jii.jpg"});
 	    	}
 	    }
 
