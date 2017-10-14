@@ -105,7 +105,7 @@ module.exports = function(app, bot, moment) {
 	    	return loli.statsLoli(msg, bot);
 	    }
 
-	    //C998
+	    //C998 not tested
 	    if(msg.content === "!resetloli" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return loli.reset(msg, bot);
 	    }

@@ -84,7 +84,7 @@ module.exports = {
 	resetPerverts: function(msg, bot, type){
 		client = this.connect();
 		client.connect();
-		sql = "DELETE FROM perverts WHERE hentai_type = $1;";
+		sql = "UPDATE perverts SET last_roll_date = '',hentai_level = 0 WHERE hentai_type = $1;";
 		sqlValues =[type];
 	    console.log(sql);
 	    console.log(sqlValues);
@@ -113,6 +113,10 @@ module.exports = {
 		        client.end();
 		    });
 		});
+	},
+
+	getBotStatus: function(bot){
+
 	}
 
 };

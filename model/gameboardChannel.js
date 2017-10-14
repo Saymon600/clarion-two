@@ -221,7 +221,7 @@ module.exports = {
    	},
 
    	help: function(msg, bot){
-   		dbManager.createTables(msg,bot);
+   		//dbManager.createTables(msg,bot);
 
     	var message = "<@" + msg.author.id + ">, ";
     	message = message + "Clarion commands:\n";
