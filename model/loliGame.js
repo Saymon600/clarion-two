@@ -1,5 +1,6 @@
 const constants = require('./util/constants.js');
 const dbManager = require('../controller/databaseManager.js');
+const fs = require('fs');
 
 module.exports = {
 
@@ -9,7 +10,7 @@ module.exports = {
     	dbManager.rollPervert(msg,bot,"loli",roll);
    	},
 
-   	myLoli: function(msg, bot){
+   	statsLoli: function(msg, bot){
     	dbManager.getPervert(msg,bot,"loli");
    	},
 

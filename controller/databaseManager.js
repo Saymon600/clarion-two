@@ -107,6 +107,7 @@ module.exports = {
 	        client.query(sql, (err,res) => {
 		        if (err) {return console.error(err.message);}
 		        console.log("Everything has an beggining Onii-chan!");
+		        client.end();
 		    });
 	    });
 	}
