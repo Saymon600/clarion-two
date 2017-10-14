@@ -23,10 +23,10 @@ module.exports = {
 	        if(res.rows[0] === undefined){
 	            this.createPervert(msg, bot, type, roll);
 	        }else{
-	        	console.log(res.rows);
+	        	//console.log(res.rows);
 	            this.updatePervert(msg, bot, type, roll);
-	            bot.createMessage(msg.channel.id, "Pervert already there, お兄様!");
-	            client.end();
+	            //bot.createMessage(msg.channel.id, "Pervert already there, お兄様!");
+	            //client.end();
 	        }
 	    });
 	},
@@ -45,7 +45,7 @@ module.exports = {
 	},
 
 	updatePervert: function(msg, bot, type, roll){
-		sql = "UPDATE perverts SET last_roll_5 = last_roll_4, last_roll_4 = last_roll_3, last_roll_3 = last_roll_2, last_roll_2 = last_roll_1, last_roll_1 = $1, hentai_level = $2, last_roll_date = $3 WHERE id = $4 and hentai_type = $5";
+		sql = "UPDATE perverts SET last_roll_5 = last_roll_4, last_roll_4 = last_roll_3, last_roll_3 = last_roll_2, last_roll_2 = last_roll_1, last_roll_1 = $1, hentai_level = hentai_level + $2, last_roll_date = $3 WHERE id = $4 and hentai_type = $5";
 	    sqlValues =[roll, roll, moment().format("YYYY-MM-DD"), msg.author.id, type];
 	    console.log(sql);
 	    console.log(sqlValues);
