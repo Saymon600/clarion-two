@@ -50,12 +50,14 @@ module.exports = {
 	        		if(role === constants.RAID_ROLE){
 	        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.RAID_ROLE);
 	                	bot.createMessage(msg.channel.id, "Raid role removed");
+                        console.log('Found')
 	                	return;
 	        		}
 	        	});
-            bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.RAID_ROLE);
-            bot.createMessage(msg.channel.id, 'Raid role added');
-            return;
+                console.log('Not found')
+                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.RAID_ROLE);
+                bot.createMessage(msg.channel.id, 'Raid role added');
+                return;
 	    	}
 	   	});
 	},
