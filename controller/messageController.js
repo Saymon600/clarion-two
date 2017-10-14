@@ -7,7 +7,7 @@ const rice = require('./../model/riceChannel.js');
 const autism = require('./../model/autismChannel.js');
 const gameboard = require('./../model/gameboardChannel.js');
 const mobage = require('./../model/mobageChannel.js');
-const loli = require('./../model/loliGame.js');
+const perv = require('./../model/pervGame.js');
 const dbManager = require('./databaseManager.js');
 var lastplaying = '';
 
@@ -97,17 +97,17 @@ module.exports = function(app, bot, moment) {
 
 	    //C017
 	    if(msg.content === "!loli" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return loli.rollLoli(msg, bot);
+	    	return perv.roll(msg, bot, loli);
 	    }
 
 	    //C018 
 	    if(msg.content === "!lolistats" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return loli.statsLoli(msg, bot);
+	    	return perv.stats(msg, bot, loli);
 	    }
 
 	    //C998 not tested
 	    if(msg.content === "!resetloli" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return loli.reset(msg, bot);
+	    	return perv.reset(msg, bot, loli);
 	    }
 
 	    //C999
