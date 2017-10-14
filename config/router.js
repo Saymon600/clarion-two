@@ -13,7 +13,7 @@ module.exports = function(app, express) {
 	});
 
 	app.get('/mr-data', function(req, res){
-	  	res.sendFile(__dirname + '/views/mr-data/index.html');
+	  	res.render('./mr-data/index');
 	});
 
 };
