@@ -46,18 +46,19 @@ module.exports = {
 	    members.forEach(function(member){
 	    	if(member.id === msg.author.id){
 		        var roles = member.roles;
+                var hadRole = false;
 	        	roles.forEach(function(role){
 	        		if(role === constants.RAID_ROLE){
 	        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.RAID_ROLE);
 	                	bot.createMessage(msg.channel.id, "Raid role removed");
-                        console.log('Found')
-	                	return;
+                        hadRole = true;
 	        		}
 	        	});
-                console.log('Not found')
-                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.RAID_ROLE);
-                bot.createMessage(msg.channel.id, 'Raid role added');
-                return;
+                if(!hadRole){
+                    bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.RAID_ROLE);
+                    bot.createMessage(msg.channel.id, 'Raid role added');
+                }
+
 	    	}
 	   	});
 	},
