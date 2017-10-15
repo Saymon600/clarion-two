@@ -91,13 +91,13 @@ module.exports = {
 	resetPerverts: function(msg, bot, type){
 		client = this.connect();
 		client.connect();
-		sql = "UPDATE perverts SET last_roll_date = '',hentai_level = 0 WHERE hentai_type = $1;";
+		sql = "delete from perverts where hentai_type = $1";
 		sqlValues =[type];
 	    console.log(sql);
 	    console.log(sqlValues);
 	    client.query(sql, sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
-	        console.log("Everything has an end Onii-chan!");
+	        bot.createMe(msg.channel.id,"Removing everyones " + type + "s");
 	        client.end();
 	    });
 	},
