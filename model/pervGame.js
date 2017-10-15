@@ -161,6 +161,6 @@ module.exports = {
             return;
         }
         var params = msg.content.split(" ").slice(1);
-        db.increasePervertsLevel(msg, bot, params[0], params[1]);
+        dbManager.increasePervertsLevel(msg, bot, params[0], params[1]);
     }
 }
