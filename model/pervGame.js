@@ -5,7 +5,19 @@ const fs = require('fs');
 module.exports = {
 
   	roll: function(msg, bot, type){
-      	var r = Math.floor((Math.random() * 8) + 1) - 1;
+        var r;
+        switch(type){
+            case "loli":
+                r = Math.floor((Math.random() * 7) + 1);
+            break;
+            case "futa":
+                r = Math.floor((Math.random() * 12) + 1);
+                r = r - Math.floor((Math.random() * 3) + 1);
+            break;
+            case "imouto":
+                r = Math.floor((Math.random() * 100) + 1);
+            break;
+        }
       	dbManager.rollPervert(msg,bot, type, r, this.informAboutRoll);
  	},
 
@@ -18,7 +30,7 @@ module.exports = {
         if(msg.author.id === constants.R0X_USER){
             politeness = "Very r0x"
         }
-        if(roll === 7){
+        if((roll === 7 && type === "loli") || (roll === 12 && type === "futa" || (roll === 100 && type === "imouto"))){
             let role;
             switch(type){
                 case "loli":
@@ -62,6 +74,8 @@ module.exports = {
             bot.createMessage(msg.channel.id, "I'll not give a "+ type +", hmpf. You have a total of " + total + " lolis. Go away weeb <@" + msg.author.id + ">" );
         }else if (roll === 1){
             bot.createMessage(msg.channel.id, "I'm giving you one "+ type +". You have a total of " + total + " "+ type +"s. "+ politeness +" <@" + msg.author.id + ">" );
+        }else if (roll < 0){
+            bot.createMessage(msg.channel.id, "I'm taking "+ roll +" "+ type +"s from you OHOHOHOHO! You have a total of " + total + " "+ type +"s. "+ politeness +" <@" + msg.author.id + ">" );
         }else{
             bot.createMessage(msg.channel.id, "I'm giving you " + roll + " "+ type +"s. You have a total of " + total + " " + type + "s. "+ politeness +" <@" + msg.author.id + ">" );
         }
