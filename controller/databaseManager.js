@@ -93,8 +93,6 @@ module.exports = {
 		client.connect();
 		sql = "UPDATE perverts SET last_roll_date = '',hentai_level = 0 WHERE hentai_type = $1;";
 		sqlValues =[type];
-	    console.log(sql);
-	    console.log(sqlValues);
 	    client.query(sql, sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
 	        bot.createMessage(msg.channel.id,"Removing everyones " + type + "s");
@@ -123,7 +121,15 @@ module.exports = {
 	},
 
 	increasePervertsLevel: function(msg, bot, type, amount){
-		console.log('type ' + type + ' -- amount ' + amount);
+		client = this.connect();
+		client.connect();
+		sql = "UPDATE perverts SET hentai_level = hentai_level + $1 WHERE hentai_type = $2;";
+		sqlValues =[amount, type];
+	    client.query(sql, sqlValues, (err,res) => {
+	        if (err) {return console.error(err.message);}
+	        bot.createMessage(msg.channel.id,"My master messed up everything so I'm giving everyone " + amount + " "+ type +"s. Sorry for anything 'till now!");
+	        client.end();
+	    });
 	},
 
 	getBotStatus: function(bot){
