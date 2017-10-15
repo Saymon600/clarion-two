@@ -140,6 +140,16 @@ module.exports = function(app, bot, moment) {
 	    	return perv.rank(msg, bot, "imouto");
 	    }
 
+	    //C995 not tested
+	    if(msg.content === "!resetimouto" && channel === constants.GAMEBOARD_CHANNEL){
+	    	return perv.reset(msg, bot, "imouto");
+	    }
+
+	    //C996 not tested
+	    if(msg.content === "!resetfuta" && channel === constants.GAMEBOARD_CHANNEL){
+	    	return perv.reset(msg, bot, "futa");
+	    }
+
 	    //C997 not tested
 	    if(msg.content === "!releaseall" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return perv.releaseAll(msg, bot);
