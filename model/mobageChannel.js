@@ -7,9 +7,9 @@ module.exports = {
         message = message.split(",");
         if(message.length > 1){
             var r = Math.floor((Math.random() * message.length));
-            bot.createMessage(msg.content.channel,"<@" + msg.author.id + ">, " + "I think " + message[r] + " is the best.")
+            bot.createMessage(msg.channel.id,"<@" + msg.author.id + ">, " + "I think " + message[r] + " is the best.")
         }else{
-        	bot.createMessage(msg.content.channel,"<@" + msg.author.id + ">, " + "I need options, but c-can I choose you?")
+        	bot.createMessage(msg.channel.id,"<@" + msg.author.id + ">, " + "I need options, but c-can I choose you?")
         }
 	},
 
