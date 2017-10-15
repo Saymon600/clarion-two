@@ -3,6 +3,7 @@ var app = express();
 var port = process.env.PORT || 3030;
 const Eris = require("eris");
 const moment = require('moment');
+const m = require('moment-timezone');
 var bot = new Eris("MzYzODQ1NTI2NzExNTY2MzM2.DLMrYg.zG28pp2E8PR43uY3subsXrzFblI");
 
 app.set('view engine', 'pug');
@@ -19,7 +20,7 @@ app.use(function (req, res, next) {
 require('./config/router.js')(app, express);
 require('./controller/messageController.js')(app, bot, moment);
 
-
+console.log(moment().tz('Asia/Tokyo').format("YYYY-MM-DD"))
 
 //init
 app.listen(port, function() {
