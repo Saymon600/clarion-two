@@ -1,5 +1,5 @@
 const { Client } = require('pg');
-var moment = require('moment');
+var moment = require('moment-timezone');;
 moment.tz.setDefault("America/Sao_Paulo");
 var client;
 var sql;
