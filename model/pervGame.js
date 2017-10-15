@@ -63,7 +63,7 @@ module.exports = {
         }else if (roll === 1){
             bot.createMessage(msg.channel.id, "I'm giving you one "+ type +". You have a total of " + total + " "+ type +"s. "+ politeness +" <@" + msg.author.id + ">" );
         }else{
-            bot.createMessage(msg.channel.id, "I'm giving you " + roll + " "+ type +"s. You have a total of " + total + " lolis. "+ politeness +" <@" + msg.author.id + ">" );
+            bot.createMessage(msg.channel.id, "I'm giving you " + roll + " "+ type +"s. You have a total of " + total + " " + type + "s. "+ politeness +" <@" + msg.author.id + ">" );
         }
     },
 
