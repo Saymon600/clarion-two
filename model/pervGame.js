@@ -28,7 +28,10 @@ module.exports = {
     informAboutRoll: function(msg, bot, type, roll, total){
         let politeness = "Sasuga";
         if(msg.author.id === constants.R0X_USER){
-            politeness = "Very r0x"
+            politeness = "Very r0x";
+        }
+        if(msg.author.id === constants.SAYMON_USER){
+            politeness = "さすが我が主";
         }
         if((roll === 7 && type === "loli") || (roll === 12 && type === "futa" || (roll === 100 && type === "imouto"))){
             let role;
