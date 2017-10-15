@@ -97,7 +97,7 @@ module.exports = {
 	    console.log(sqlValues);
 	    client.query(sql, sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
-	        bot.createMe(msg.channel.id,"Removing everyones " + type + "s");
+	        bot.createMessage(msg.channel.id,"Removing everyones " + type + "s");
 	        client.end();
 	    });
 	},
