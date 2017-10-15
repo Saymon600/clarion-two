@@ -53,7 +53,7 @@ module.exports = {
 	    sqlValues =[roll, roll, moment().tz('America/Sao_Paulo').format("YYYY-MM-DD"), msg.author.id, type];
 	    client.query(sql, sqlValues, (err) => {
 	        if (err) {return console.error(err.message)}
-	        callback(msg, bot, type, roll, total);
+	        callback(msg, bot, type, roll, total + roll);
 	        client.end();
 	    });
 	},
@@ -91,7 +91,7 @@ module.exports = {
 	resetPerverts: function(msg, bot, type){
 		client = this.connect();
 		client.connect();
-		sql = "delete from perverts where hentai_type = $1";
+		sql = "UPDATE perverts SET last_roll_date = '',hentai_level = 0 WHERE hentai_type = $1;";
 		sqlValues =[type];
 	    console.log(sql);
 	    console.log(sqlValues);

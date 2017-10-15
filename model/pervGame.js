@@ -110,6 +110,9 @@ module.exports = {
             message.push("List of some awesome people:");
             var ranked = this.rankNames(msg, rows);
             for(var a = 0; a < ranked.length; a++){
+                if(ranked[a].lastDate === ''){
+                    continue;
+                }
                 message.push((a + 1) + ") " + ranked[a].name + ": " + ranked[a].total + " "+ type +"s. Last played: " + ranked[a].lastDate);
             }
             bot.createMessage(msg.channel.id, message.join("\n"));
