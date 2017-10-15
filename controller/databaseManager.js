@@ -53,7 +53,7 @@ module.exports = {
 	    sqlValues =[roll, roll, moment().tz('America/Sao_Paulo').format("YYYY-MM-DD"), msg.author.id, type];
 	    client.query(sql, sqlValues, (err) => {
 	        if (err) {return console.error(err.message)}
-	        callback(msg, bot, type, roll, total);
+	        callback(msg, bot, type, roll, total + roll);
 	        client.end();
 	    });
 	},
@@ -97,7 +97,7 @@ module.exports = {
 	    console.log(sqlValues);
 	    client.query(sql, sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
-	        console.log("Everything has an end Onii-chan!");
+	        bot.createMessage(msg.channel.id,"Removing everyones " + type + "s");
 	        client.end();
 	    });
 	},
