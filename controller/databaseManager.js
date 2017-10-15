@@ -1,6 +1,5 @@
 const { Client } = require('pg');
-var moment = require('moment-timezone');;
-moment.tz.setDefault("America/Sao_Paulo");
+var moment = require('moment');
 var client;
 var sql;
 var sqlValues;
@@ -28,7 +27,7 @@ module.exports = {
 	        console.log('Connected to the database.');
 	        if(res.rows[0] === undefined){
 	            this.createPervert(msg, bot, type, roll, callback);
-	        }else if(res.rows[0].last_roll_date === moment.format("YYYY-MM-DD")){
+	        }else if(res.rows[0].last_roll_date == moment().tz('America/Sao_Paulo').format("YYYY-MM-DD")){
 	            bot.createMessage(msg.channel.id, "You already rolled " + type + "s today!");
 	            client.end();
 	            return;
@@ -40,7 +39,7 @@ module.exports = {
 
 	createPervert: function(msg, bot, type, roll, callback){
 	    sql = "insert into perverts (id, name, hentai_level, last_roll_1, hentai_type, last_roll_date, last_roll_2,last_roll_3,last_roll_4,last_roll_5) values ($1, $2, $3, $4, $5, $6, 0, 0, 0, 0)";
-	    sqlValues =[msg.author.id, msg.author.username, roll, roll, type, moment.format("YYYY-MM-DD")];
+	    sqlValues =[msg.author.id, msg.author.username, roll, roll, type, moment().tz('America/Sao_Paulo').format("YYYY-MM-DD")];
 	    client.query(sql, sqlValues, (err) => {
 	        if (err) {return console.error(err.message)}
 	       	callback(msg, bot, type, roll, roll)
@@ -50,7 +49,7 @@ module.exports = {
 
 	updatePervert: function(msg, bot, type, roll, total, callback){
 		sql = "UPDATE perverts SET last_roll_5 = last_roll_4, last_roll_4 = last_roll_3, last_roll_3 = last_roll_2, last_roll_2 = last_roll_1, last_roll_1 = $1, hentai_level = hentai_level + $2, last_roll_date = $3 WHERE id = $4 and hentai_type = $5";
-	    sqlValues =[roll, roll, moment.format("YYYY-MM-DD"), msg.author.id, type];
+	    sqlValues =[roll, roll, moment().tz('America/Sao_Paulo').format("YYYY-MM-DD"), msg.author.id, type];
 	    client.query(sql, sqlValues, (err) => {
 	        if (err) {return console.error(err.message)}
 	        callback(msg, bot, type, roll, total);

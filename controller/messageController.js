@@ -1,8 +1,8 @@
 const fs = require('fs');
 const request = require('request');
 const constants = require('./../model/util/constants.js');
-const moment = require('moment-timezone');
-moment.tz.setDefault("America/Sao_Paulo");
+const moment = require('moment');
+moment.tz.setDefault("America/Sao_P");
 
 const rice = require('./../model/riceChannel.js');
 const autism = require('./../model/autismChannel.js');
