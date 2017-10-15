@@ -140,22 +140,27 @@ module.exports = function(app, bot, moment) {
 	    	return perv.rank(msg, bot, "imouto");
 	    }
 
-	    //C995 not tested
+	    //C026
+	    if(msg.content.startsWith("!sorry") && channel === constants.GAMEBOARD_CHANNEL){
+	    	return perv.sorry(msg, bot);
+	    }
+
+	    //C995
 	    if(msg.content === "!resetimouto" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return perv.reset(msg, bot, "imouto");
 	    }
 
-	    //C996 not tested
+	    //C996
 	    if(msg.content === "!resetfuta" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return perv.reset(msg, bot, "futa");
 	    }
 
-	    //C997 not tested
+	    //C997
 	    if(msg.content === "!releaseall" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return perv.releaseAll(msg, bot);
 	    }
 
-	    //C998 not tested
+	    //C998
 	    if(msg.content === "!resetloli" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return perv.reset(msg, bot, "loli");
 	    }

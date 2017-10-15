@@ -122,6 +122,10 @@ module.exports = {
 		});
 	},
 
+	increasePervertsLevel: function(msg, bot, type, amount){
+		console.log('type ' + type + ' -- amount ' + amount);
+	},
+
 	getBotStatus: function(bot){
 
 	}

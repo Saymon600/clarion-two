@@ -153,5 +153,14 @@ module.exports = {
             });
         });
         bot.createMessage(msg.channel.id, "Releasing some filthy weebs");
+    },
+
+    sorry: function(msg, bot){
+        if(msg.author.id !== constants.SAYMON_USER && msg.author.id !== constants.AUGUSTOP_USER && msg.author.id !== constants.CLARION_USER){
+            bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/../views/reaction_images/jii.jpg"),name:"jii.jpg"});
+            return;
+        }
+        var params = msg.content.split(" ").slice(1);
+        db.increasePervertsLevel(msg, bot, params[0], params[1]);
     }
 }
