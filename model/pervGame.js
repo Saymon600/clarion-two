@@ -74,7 +74,7 @@ module.exports = {
                 return;
             }
         }else if(roll === 0){
-            bot.createMessage(msg.channel.id, "I'll not give a "+ type +", hmpf. You have a total of " + total + " lolis. Go away weeb <@" + msg.author.id + ">" );
+            bot.createMessage(msg.channel.id, "I'll not give a "+ type +", hmpf. You have a total of " + total + " "+ type +"s. Go away weeb <@" + msg.author.id + ">" );
         }else if (roll === 1){
             bot.createMessage(msg.channel.id, "I'm giving you one "+ type +". You have a total of " + total + " "+ type +"s. "+ politeness +" <@" + msg.author.id + ">" );
         }else if (roll < 0){
