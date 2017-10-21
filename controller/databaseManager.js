@@ -138,6 +138,7 @@ module.exports = {
 		sql = "SELECT * FROM bot where id = 1";
 		client.query(sql, (err,res) => {
 	        if (err) {return console.error(err.message);}
+	        console.log(res.rows[0]);
 	        bot.editStatus(res.rows[0].status,{name:res.rows[0].last_playing});
 	        client.end();
 	    });
