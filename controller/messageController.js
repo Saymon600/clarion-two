@@ -193,14 +193,6 @@ module.exports = function(app, bot, moment) {
 	});
 
 	dbManager.getBotStatus(bot);
-	// Pegar do Postgres
-	// fs.readFile(__dirname + "/../lastplaying.txt",function (err,data){
-	//     if(err){
-	//         console.log(moment().format("LLL"),err);
-	//     }
-	//     lastplaying = data.toString();
-	// });
-
 };
 
 /*
