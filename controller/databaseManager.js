@@ -141,7 +141,7 @@ module.exports = {
 	        bot.editStatus(res.rows[0].status,{name:res.rows[0].last_playing});
 	        client.end();
 	    });
-	}
+	},
 
 	updateBotStatus: function(msg, bot, status, last){
 		client = this.connect();

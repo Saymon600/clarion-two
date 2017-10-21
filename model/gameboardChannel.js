@@ -108,7 +108,7 @@ module.exports = {
     	var status = msg.content.split(" ").slice(1).join(" ");
     	if(msg.author.id === constants.SAYMON_USER || msg.author.id === constants.AUGUSTOP_USER){
     		//bot.editStatus(status);
-    		dbManager.updateBotStatus(status,bot.game.name);
+    		dbManager.updateBotStatus(msg,bot,status,bot.game.name);
     		bot.createMessage(msg.channel.id, "畏まりました");
     	}else{
     		bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/../views/reaction_images/jii.jpg"),name:"jii.jpg"});
@@ -130,7 +130,7 @@ module.exports = {
      //    });
 
     	//bot.editStatus(bot.status,{name:game});
-    	dbManager.updateBotStatus(bot.status,game)
+    	dbManager.updateBotStatus(msg,bot,bot.status,game)
         bot.createMessage(msg.channel.id, "Do I really need to play this? :sick:");
    	},
 
