@@ -107,8 +107,6 @@ module.exports = {
    	changeStatus: function(msg, bot, fs){
     	var status = msg.content.split(" ").slice(1).join(" ");
     	if(msg.author.id === constants.SAYMON_USER || msg.author.id === constants.AUGUSTOP_USER){
-    		//bot.editStatus(status);
-    		//console.log(bot.game);
     		dbManager.updateBotStatus(msg,bot,status);
     		bot.createMessage(msg.channel.id, "畏まりました");
     	}else{
@@ -123,14 +121,6 @@ module.exports = {
    		}
     	var game = msg.content.split(" ").slice(1).join(" ");
 
-    	//Gravar no Postgres
-    	// fs.writeFile(__dirname + "/../lastplaying.txt", game, function(err) {
-     //        if(err){
-     //            console.log(moment().format("LLL"),err);
-     //        }
-     //    });
-
-    	//bot.editStatus(bot.status,{name:game});
     	dbManager.updateBotGame(msg,bot,game)
         bot.createMessage(msg.channel.id, "Do I really need to play this? :sick:");
    	},

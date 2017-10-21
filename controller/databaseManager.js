@@ -100,26 +100,6 @@ module.exports = {
 	    });
 	},
 
-	createTables: function(msg, bot){
-		client = this.connect();
-		client.connect();
-		//drop = "DROP TABLE perverts;";
-		sql = "CREATE TABLE bot(id SERIAL,nickname varchar (255),status varchar (255),last_playing varchar (255),PRIMARY KEY(id));";
-		sql2 = "INSERT INTO bot (nickname,status,last_playing) values ($1,$2,$3);"
-		sqlValues =["Clarion Mk-II","online","Dies Irae"];
-	    console.log(sql);
-	    
-	    client.query(sql, (err,res) => {
-		    if (err) {return console.error(err.message);}
-		    console.log("Everything has an beggining Onii-chan!");
-		    client.query(sql2, sqlValues, (err,res) => {
-		        if (err) {return console.error(err.message);}
-		        console.log("Everything has an end Onii-chan!");
-		        client.end();
-		    });
-		});
-	},
-
 	increasePervertsLevel: function(msg, bot, type, amount){
 		client = this.connect();
 		client.connect();
@@ -139,7 +119,6 @@ module.exports = {
 		sqlValues = [1];
 		client.query(sql,sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
-	        //console.log(res.rows[0].status);
 	        bot.editStatus(res.rows[0].status,{name:res.rows[0].last_playing});
 	        client.end();
 	    });

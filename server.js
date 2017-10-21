@@ -18,6 +18,7 @@ app.use(function (req, res, next) {
 });
 
 require('./config/router.js')(app, express);
+require('./config/timer.js')(bot, moment);
 require('./controller/messageController.js')(app, bot, moment);
 
 console.log(moment().tz('Asia/Tokyo').format("YYYY-MM-DD"))
