@@ -65,7 +65,7 @@ module.exports = {
 	    sqlValues =[msg.author.id,type];
 	    client.query(sql, sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
-	        console.log(res.rows[0]);
+	        //console.log(res.rows[0]);
 	        var average = (res.rows[0].last_roll_1 + res.rows[0].last_roll_2 + res.rows[0].last_roll_3 + res.rows[0].last_roll_4 + res.rows[0].last_roll_5)/5;
 	        average = average.toFixed(2);
 	        var mensagem = "<@" + msg.author.id + ">, you have a total of " + res.rows[0].hentai_level + " " + type + "s\n";
@@ -133,7 +133,26 @@ module.exports = {
 	},
 
 	getBotStatus: function(bot){
+		client = this.connect();
+		client.connect();
+		sql = "SELECT * FROM bot where id = 1";
+		client.query(sql, (err,res) => {
+	        if (err) {return console.error(err.message);}
+	        bot.editStatus(res.rows[0].status,{name:res.rows[0].last_playing});
+	        client.end();
+	    });
+	}
 
+	updateBotStatus: function(msg, bot, status, last){
+		client = this.connect();
+		client.connect();
+		sql = "UPDATE bot SET status = $1 and last_playing = $2 where id = 1";
+		sqlValues = [status,last];
+		client.query(sql, sqlValues, (err,res) => {
+	        if (err) {return console.error(err.message);}
+	        bot.editStatus(status,last);
+	        client.end();
+	    });
 	}
 
 };
