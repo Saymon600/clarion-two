@@ -1,4 +1,5 @@
 const constants = require('../model/util/constants.js');
+const m = require('moment-timezone');
 
 module.exports = function(bot, moment) {
 	var timer = function(bot, moment){
@@ -6,7 +7,7 @@ module.exports = function(bot, moment) {
 			var time00 = moment().tz('America/Sao_Paulo').format("HHmm");
 			console.log(time00);
 			if(time00 === '0000'){
-                 bot.createMessage(GAMEBOARD_CHANNEL, "!releaseall");
+                 bot.createMessage(constants.GAMEBOARD_CHANNEL, "!releaseall");
             }
 		},60000)
 	}
