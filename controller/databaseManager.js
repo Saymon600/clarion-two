@@ -145,18 +145,30 @@ module.exports = {
 	    });
 	},
 
-	updateBotStatus: function(msg, bot, status, last){
+	updateBotStatus: function(msg, bot, status){
 		console.log(status);
-	    console.log(last);
 		client = this.connect();
 		client.connect();
-		sql = "UPDATE bot SET status = $1, last_playing = $2 where id = 1";
-		sqlValues = [status,last];
+		sql = "UPDATE bot SET status = $1 where id = 1;";
+		sqlValues = [status];
 		client.query(sql, sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
 	        bot.editStatus(status,last);
 	        client.end();
 	    });
-	}
+	},
+
+	updateBotGame: function(msg, bot, last){
+	    console.log(last);
+		client = this.connect();
+		client.connect();
+		sql = "UPDATE bot SET last_playing = $2 where id = 1;";
+		sqlValues = [last];
+		client.query(sql, sqlValues, (err,res) => {
+	        if (err) {return console.error(err.message);}
+	        bot.editStatus(bot.status,{name:last});
+	        client.end();
+	    });
+	}	
 
 };
