@@ -108,7 +108,8 @@ module.exports = {
     	var status = msg.content.split(" ").slice(1).join(" ");
     	if(msg.author.id === constants.SAYMON_USER || msg.author.id === constants.AUGUSTOP_USER){
     		//bot.editStatus(status);
-    		dbManager.updateBotStatus(msg,bot,status,bot.game.name);
+    		console.log(bot.game);
+    		//dbManager.updateBotStatus(msg,bot,status,bot.game.name);
     		bot.createMessage(msg.channel.id, "畏まりました");
     	}else{
     		bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/../views/reaction_images/jii.jpg"),name:"jii.jpg"});
