@@ -216,9 +216,9 @@ module.exports = {
 
    	help: function(msg, bot){
 
-   		msg.channel.guild.roles.forEach(function(role){
+   		/*msg.channel.guild.roles.forEach(function(role){
    			console.log(role.name + ": " + role.id);
-   		});
+   		});*/
 
     	var message = "<@" + msg.author.id + ">, ";
     	message = message + "Clarion commands:\n";

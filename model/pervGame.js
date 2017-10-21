@@ -124,7 +124,7 @@ module.exports = {
 
    	reset: function(msg, bot, type){
    		var status = msg.content.split(" ").slice(1).join(" ");
-    	if(msg.author.id === constants.SAYMON_USER || msg.author.id === constants.AUGUSTOP_USER){
+    	if(msg.author.id === constants.SAYMON_USER || msg.author.id === constants.AUGUSTOP_USER || msg.author.id === constants.CLARION_USER){
     		dbManager.resetPerverts(msg,bot,type);
     	}else{
     		bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/../views/reaction_images/jii.jpg"),name:"jii.jpg"});
@@ -162,5 +162,16 @@ module.exports = {
         }
         var params = msg.content.split(" ").slice(1);
         dbManager.increasePervertsLevel(msg, bot, params[0], params[1]);
+    },
+
+    changeSeason: function(msg, bot){
+        if(msg.author.id !== constants.SAYMON_USER && msg.author.id !== constants.AUGUSTOP_USER && msg.author.id !== constants.CLARION_USER){
+            bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/../views/reaction_images/jii.jpg"),name:"jii.jpg"});
+            return;
+        }
+        dbManager.changeSeason(msg, bot, constants.ETERNAL_ROLE, constants.PERVERT_ROLE, constants.ONIICHAN_ROLE);
+        bot.createMessage(constants.GAMEBOARD_CHANNEL, "!resetloli");
+        bot.createMessage(constants.GAMEBOARD_CHANNEL, "!resetfuta");
+        bot.createMessage(constants.GAMEBOARD_CHANNEL, "!resetimouto");
     }
 }
