@@ -139,27 +139,25 @@ module.exports = {
 		sqlValues = [1];
 		client.query(sql,sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
-	        console.log(res.rows[0].status);
+	        //console.log(res.rows[0].status);
 	        bot.editStatus(res.rows[0].status,{name:res.rows[0].last_playing});
 	        client.end();
 	    });
 	},
 
 	updateBotStatus: function(msg, bot, status){
-		console.log(status);
 		client = this.connect();
 		client.connect();
 		sql = "UPDATE bot SET status = $1 where id = 1;";
 		sqlValues = [status];
 		client.query(sql, sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
-	        bot.editStatus(status,last);
+	        bot.editStatus(status);
 	        client.end();
 	    });
 	},
 
 	updateBotGame: function(msg, bot, last){
-	    console.log(last);
 		client = this.connect();
 		client.connect();
 		sql = "UPDATE bot SET last_playing = $2 where id = 1;";
