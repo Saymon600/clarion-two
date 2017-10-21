@@ -135,19 +135,22 @@ module.exports = {
 	getBotStatus: function(bot){
 		client = this.connect();
 		client.connect();
-		sql = "SELECT * FROM bot where id = 1";
-		client.query(sql, (err,res) => {
+		sql = "SELECT * FROM bot where id = $1";
+		sqlValues = [1];
+		client.query(sql,sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
-	        console.log(res.rows[0]);
+	        console.log(res.rows[0].status);
 	        bot.editStatus(res.rows[0].status,{name:res.rows[0].last_playing});
 	        client.end();
 	    });
 	},
 
 	updateBotStatus: function(msg, bot, status, last){
+		console.log(status);
+	    console.log(last);
 		client = this.connect();
 		client.connect();
-		sql = "UPDATE bot SET status = $1 and last_playing = $2 where id = 1";
+		sql = "UPDATE bot SET status = $1, last_playing = $2 where id = 1";
 		sqlValues = [status,last];
 		client.query(sql, sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
