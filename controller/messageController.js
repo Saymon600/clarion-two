@@ -145,6 +145,11 @@ module.exports = function(app, bot, moment) {
 	    	return perv.sorry(msg, bot);
 	    }
 
+	    //C994
+	    if(msg.content === "!changeseason" && channel === constants.GAMEBOARD_CHANNEL){
+	    	return perv.changeSeason(msg, bot);
+	    }
+
 	    //C995
 	    if(msg.content === "!resetimouto" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return perv.reset(msg, bot, "imouto");
