@@ -160,7 +160,7 @@ module.exports = {
 	updateBotGame: function(msg, bot, last){
 		client = this.connect();
 		client.connect();
-		sql = "UPDATE bot SET last_playing = $2 where id = 1;";
+		sql = "UPDATE bot SET last_playing = $1 where id = 1;";
 		sqlValues = [last];
 		client.query(sql, sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
