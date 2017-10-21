@@ -13,7 +13,7 @@
   "author": "Saymon",
   "license": "ISC",
   "dependencies": {
-    "eris": "0.7.2",
+    "eris": "^0.7.2",
     "express": "4.16.1",
     "fs": "0.0.1-security",
     "moment": "2.18.1",
