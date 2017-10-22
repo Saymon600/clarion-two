@@ -85,7 +85,7 @@ module.exports = {
                     continue;
                 }
                 member = common.findMember(msg, rows[a].id);
-                message.push((a + 1) + ") " + member.username + ": " + rows[a].hentai_level + " "+ type +"s. Last played: " + rows[a].last_roll_date);
+                message.push((a + 1) + ") " + member.nick + ": " + rows[a].hentai_level + " "+ type +"s. Last played: " + rows[a].last_roll_date);
             }
 
             bot.createMessage(msg.channel.id, message.join("\n"));
@@ -141,7 +141,7 @@ module.exports = {
     getLastRolls: function(msg, bot, type){
         const params = msg.content.split(" ").slice(1);
         if(params[0] === undefined){
-            bot.createMessage(msg.channel.id, "Specify an user");
+            bot.createMessage(msg.channel.id, "Onii-chan, specify an user please~~");
             return;
         }
         const member = common.findMemberByName(msg, params[0]);
