@@ -14,6 +14,18 @@ module.exports = {
 		return member.roles.find(function findRole(memberRole){
     	    return memberRole === role;
         });
-	}
+	},
 
+	findMemberWithRole: function(msg, role){
+		members = msg.channel.guild.members;
+		return members.find(function findOverallRole(member){
+			return member.roles.find(function findRole(memberRole){
+				return memberRole === role;
+			});
+		});
+	},
+
+	removeRole: function(msg, role){
+		members = msg.channel.guild.members;
+	}
 }

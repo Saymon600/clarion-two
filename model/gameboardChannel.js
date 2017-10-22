@@ -39,25 +39,37 @@ module.exports = {
 	},
 
 	getBastao: function(msg, bot){
-        var members = msg.channel.guild.members;
-        var hadRole = false;
-        members.forEach(function(member){
-        	var roles = member.roles;
-        	roles.forEach(function(role){
-	        	if(role === constants.FIREKEEPER_ROLE && member.id == msg.author.id){
-	        		bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.FIREKEEPER_ROLE,"Finished story on bonfire");
-	                bot.createMessage(msg.channel.id, "本当にもう終わりなの？");
-	                hadRole = true;
-	        	}else if(role === constants.FIREKEEPER_ROLE){
-	        		bot.createMessage(msg.channel.id, "We already have a firekeeper, you dumb.");
-	        		hadRole = true;
-	        	}
-	        });
-       	});
-       	if(!hadRole){
-	        bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,firekeeper,"Starting story on bonfire");
-	        bot.createMessage(msg.channel.id, 'You are the firekeeper now, make sure to tell us a good story.');
+        // var members = msg.channel.guild.members;
+        // var hadRole = false;
+        // members.forEach(function(member){
+        // 	var roles = member.roles;
+        // 	roles.forEach(function(role){
+	       //  	if(role === constants.FIREKEEPER_ROLE && member.id == msg.author.id){
+	       //  		bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.FIREKEEPER_ROLE,"Finished story on bonfire");
+	       //          bot.createMessage(msg.channel.id, "本当にもう終わりなの？");
+	       //          hadRole = true;
+	       //  	}else if(role === constants.FIREKEEPER_ROLE){
+	       //  		bot.createMessage(msg.channel.id, "We already have a firekeeper, you dumb.");
+	       //  		hadRole = true;
+	       //  	}
+	       //  });
+       	// });
+       	// if(!hadRole){
+	       //  bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,firekeeper,"Starting story on bonfire");
+	       //  bot.createMessage(msg.channel.id, 'You are the firekeeper now, make sure to tell us a good story.');
+        // }
+        const firekeeper = common.findMemberWithRole(msg, constants.FIREKEEPER_ROLE)
+        if(firekeeper){
+        	if(firekeeper.id === msg.author.id){
+        		bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.FIREKEEPER_ROLE,"Finished story on bonfire");
+        		bot.createMessage(msg.channel.id, "本当にもう終わりなの？");
+        		return;
+        	}
+        	bot.createMessage(msg.channel.id, "We already have a firekeeper, you dumb.");
+        	return;
         }
+        bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,firekeeper,"Starting story on bonfire");
+        bot.createMessage(msg.channel.id, 'You are the firekeeper now, make sure to tell us a good story.');
 	},
 
 	removeBastao: function(msg, bot){
