@@ -68,7 +68,7 @@ module.exports = {
         	bot.createMessage(msg.channel.id, "We already have a firekeeper, you dumb.");
         	return;
         }
-        bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,firekeeper,"Starting story on bonfire");
+        bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.FIREKEEPER_ROLE,"Starting story on bonfire");
         bot.createMessage(msg.channel.id, 'You are the firekeeper now, make sure to tell us a good story.');
 	},
 
