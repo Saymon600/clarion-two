@@ -7,7 +7,7 @@ var sqlValues;
 
 module.exports = {
 
-	connect: function(){
+	connect: async function(){
 		client = new Client({
 	          user: 'izhdpobumyufya',
 	          host: 'ec2-54-221-207-192.compute-1.amazonaws.com',
@@ -15,12 +15,12 @@ module.exports = {
 	          password: '32bc5c61e1d03e330f66dbd402ba9628e559e924d82477a847ad2cd99b39174e',
 	          port: 5432,
 	        });
+		await client.connect();
 		return client;
 	},
 
 	rollPervert: function(msg, bot, type, roll, callback){
 	    client = this.connect();
-	    client.connect();
 	    sql = "select * from perverts where id = $1 and hentai_type = $2;"
 	    sqlValues = [msg.author.id, type]
 	    client.query(sql, sqlValues, (err, res) => {
@@ -60,7 +60,6 @@ module.exports = {
 
 	getPervert: function(msg, bot, type){
 		client = this.connect();
-		client.connect();
 		sql = "SELECT * FROM perverts WHERE id = $1 and hentai_type = $2;";
 	    sqlValues =[msg.author.id,type];
 	    client.query(sql, sqlValues, (err,res) => {
@@ -77,7 +76,6 @@ module.exports = {
 
 	getPervertRank: function(msg, bot, type, callback){
 		client = this.connect();
-		client.connect();
 		sql = "SELECT * FROM perverts WHERE hentai_type = $1 order by hentai_level desc;";
 	    sqlValues =[type];
 	    client.query(sql, sqlValues, (err,res) => {
@@ -89,7 +87,6 @@ module.exports = {
 
 	resetPerverts: function(msg, bot, type){
 		client = this.connect();
-		client.connect();
 		sql = "UPDATE perverts SET last_roll_date = '',hentai_level = 0 WHERE hentai_type = $1;";
 		sqlValues =[type];
 	    client.query(sql, sqlValues, (err,res) => {
@@ -101,7 +98,6 @@ module.exports = {
 
 	increasePervertsLevel: function(msg, bot, type, amount){
 		client = this.connect();
-		client.connect();
 		sql = "UPDATE perverts SET hentai_level = hentai_level + $1 WHERE hentai_type = $2;";
 		sqlValues =[amount, type];
 	    client.query(sql, sqlValues, (err,res) => {
@@ -113,7 +109,6 @@ module.exports = {
 
 	getBotStatus: function(bot){
 		client = this.connect();
-		client.connect();
 		sql = "SELECT * FROM bot where id = $1";
 		sqlValues = [1];
 		client.query(sql,sqlValues, (err,res) => {
@@ -125,7 +120,6 @@ module.exports = {
 
 	updateBotStatus: function(msg, bot, status){
 		client = this.connect();
-		client.connect();
 		sql = "UPDATE bot SET status = $1 where id = 1;";
 		sqlValues = [status];
 		client.query(sql, sqlValues, (err,res) => {
@@ -137,7 +131,6 @@ module.exports = {
 
 	updateBotGame: function(msg, bot, last){
 		client = this.connect();
-		client.connect();
 		sql = "UPDATE bot SET last_playing = $1 where id = 1;";
 		sqlValues = [last];
 		client.query(sql, sqlValues, (err,res) => {
@@ -149,7 +142,6 @@ module.exports = {
 
 	changeSeason: function(msg, bot, eternal, pervert, oniichan, callback){
 		client = this.connect();
-		client.connect();
 		sql = "SELECT id,hentai_level FROM perverts WHERE hentai_type = $1 ORDER BY hentai_level desc LIMIT 1";
 		var message = "Another season ended, here are some notable people:\n";
 		sqlValues = ["loli"];
@@ -178,11 +170,10 @@ module.exports = {
 	testSeason: async function (msg, bot, eternal, pervert, oniichan, callback){
 		try {
 			client = this.connect();
-			await client.connect();
 			sql = "SELECT id,hentai_level FROM perverts WHERE hentai_type = $1 ORDER BY hentai_level desc LIMIT 1";
-			let message = "Another season ended, here are some notable people:\n";
 			sqlValues = ["loli", "futa", "imouto"];
-			let titles = ["Wanted by FBI", "Most pervert neighbor", "Most creepy siscon"];
+			let message = "Another season ended, here are some notable people:\n";
+			let titles = ["Wanted by the FBI", "Most pervert neighbor", "Most creepy siscon"];
 			let res;
 			for (var i = 0; i < sqlValues.length; i++) {
 				res = await client.query(sql, [sqlValues[i]]);
