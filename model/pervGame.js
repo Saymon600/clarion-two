@@ -8,14 +8,14 @@ module.exports = {
         var r;
         switch(type){
             case "loli":
-                r = Math.floor((Math.random() * 7) + 1);
+                r = Math.floor(Math.random() * 8);
             break;
             case "futa":
-                r = Math.floor((Math.random() * 12) + 1);
-                r = r - Math.floor((Math.random() * 3) + 1);
+                r = Math.floor(Math.random() * 13);
+                r = r - Math.floor(Math.random() * 4);
             break;
             case "imouto":
-                r = Math.floor((Math.random() * 100) + 1);
+                r = Math.floor(Math.random() * 101);
             break;
         }
       	dbManager.rollPervert(msg,bot, type, r, this.informAboutRoll);
@@ -161,6 +161,9 @@ module.exports = {
             return;
         }
         var params = msg.content.split(" ").slice(1);
+        if(params[0] === undefined || params[1] === undefined){
+            return;
+        }
         dbManager.increasePervertsLevel(msg, bot, params[0], params[1]);
     },
 
@@ -169,9 +172,10 @@ module.exports = {
             bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/../views/reaction_images/jii.jpg"),name:"jii.jpg"});
             return;
         }
-        dbManager.changeSeason(msg, bot, constants.ETERNAL_ROLE, constants.PERVERT_ROLE, constants.ONIICHAN_ROLE);
-        bot.createMessage(constants.GAMEBOARD_CHANNEL, "!resetloli");
-        bot.createMessage(constants.GAMEBOARD_CHANNEL, "!resetfuta");
-        bot.createMessage(constants.GAMEBOARD_CHANNEL, "!resetimouto");
+        dbManager.changeSeason(msg, bot, constants.ETERNAL_ROLE, constants.PERVERT_ROLE, constants.ONIICHAN_ROLE, function(){
+            bot.createMessage(constants.GAMEBOARD_CHANNEL, "!resetloli");
+            bot.createMessage(constants.GAMEBOARD_CHANNEL, "!resetfuta");
+            bot.createMessage(constants.GAMEBOARD_CHANNEL, "!resetimouto");
+        });
     }
 }

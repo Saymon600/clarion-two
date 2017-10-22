@@ -148,7 +148,7 @@ module.exports = {
 	    });
 	},
 
-	changeSeason: function(msg, bot, eternal, pervert, oniichan){
+	changeSeason: function(msg, bot, eternal, pervert, oniichan, callback){
 		client = this.connect();
 		client.connect();
 		sql = "SELECT id,hentai_level FROM perverts WHERE hentai_type = $1 ORDER BY hentai_level desc LIMIT 1";
@@ -172,6 +172,7 @@ module.exports = {
 	        bot.addGuildMemberRole(msg.channel.guild.id,res.rows[0].id,oniichan);
 	        bot.createMessage(msg.channel.id,message);
 	        client.end();
+	        callback();
 	    });
 	}
 

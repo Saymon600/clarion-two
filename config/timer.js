@@ -10,9 +10,9 @@ module.exports = function(bot) {
 			var month = moment().tz('America/Sao_Paulo').format("MM");
 			var checkMonth = parseInt(month) % 2;
 			//console.log(checkMonth);
-			if(checkMidnight == '0000'){
+			if(checkMidnight === '0000'){
                 bot.createMessage(constants.GAMEBOARD_CHANNEL, "!releaseall");
-                if(checkMonth == 0 && day == "01"){
+                if(checkMonth === 0 && day === "01"){
                 	bot.createMessage(constants.GAMEBOARD_CHANNEL, "!changeseason");
                 }
             }

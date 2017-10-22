@@ -31,5 +31,3 @@ bot.connect();
 bot.on("ready", () => {
     console.log("Onii-chan, I'm ready");
 });
-
-
