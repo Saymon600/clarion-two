@@ -109,16 +109,24 @@ module.exports = {
     },
 
     rank: function(msg, bot, type){
+        bot.createMessage(msg.channel.id, "パーッとパーッと晴れやかに\n咲かせましょう\n花のように");
         dbManager.getPervertRank(msg, bot, type, (rows) =>{
             let message = [];
             message.push("List of some awesome people:");
-            var ranked = this.rankNames(msg, rows);
-            for(var a = 0; a < ranked.length; a++){
-                if(ranked[a].lastDate === ''){
+            // var ranked = this.rankNames(msg, rows);
+            // for(var a = 0; a < ranked.length; a++){
+            //     if(ranked[a].lastDate === ''){
+            //         continue;
+            //     }
+            //     message.push((a + 1) + ") " + ranked[a].name + ": " + ranked[a].total + " "+ type +"s. Last played: " + ranked[a].lastDate);
+            // }
+            for(var a = 0; a < rows.length; a++){
+                if(rows[a].last_roll_date === ''){
                     continue;
                 }
-                message.push((a + 1) + ") " + ranked[a].name + ": " + ranked[a].total + " "+ type +"s. Last played: " + ranked[a].lastDate);
+                message.push((a + 1) + ") <" + rows[a].id + ">: " + rows[a].hentai_level + " "+ type +"s. Last played: " + rows[a].last_roll_date);
             }
+
             bot.createMessage(msg.channel.id, message.join("\n"));
         });
     },
