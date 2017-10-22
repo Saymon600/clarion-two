@@ -85,8 +85,7 @@ module.exports = {
                     continue;
                 }
                 member = common.findMember(msg, rows[a].id);
-                const username = (member.nick === null) ? member.username : member.nick;
-                message.push((a + 1) + ") " + username + ": " + rows[a].hentai_level + " "+ type +"s. Last played: " + rows[a].last_roll_date);
+                message.push((a + 1) + ") " + ((member.nick === null) ? member.username : member.nick) + ": " + rows[a].hentai_level + " "+ type +"s. Last played: " + rows[a].last_roll_date);
             }
 
             bot.createMessage(msg.channel.id, message.join("\n"));

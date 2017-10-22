@@ -68,8 +68,7 @@ module.exports = {
 	        var average = (res.rows[0].last_roll_1 + res.rows[0].last_roll_2 + res.rows[0].last_roll_3 + res.rows[0].last_roll_4 + res.rows[0].last_roll_5)/5;
 	        average = average.toFixed(2);
 	        if(anotherMember){
-	        	const username = (anotherMember.nick === null) ? anotherMember.username : anotherMember.nick;
-	        	var mensagem = username + " has a total of " + res.rows[0].hentai_level + " " + type + "s\n";
+	        	var mensagem = ((anotherMember.nick === null) ? anotherMember.username : anotherMember.nick) + " has a total of " + res.rows[0].hentai_level + " " + type + "s\n";
 	        }else{
 	        	var mensagem = "<@" + msg.author.id + ">, you have a total of " + res.rows[0].hentai_level + " " + type + "s\n";
 	        }
