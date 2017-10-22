@@ -74,24 +74,13 @@ module.exports = {
    	},
 
    	spoiler: function(msg, bot){
-	    var members = msg.channel.guild.members;
-	    members.forEach(function(member){
-	    	if(member.id === msg.author.id){
-	    		var roles = member.roles;
-	    		var hadRole = false;
-	        	roles.forEach(function(role){
-	        		if(role === constants.SPOILER_ROLE){
-	        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.SPOILER_ROLE);
-	                	bot.createMessage(msg.channel.id,'Are you sick?');
-	                	hadRole = true;
-	        		}
-	        	});
-	        	if(!hadRole){
-	            	bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.SPOILER_ROLE);
-	            	bot.createMessage(msg.channel.id,"Take care!");
-	            }
-	    	}
-	   	});
+	   	if(common.findIfHasRole(msg, msg.author.id, constants.SPOILER_ROLE)){
+			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.SPOILER_ROLE);
+        	bot.createMessage(msg.channel.id,'Are you sick?');
+	   	}else{
+    		bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.SPOILER_ROLE);
+        	bot.createMessage(msg.channel.id,"Take care!");
+	   	}
    	},
 
    	changeName: function(msg, bot, fs){
@@ -127,9 +116,8 @@ module.exports = {
    	},
 
    	pf: function(msg, bot, fs){
-	    // var random = Math.floor((Math.random() * 20) + 1);
+	    var random = Math.floor((Math.random() * 20) + 1);
 	    var message = "";
-	    var random = 11;
 	    if(random === 1){
 	        message = [
 	            "",
