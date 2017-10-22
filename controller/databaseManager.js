@@ -7,7 +7,7 @@ var sqlValues;
 
 module.exports = {
 
-	connect: function(){
+	connect: async function(){
 		client = new Client({
 	          user: 'izhdpobumyufya',
 	          host: 'ec2-54-221-207-192.compute-1.amazonaws.com',
@@ -15,27 +15,28 @@ module.exports = {
 	          password: '32bc5c61e1d03e330f66dbd402ba9628e559e924d82477a847ad2cd99b39174e',
 	          port: 5432,
 	        });
+		await client.connect();
 		return client;
 	},
 
-	rollPervert: function(msg, bot, type, roll, callback){
-	    client = this.connect();
-	    client.connect();
+	rollPervert: async function(msg, bot, type, roll, callback){
+	    this.connect();
 	    sql = "select * from perverts where id = $1 and hentai_type = $2;"
 	    sqlValues = [msg.author.id, type]
-	    client.query(sql, sqlValues, (err, res) => {
-	        if (err) {return console.error(err.message)}
-	        console.log('Connected to the database.');
-	        if(res.rows[0] === undefined){
-	            this.createPervert(msg, bot, type, roll, callback);
-	        }else if(res.rows[0].last_roll_date == moment().tz('America/Sao_Paulo').format("YYYY-MM-DD")){
+	    try{
+	    	const res = await client.query(sql, sqlValues);
+	    	if(res.rows[0] === undefined){
+	    		return this.createPervert(msg, bot, type, roll, callback);
+	    	}
+	    	if(res.rows[0].last_roll_date === moment().tz('America/Sao_Paulo').format("YYYY-MM-DD")){
 	            bot.createMessage(msg.channel.id, "You already rolled " + type + "s today!");
 	            client.end();
 	            return;
-	        }else{
-	        	this.updatePervert(msg, bot, type, roll, res.rows[0].hentai_level, callback);
-	        }
-	    });
+	    	}
+	    	return this.updatePervert(msg, bot, type, roll, res.rows[0].hentai_level, callback);
+	    }catch(err) {
+	  		console.log(err.stack)
+		}
 	},
 
 	createPervert: function(msg, bot, type, roll, callback){
@@ -58,27 +59,28 @@ module.exports = {
 	    });
 	},
 
-	getPervert: function(msg, bot, type){
-		client = this.connect();
-		client.connect();
+	getPervertRolls: function(msg, bot, type, anotherMember){
+		this.connect();
 		sql = "SELECT * FROM perverts WHERE id = $1 and hentai_type = $2;";
-	    sqlValues =[msg.author.id,type];
+	    sqlValues = (anotherMember === null) ? [msg.author.id,type] : [anotherMember.id,type];
 	    client.query(sql, sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
-	        //console.log(res.rows[0]);
 	        var average = (res.rows[0].last_roll_1 + res.rows[0].last_roll_2 + res.rows[0].last_roll_3 + res.rows[0].last_roll_4 + res.rows[0].last_roll_5)/5;
 	        average = average.toFixed(2);
-	        var mensagem = "<@" + msg.author.id + ">, you have a total of " + res.rows[0].hentai_level + " " + type + "s\n";
+	        if(anotherMember){
+	        	var mensagem = ((anotherMember.nick === null) ? anotherMember.username : anotherMember.nick) + " has a total of " + res.rows[0].hentai_level + " " + type + "s\n";
+	        }else{
+	        	var mensagem = "<@" + msg.author.id + ">, you have a total of " + res.rows[0].hentai_level + " " + type + "s\n";
+	        }
 	        mensagem += "Last 5 rolls are: " + parseInt(res.rows[0].last_roll_1) + ", " + parseInt(res.rows[0].last_roll_2) + ", " + parseInt(res.rows[0].last_roll_3) + ", " + parseInt(res.rows[0].last_roll_4) + ", " + parseInt(res.rows[0].last_roll_5) + "\n";
-	        mensagem += "Your average is " + average;
+	        mensagem += "Average is " + average;
 	        bot.createMessage(msg.channel.id, mensagem);
 	        client.end();
 	    });
 	},
 
 	getPervertRank: function(msg, bot, type, callback){
-		client = this.connect();
-		client.connect();
+		this.connect();
 		sql = "SELECT * FROM perverts WHERE hentai_type = $1 order by hentai_level desc;";
 	    sqlValues =[type];
 	    client.query(sql, sqlValues, (err,res) => {
@@ -89,8 +91,7 @@ module.exports = {
 	},
 
 	resetPerverts: function(msg, bot, type){
-		client = this.connect();
-		client.connect();
+		this.connect();
 		sql = "UPDATE perverts SET last_roll_date = '',hentai_level = 0 WHERE hentai_type = $1;";
 		sqlValues =[type];
 	    client.query(sql, sqlValues, (err,res) => {
@@ -101,8 +102,7 @@ module.exports = {
 	},
 
 	increasePervertsLevel: function(msg, bot, type, amount){
-		client = this.connect();
-		client.connect();
+		this.connect();
 		sql = "UPDATE perverts SET hentai_level = hentai_level + $1 WHERE hentai_type = $2;";
 		sqlValues =[amount, type];
 	    client.query(sql, sqlValues, (err,res) => {
@@ -113,8 +113,7 @@ module.exports = {
 	},
 
 	getBotStatus: function(bot){
-		client = this.connect();
-		client.connect();
+		this.connect();
 		sql = "SELECT * FROM bot where id = $1";
 		sqlValues = [1];
 		client.query(sql,sqlValues, (err,res) => {
@@ -125,8 +124,7 @@ module.exports = {
 	},
 
 	updateBotStatus: function(msg, bot, status){
-		client = this.connect();
-		client.connect();
+		this.connect();
 		sql = "UPDATE bot SET status = $1 where id = 1;";
 		sqlValues = [status];
 		client.query(sql, sqlValues, (err,res) => {
@@ -137,8 +135,7 @@ module.exports = {
 	},
 
 	updateBotGame: function(msg, bot, last){
-		client = this.connect();
-		client.connect();
+		this.connect();
 		sql = "UPDATE bot SET last_playing = $1 where id = 1;";
 		sqlValues = [last];
 		client.query(sql, sqlValues, (err,res) => {
@@ -148,33 +145,25 @@ module.exports = {
 	    });
 	},
 
-	changeSeason: function(msg, bot, eternal, pervert, oniichan, callback){
-		client = this.connect();
-		client.connect();
-		sql = "SELECT id,hentai_level FROM perverts WHERE hentai_type = $1 ORDER BY hentai_level desc LIMIT 1";
-		var message = "Another season ended, here are some notable people:\n";
-		sqlValues = ["loli"];
-		client.query(sql, sqlValues, (err,res) => {
-	        if (err) {return console.error(err.message);}
-	        message = message + "Wanted by FBI: <@" + res.rows[0].id + ">, with  " + res.rows[0].hentai_level + " " + sqlValues[0] + "s\n";
-	        bot.addGuildMemberRole(msg.channel.guild.id,res.rows[0].id,eternal);
-	    });
-	    sqlValues = ["futa"];
-	    client.query(sql, sqlValues, (err,res) => {
-	        if (err) {return console.error(err.message);}
-	        message = message + "Most pervert neighbor: <@" + res.rows[0].id + ">, with  " + res.rows[0].hentai_level + " " + sqlValues[0] + "s\n";
-	        bot.addGuildMemberRole(msg.channel.guild.id,res.rows[0].id,pervert);
-	    });
-	    sqlValues = ["imouto"];
-	    client.query(sql, sqlValues, (err,res) => {
-	        if (err) {return console.error(err.message);}
-	        message = message + "Most creepy siscon: <@" + res.rows[0].id + ">, with  " + res.rows[0].hentai_level + " " + sqlValues[0] + "s\n";
-	        bot.addGuildMemberRole(msg.channel.guild.id,res.rows[0].id,oniichan);
-	        bot.createMessage(msg.channel.id,message);
-	        client.end();
-	        callback();
-	    });
+	changeSeason: async function (msg, bot, roles, callback){
+		try {
+			this.connect();
+			sql = "SELECT id,hentai_level FROM perverts WHERE hentai_type = $1 ORDER BY hentai_level desc LIMIT 1";
+			sqlValues = ["loli", "futa", "imouto"];
+			let message = "Another season ended, here are some notable people:\n";
+			let titles = ["Wanted by the FBI", "Most pervert neighbor", "Most creepy siscon"];
+			let res;
+			for (var i = 0; i < sqlValues.length; i++) {
+				res = await client.query(sql, [sqlValues[i]]);
+				message = message + titles[i] +": <@" + res.rows[0].id + ">, with  " + res.rows[0].hentai_level + " " + sqlValues[i] +"s\n";	
+				bot.addGuildMemberRole(msg.channel.guild.id, res.rows[0].id, roles[i]);
+			}
+			await client.end();
+			bot.createMessage(msg.channel.id,message);
+			callback();
+	    } catch(err) {
+	  		console.log(err.stack)
+		}
 	}
-
 
 };

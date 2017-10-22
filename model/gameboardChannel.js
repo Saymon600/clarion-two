@@ -1,4 +1,5 @@
 const constants = require('./util/constants.js');
+const common = require('./util/common.js');
 const dbManager = require('../controller/databaseManager.js');
 
 module.exports = {
@@ -38,59 +39,38 @@ module.exports = {
 	},
 
 	getBastao: function(msg, bot){
-        var members = msg.channel.guild.members;
-        var hadRole = false;
-        members.forEach(function(member){
-        	var roles = member.roles;
-        	roles.forEach(function(role){
-	        	if(role === constants.FIREKEEPER_ROLE && member.id == msg.author.id){
-	        		bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.FIREKEEPER_ROLE,"Finished story on bonfire");
-	                bot.createMessage(msg.channel.id, "本当にもう終わりなの？");
-	                hadRole = true;
-	        	}else if(role === constants.FIREKEEPER_ROLE){
-	        		bot.createMessage(msg.channel.id, "We already have a firekeeper, you dumb.");
-	        		hadRole = true;
-	        	}
-	        });
-       	});
-       	if(!hadRole){
-	        bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,firekeeper,"Starting story on bonfire");
-	        bot.createMessage(msg.channel.id, 'You are the firekeeper now, make sure to tell us a good story.');
+        const firekeeper = common.findMemberWithRole(msg, constants.FIREKEEPER_ROLE);
+        if(firekeeper){
+        	if(firekeeper.id === msg.author.id){
+        		bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.FIREKEEPER_ROLE,"Finished story on bonfire");
+        		bot.createMessage(msg.channel.id, "本当にもう終わりなの？");
+        		return;
+        	}
+        	bot.createMessage(msg.channel.id, "We already have a firekeeper, you dumb.");
+        	return;
         }
+        bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.FIREKEEPER_ROLE,"Starting story on bonfire");
+        bot.createMessage(msg.channel.id, 'You are the firekeeper now, make sure to tell us a good story.');
 	},
 
 	removeBastao: function(msg, bot){
-        var members = msg.channel.guild.members;;
-        members.forEach(function(member){
-        	var roles = member.roles;
-        	roles.forEach(function(role){
-	        	if(role === constants.FIREKEEPER_ROLE){
-	        		bot.removeGuildMemberRole(msg.channel.guild.id,member.id,constants.FIREKEEPER_ROLE);
-	        	}
-	        });
-       	});
+       	const firekeeper = common.findMemberWithRole(msg, constants.FIREKEEPER_ROLE);
+       	if(firekeeper === undefined){
+       		bot.createMessage(msg.channel.id, 'There is no firekeeper');
+       		return;
+       	}
+       	bot.removeGuildMemberRole(msg.channel.guild.id, firekeeper.id, constants.FIREKEEPER_ROLE);
        	bot.createMessage(msg.channel.id, 'Storytime is over now.');
    	},
 
    	spoiler: function(msg, bot){
-	    var members = msg.channel.guild.members;
-	    members.forEach(function(member){
-	    	if(member.id === msg.author.id){
-	    		var roles = member.roles;
-	    		var hadRole = false;
-	        	roles.forEach(function(role){
-	        		if(role === constants.SPOILER_ROLE){
-	        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.SPOILER_ROLE);
-	                	bot.createMessage(msg.channel.id,'Are you sick?');
-	                	hadRole = true;
-	        		}
-	        	});
-	        	if(!hadRole){
-	            	bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.SPOILER_ROLE);
-	            	bot.createMessage(msg.channel.id,"Take care!");
-	            }
-	    	}
-	   	});
+	   	if(common.findIfHasRole(msg, msg.author.id, constants.SPOILER_ROLE)){
+			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.SPOILER_ROLE);
+        	bot.createMessage(msg.channel.id,'Are you sick?');
+	   	}else{
+    		bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.SPOILER_ROLE);
+        	bot.createMessage(msg.channel.id,"Take care!");
+	   	}
    	},
 
    	changeName: function(msg, bot, fs){
@@ -141,24 +121,13 @@ module.exports = {
 	            "/!\\ /!\\ /!\\",
 	        ].join("\n");
 	        bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/../views/reaction_images/pf.jpg"),name:"pf.jpg"});
-	        var members = msg.channel.guild.members;
-	        members.forEach(function(member){
-	        	if(member.id === msg.author.id){
-	        		var roles = member.roles;
-	        		var hadRole = false;
-		        	roles.forEach(function(role){
-		        		if(role === constants.LOLICON_ROLE){
-		        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
-		                	bot.createMessage(msg.channel.id, "You're already a lolicon! But hey, you're free now!");
-		                	hadRole = true;
-		        		}
-		        	});
-		        	if(!hadRole){
-		                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
-	                	bot.createMessage(msg.channel.id, 'OHOHOHOHO! Enjoy your stay.');
-		        	}
-	        	}
-	       	});
+	       	if(common.findIfHasRole(msg, msg.author.id, constants.LOLICON_ROLE)){
+				bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
+	        	bot.createMessage(msg.channel.id, "You're already a lolicon! But hey, you're free now!");
+	       	}else{
+                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
+            	bot.createMessage(msg.channel.id, 'OHOHOHOHO! Enjoy your stay.');
+	       	}
 	    }else if(random === 11){
 	        message = [
 	            "",
@@ -171,27 +140,15 @@ module.exports = {
 	            "ロリコン発見",
 	            "/!\\ /!\\ /!\\",
 	        ].join("\n");
-	        bot.createMessage(msg.channel.id,message);
-	        var members = msg.channel.guild.members;
-	        members.forEach(function(member){
-	        	if(member.id === msg.author.id){
-	        		var roles = member.roles;
-	        		var hadRole = false;
-		        	roles.forEach(function(role){
-		        		if(role === constants.LOLICON_ROLE){
-		        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
-		        			message = "You're free to go!";
-		                	bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/../views/reaction_images/free.gif"),name:"free.gif"});
-		                	hadRole = true;
-		        		}
-		        	});
-		        	if(!hadRole){
-	                	bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
-	                	message = "You're under arrest!";
-                		bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/../views/reaction_images/prison.gif"),name:"prison.gif"});
-		        	}
-	        	}
-	       	});
+	       	if(common.findIfHasRole(msg, msg.author.id, constants.LOLICON_ROLE)){
+				bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
+	        	bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/../views/reaction_images/free.gif"),name:"free.gif"});
+	        	bot.createMessage(msg.channel.id, "You're already a lolicon! But hey, you're free now!");
+	       	}else{
+                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
+            	bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/../views/reaction_images/prison.gif"),name:"prison.gif"});
+            	bot.createMessage(msg.channel.id, "You're under arrest!");
+	       	}
 	    }else{
 	        bot.createMessage(msg.channel.id,'Porra Fowz');
 	    }
@@ -235,6 +192,7 @@ module.exports = {
     	message = message + "!cp: Change my playing game name.\n";
     	message = message + "!cs: you can't change my status, dummy\n";
     	message = message + "!pf: Prato feito or something like that\n";
+    	message = message + "!lastlolis: Show last lolis from an user\n";
     	message = message + "!stats: my stats\n";
 
     	bot.createMessage(msg.channel.id, message);

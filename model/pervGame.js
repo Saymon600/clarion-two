@@ -1,4 +1,5 @@
 const constants = require('./util/constants.js');
+const common = require('./util/common.js');
 const dbManager = require('../controller/databaseManager.js');
 const fs = require('fs');
 
@@ -22,7 +23,7 @@ module.exports = {
  	},
 
    	stats: function(msg, bot, type){
-    	dbManager.getPervert(msg,bot, type);
+    	dbManager.getPervertRolls(msg, bot, type, null);
    	},
 
     informAboutRoll: function(msg, bot, type, roll, total){
@@ -46,21 +47,9 @@ module.exports = {
                     role = constants.SISCON_ROLE;
                 break;
             }
-            var members = msg.channel.guild.members;
-            members.forEach(function(member){
-                if(member.id === msg.author.id){
-                    var roles = member.roles;
-                    var hadRole = false;
-                    roles.forEach(function(mrole){
-                        if(mrole === role){
-                            hadRole = true;
-                        }
-                    });
-                    if(!hadRole){
-                        bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, role);
-                    }
-                }
-            });
+            if(!common.findIfHasRole(msg, msg.author.id, role)){
+                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, role);
+            }
             if(type === "loli"){
                 bot.createMessage(msg.channel.id, "I'm giving you " + roll + " lolis and the honorable role of a true Lolicon. You have a total of " + total + " lolis. "+ politeness +" <@" + msg.author.id + ">-sama" );
                 return;
@@ -75,6 +64,7 @@ module.exports = {
             }
         }else if(roll === 0){
             bot.createMessage(msg.channel.id, "I'll not give a "+ type +", hmpf. You have a total of " + total + " "+ type +"s. Go away weeb <@" + msg.author.id + ">" );
+            bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/../views/reaction_images/smug.gif"),name:"smug.gif"});
         }else if (roll === 1){
             bot.createMessage(msg.channel.id, "I'm giving you one "+ type +". You have a total of " + total + " "+ type +"s. "+ politeness +" <@" + msg.author.id + ">" );
         }else if (roll < 0){
@@ -84,40 +74,20 @@ module.exports = {
         }
     },
 
-
-
-    rankNames: function(msg, rows){
-        var members = msg.channel.guild.members;
-        var rankedMembers = [];
-        members.forEach(function(member){
-            for (var i = 0; i < rows.length; i++) {
-                if(member.id === rows[i].id){
-                    rankedMembers.push({
-                        name: member.username,
-                        lastDate: rows[i].last_roll_date,
-                        total: rows[i].hentai_level
-                    })
-                    break;
-                }
-            }
-        });
-        rankedMembers = rankedMembers.sort(function compare(a,b) {
-          return b.total > a.total
-        });
-        return rankedMembers;
-    },
-
     rank: function(msg, bot, type){
+        bot.createMessage(msg.channel.id, "パーッとパーッと晴れやかに\n咲かせましょう\n花のように");
         dbManager.getPervertRank(msg, bot, type, (rows) =>{
             let message = [];
             message.push("List of some awesome people:");
-            var ranked = this.rankNames(msg, rows);
-            for(var a = 0; a < ranked.length; a++){
-                if(ranked[a].lastDate === ''){
+            let member;
+            for(var a = 0; a < rows.length; a++){
+                if(rows[a].last_roll_date === ''){
                     continue;
                 }
-                message.push((a + 1) + ") " + ranked[a].name + ": " + ranked[a].total + " "+ type +"s. Last played: " + ranked[a].lastDate);
+                member = common.findMember(msg, rows[a].id);
+                message.push((a + 1) + ") " + ((member.nick === null) ? member.username : member.nick) + ": " + rows[a].hentai_level + " "+ type +"s. Last played: " + rows[a].last_roll_date);
             }
+
             bot.createMessage(msg.channel.id, message.join("\n"));
         });
     },
@@ -160,11 +130,26 @@ module.exports = {
             bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/../views/reaction_images/jii.jpg"),name:"jii.jpg"});
             return;
         }
-        var params = msg.content.split(" ").slice(1);
-        if(params[0] === undefined || params[1] === undefined){
+        const params = msg.content.split(" ").slice(1);
+        if(params[0] === undefined || params[1] === undefined　|| Number.isNaN(parseInt(params[1]))){
+            bot.createMessage(msg.channel.id, "わからない、お兄ちゃん");
             return;
         }
         dbManager.increasePervertsLevel(msg, bot, params[0], params[1]);
+    },
+
+    getLastRolls: function(msg, bot, type){
+        const params = msg.content.split(" ").slice(1);
+        if(params[0] === undefined){
+            bot.createMessage(msg.channel.id, "Onii-chan, specify an user please~~");
+            return;
+        }
+        const member = common.findMemberByName(msg, params[0]);
+        if(member === undefined){
+            bot.createMessage(msg.channel.id, "Didn't find the user\nTeehee~");
+            return;
+        }
+        dbManager.getPervertRolls(msg, bot, type, member);
     },
 
     changeSeason: function(msg, bot){
@@ -172,10 +157,12 @@ module.exports = {
             bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/../views/reaction_images/jii.jpg"),name:"jii.jpg"});
             return;
         }
-        dbManager.changeSeason(msg, bot, constants.ETERNAL_ROLE, constants.PERVERT_ROLE, constants.ONIICHAN_ROLE, function(){
+        dbManager.changeSeason(msg, bot, [constants.ETERNAL_ROLE, constants.PERVERT_ROLE, constants.ONIICHAN_ROLE], function(){
+            bot.createMessage(constants.GAMEBOARD_CHANNEL, "Onii-chan, peace peace~");
             bot.createMessage(constants.GAMEBOARD_CHANNEL, "!resetloli");
             bot.createMessage(constants.GAMEBOARD_CHANNEL, "!resetfuta");
             bot.createMessage(constants.GAMEBOARD_CHANNEL, "!resetimouto");
         });
     }
+
 }

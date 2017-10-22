@@ -145,6 +145,21 @@ module.exports = function(app, bot, moment) {
 	    	return perv.sorry(msg, bot);
 	    }
 
+	    //C027
+	    if(msg.content.startsWith("!lastlolis") && channel === constants.GAMEBOARD_CHANNEL){
+	    	return perv.getLastRolls(msg, bot, "loli");
+	    }
+
+	    //C028
+	    if(msg.content.startsWith("!lastfutas") && channel === constants.GAMEBOARD_CHANNEL){
+	    	return perv.getLastRolls(msg, bot, "futa");
+	    }
+
+	    //C029
+	    if(msg.content.startsWith("!lastimoutos") && channel === constants.GAMEBOARD_CHANNEL){
+	    	return perv.getLastRolls(msg, bot, "imouto");
+	    }
+
 	    //C994
 	    if(msg.content === "!changeseason" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return perv.changeSeason(msg, bot);

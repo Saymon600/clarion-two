@@ -1,4 +1,5 @@
 const constants = require('./util/constants.js');
+const common = require('./util/common.js');
 
 module.exports = {
 
@@ -42,25 +43,13 @@ module.exports = {
 	},
 
 	raid: function(msg, bot){
-	    var members = msg.channel.guild.members;
-	    members.forEach(function(member){
-	    	if(member.id === msg.author.id){
-		        var roles = member.roles;
-                var hadRole = false;
-	        	roles.forEach(function(role){
-	        		if(role === constants.RAID_ROLE){
-	        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.RAID_ROLE);
-	                	bot.createMessage(msg.channel.id, "Raid role removed");
-                        hadRole = true;
-	        		}
-	        	});
-                if(!hadRole){
-                    bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.RAID_ROLE);
-                    bot.createMessage(msg.channel.id, 'Raid role added');
-                }
-
-	    	}
-	   	});
+        if(common.findIfHasRole(msg, msg.author.id, constants.RAID_ROLE)){
+            bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.RAID_ROLE);
+            bot.createMessage(msg.channel.id, "Raid role removed");
+        }else{
+            bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.RAID_ROLE);
+            bot.createMessage(msg.channel.id, 'Raid role added');
+        }
 	},
 
     gudako: function(msg, bot, fs){
