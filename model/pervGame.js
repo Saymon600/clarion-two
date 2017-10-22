@@ -120,14 +120,20 @@ module.exports = {
             //     }
             //     message.push((a + 1) + ") " + ranked[a].name + ": " + ranked[a].total + " "+ type +"s. Last played: " + ranked[a].lastDate);
             // }
-            for(var a = 0; a < rows.length; a++){
-                if(rows[a].last_roll_date === ''){
-                    continue;
-                }
-                message.push((a + 1) + ") <" + rows[a].id + ">: " + rows[a].hentai_level + " "+ type +"s. Last played: " + rows[a].last_roll_date);
-            }
 
-            bot.createMessage(msg.channel.id, message.join("\n"));
+            // for(var a = 0; a < rows.length; a++){
+            //     if(rows[a].last_roll_date === ''){
+            //         continue;
+            //     }
+            //     message.push((a + 1) + ") " + rows[a].id + ": " + rows[a].hentai_level + " "+ type +"s. Last played: " + rows[a].last_roll_date);
+            // }
+
+            // bot.createMessage(msg.channel.id, message.join("\n"));
+            var members = msg.channel.guild.members;
+            let b = members.find(function findName(a){
+                return a.id === rows[0].id;
+            });
+            console.log(b.username);
         });
     },
 
