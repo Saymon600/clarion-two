@@ -20,7 +20,7 @@ module.exports = {
 	},
 
 	rollPervert: function(msg, bot, type, roll, callback){
-	    client = this.connect();
+	    this.connect();
 	    sql = "select * from perverts where id = $1 and hentai_type = $2;"
 	    sqlValues = [msg.author.id, type]
 	    client.query(sql, sqlValues, (err, res) => {
@@ -59,7 +59,7 @@ module.exports = {
 	},
 
 	getPervert: function(msg, bot, type){
-		client = this.connect();
+		this.connect();
 		sql = "SELECT * FROM perverts WHERE id = $1 and hentai_type = $2;";
 	    sqlValues =[msg.author.id,type];
 	    client.query(sql, sqlValues, (err,res) => {
@@ -75,7 +75,7 @@ module.exports = {
 	},
 
 	getPervertRank: function(msg, bot, type, callback){
-		client = this.connect();
+		this.connect();
 		sql = "SELECT * FROM perverts WHERE hentai_type = $1 order by hentai_level desc;";
 	    sqlValues =[type];
 	    client.query(sql, sqlValues, (err,res) => {
@@ -86,7 +86,7 @@ module.exports = {
 	},
 
 	resetPerverts: function(msg, bot, type){
-		client = this.connect();
+		this.connect();
 		sql = "UPDATE perverts SET last_roll_date = '',hentai_level = 0 WHERE hentai_type = $1;";
 		sqlValues =[type];
 	    client.query(sql, sqlValues, (err,res) => {
@@ -97,7 +97,7 @@ module.exports = {
 	},
 
 	increasePervertsLevel: function(msg, bot, type, amount){
-		client = this.connect();
+		this.connect();
 		sql = "UPDATE perverts SET hentai_level = hentai_level + $1 WHERE hentai_type = $2;";
 		sqlValues =[amount, type];
 	    client.query(sql, sqlValues, (err,res) => {
@@ -108,7 +108,7 @@ module.exports = {
 	},
 
 	getBotStatus: function(bot){
-		client = this.connect();
+		this.connect();
 		sql = "SELECT * FROM bot where id = $1";
 		sqlValues = [1];
 		client.query(sql,sqlValues, (err,res) => {
@@ -119,7 +119,7 @@ module.exports = {
 	},
 
 	updateBotStatus: function(msg, bot, status){
-		client = this.connect();
+		this.connect();
 		sql = "UPDATE bot SET status = $1 where id = 1;";
 		sqlValues = [status];
 		client.query(sql, sqlValues, (err,res) => {
@@ -130,7 +130,7 @@ module.exports = {
 	},
 
 	updateBotGame: function(msg, bot, last){
-		client = this.connect();
+		this.connect();
 		sql = "UPDATE bot SET last_playing = $1 where id = 1;";
 		sqlValues = [last];
 		client.query(sql, sqlValues, (err,res) => {
@@ -141,7 +141,7 @@ module.exports = {
 	},
 
 	changeSeason: function(msg, bot, eternal, pervert, oniichan, callback){
-		client = this.connect();
+		this.connect();
 		sql = "SELECT id,hentai_level FROM perverts WHERE hentai_type = $1 ORDER BY hentai_level desc LIMIT 1";
 		var message = "Another season ended, here are some notable people:\n";
 		sqlValues = ["loli"];
@@ -169,7 +169,7 @@ module.exports = {
 
 	testSeason: async function (msg, bot, eternal, pervert, oniichan, callback){
 		try {
-			client = this.connect();
+			this.connect();
 			sql = "SELECT id,hentai_level FROM perverts WHERE hentai_type = $1 ORDER BY hentai_level desc LIMIT 1";
 			sqlValues = ["loli", "futa", "imouto"];
 			let message = "Another season ended, here are some notable people:\n";
