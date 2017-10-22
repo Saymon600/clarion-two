@@ -140,34 +140,7 @@ module.exports = {
 	    });
 	},
 
-	changeSeason: function(msg, bot, eternal, pervert, oniichan, callback){
-		this.connect();
-		sql = "SELECT id,hentai_level FROM perverts WHERE hentai_type = $1 ORDER BY hentai_level desc LIMIT 1";
-		var message = "Another season ended, here are some notable people:\n";
-		sqlValues = ["loli"];
-		client.query(sql, sqlValues, (err,res) => {
-	        if (err) {return console.error(err.message);}
-	        message = message + "Wanted by FBI: <@" + res.rows[0].id + ">, with  " + res.rows[0].hentai_level + " " + sqlValues[0] + "s\n";
-	        bot.addGuildMemberRole(msg.channel.guild.id,res.rows[0].id,eternal);
-	    });
-	    sqlValues = ["futa"];
-	    client.query(sql, sqlValues, (err,res) => {
-	        if (err) {return console.error(err.message);}
-	        message = message + "Most pervert neighbor: <@" + res.rows[0].id + ">, with  " + res.rows[0].hentai_level + " " + sqlValues[0] + "s\n";
-	        bot.addGuildMemberRole(msg.channel.guild.id,res.rows[0].id,pervert);
-	    });
-	    sqlValues = ["imouto"];
-	    client.query(sql, sqlValues, (err,res) => {
-	        if (err) {return console.error(err.message);}
-	        message = message + "Most creepy siscon: <@" + res.rows[0].id + ">, with  " + res.rows[0].hentai_level + " " + sqlValues[0] + "s\n";
-	        bot.addGuildMemberRole(msg.channel.guild.id,res.rows[0].id,oniichan);
-	        bot.createMessage(msg.channel.id,message);
-	        client.end();
-	        callback();
-	    });
-	},
-
-	testSeason: async function (msg, bot, roles, callback){
+	changeSeason: async function (msg, bot, roles, callback){
 		try {
 			this.connect();
 			sql = "SELECT id,hentai_level FROM perverts WHERE hentai_type = $1 ORDER BY hentai_level desc LIMIT 1";
@@ -177,8 +150,8 @@ module.exports = {
 			let res;
 			for (var i = 0; i < sqlValues.length; i++) {
 				res = await client.query(sql, [sqlValues[i]]);
-				message = message + titles[i] +": <@ " + res.rows[0].id + ">, with  " + res.rows[0].hentai_level + " " + sqlValues[i] +"s\n";	
-				console.log('Role ' + roles[i]);
+				message = message + titles[i] +": <@" + res.rows[0].id + ">, with  " + res.rows[0].hentai_level + " " + sqlValues[i] +"s\n";	
+				bot.addGuildMemberRole(msg.channel.guild.id, res.rows[0].id, roles[i]);
 			}
 			await client.end();
 			bot.createMessage(msg.channel.id,message);
@@ -187,6 +160,5 @@ module.exports = {
 	  		console.log(err.stack)
 		}
 	}
-
 
 };
