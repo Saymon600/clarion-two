@@ -169,7 +169,7 @@ module.exports = {
 	       	}else{
                 bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
             	bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/../views/reaction_images/prison.gif"),name:"prison.gif"});
-            	message = "You're under arrest!";
+            	bot.createMessage(msg.channel.id, "You're under arrest!");
 	       	}
 	    }else{
 	        bot.createMessage(msg.channel.id,'Porra Fowz');
