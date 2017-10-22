@@ -23,9 +23,5 @@ module.exports = {
 				return memberRole === role;
 			});
 		});
-	},
-
-	removeRole: function(msg, role){
-		members = msg.channel.guild.members;
 	}
 }
