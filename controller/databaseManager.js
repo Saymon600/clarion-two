@@ -65,7 +65,6 @@ module.exports = {
 	    sqlValues =[msg.author.id,type];
 	    client.query(sql, sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
-	        //console.log(res.rows[0]);
 	        var average = (res.rows[0].last_roll_1 + res.rows[0].last_roll_2 + res.rows[0].last_roll_3 + res.rows[0].last_roll_4 + res.rows[0].last_roll_5)/5;
 	        average = average.toFixed(2);
 	        var mensagem = "<@" + msg.author.id + ">, you have a total of " + res.rows[0].hentai_level + " " + type + "s\n";
@@ -174,6 +173,27 @@ module.exports = {
 	        client.end();
 	        callback();
 	    });
+	},
+
+	testSeason: function async (msg, bot, eternal, pervert, oniichan, callback){
+		try {
+			client = this.connect();
+			await client.connect();
+			sql = "SELECT id,hentai_level FROM perverts WHERE hentai_type = $1 ORDER BY hentai_level desc LIMIT 1";
+			let message = "Another season ended, here are some notable people:\n";
+			sqlValues = ["loli", "futa", "imouto"];
+			let titles = ["Wanted by FBI", "Most pervert neighbor", "Most creepy siscon"];
+			let res;
+			for (var i = 0; i < sqlValues.length; i++) {
+				res = await client.query(sql, sqlValues[i]);
+				message = message + titles[i] +": <@" + res.rows[0].id + ">, with  " + res.rows[0].hentai_level + sqlValues[i] +"s\n";	
+			}
+			await client.end();
+			bot.createMessage(msg.channel.id,message);
+			callback();
+	    } catch(err) {
+	  		console.log(err.stack)
+		}
 	}
 
 

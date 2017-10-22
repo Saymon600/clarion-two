@@ -145,6 +145,12 @@ module.exports = function(app, bot, moment) {
 	    	return perv.sorry(msg, bot);
 	    }
 
+	    //C993
+	    if(msg.content === "!testSeason" && channel === constants.GAMEBOARD_CHANNEL){
+	    	return perv.testSeason(msg, bot);
+	    }
+
+
 	    //C994
 	    if(msg.content === "!changeseason" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return perv.changeSeason(msg, bot);
