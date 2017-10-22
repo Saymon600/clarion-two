@@ -162,15 +162,14 @@ module.exports = {
 	            "ロリコン発見",
 	            "/!\\ /!\\ /!\\",
 	        ].join("\n");
-	        bot.createMessage(msg.channel.id,message);
 	       	if(common.findIfHasRole(msg, msg.author.id, constants.LOLICON_ROLE)){
 				bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
-	        	bot.createMessage(msg.channel.id, "You're already a lolicon! But hey, you're free now!");
 	        	bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/../views/reaction_images/free.gif"),name:"free.gif"});
+	        	bot.createMessage(msg.channel.id, "You're already a lolicon! But hey, you're free now!");
 	       	}else{
                 bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
-            	message = "You're under arrest!";
             	bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/../views/reaction_images/prison.gif"),name:"prison.gif"});
+            	message = "You're under arrest!";
 	       	}
 	    }else{
 	        bot.createMessage(msg.channel.id,'Porra Fowz');
