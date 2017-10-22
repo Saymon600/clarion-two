@@ -96,8 +96,8 @@ module.exports = {
                 if(rows[a].last_roll_date === ''){
                     continue;
                 }
-                memberName = members.find(function findName(a){
-                    return a.id === rows[a].id;
+                memberName = members.find(function findName(member){
+                    return member.id === rows[a].id;
                 });
                 message.push((a + 1) + ") " + memberName + ": " + rows[a].hentai_level + " "+ type +"s. Last played: " + rows[a].last_roll_date);
             }
