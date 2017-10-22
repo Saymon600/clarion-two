@@ -47,21 +47,24 @@ module.exports = {
                     role = constants.SISCON_ROLE;
                 break;
             }
-            var members = msg.channel.guild.members;
-            members.forEach(function(member){
-                if(member.id === msg.author.id){
-                    var roles = member.roles;
-                    var hadRole = false;
-                    roles.forEach(function(mrole){
-                        if(mrole === role){
-                            hadRole = true;
-                        }
-                    });
-                    if(!hadRole){
-                        bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, role);
-                    }
-                }
-            });
+            // var members = msg.channel.guild.members;
+            // members.forEach(function(member){
+            //     if(member.id === msg.author.id){
+            //         var roles = member.roles;
+            //         var hadRole = false;
+            //         roles.forEach(function(mrole){
+            //             if(mrole === role){
+            //                 hadRole = true;
+            //             }
+            //         });
+            //         if(!hadRole){
+            //             bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, role);
+            //         }
+            //     }
+            // });
+            if(!common.findIfHasRole(msg, msg.author.id, role)){
+                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, role);
+            }
             if(type === "loli"){
                 bot.createMessage(msg.channel.id, "I'm giving you " + roll + " lolis and the honorable role of a true Lolicon. You have a total of " + total + " lolis. "+ politeness +" <@" + msg.author.id + ">-sama" );
                 return;
