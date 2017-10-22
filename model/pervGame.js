@@ -161,7 +161,7 @@ module.exports = {
             return;
         }
         var params = msg.content.split(" ").slice(1);
-        if(params[0] === undefined || params[1] === undefined){
+        if(params[0] === undefined || params[1] === undefined　|| parseInt(params[1]) === NaN){
             bot.createMessage(msg.channel.id, "わからない、お兄ちゃん");
             return;
         }

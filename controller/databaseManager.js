@@ -19,23 +19,24 @@ module.exports = {
 		return client;
 	},
 
-	rollPervert: function(msg, bot, type, roll, callback){
+	rollPervert: async function(msg, bot, type, roll, callback){
 	    this.connect();
 	    sql = "select * from perverts where id = $1 and hentai_type = $2;"
 	    sqlValues = [msg.author.id, type]
-	    client.query(sql, sqlValues, (err, res) => {
-	        if (err) {return console.error(err.message)}
-	        console.log('Connected to the database.');
-	        if(res.rows[0] === undefined){
-	            this.createPervert(msg, bot, type, roll, callback);
-	        }else if(res.rows[0].last_roll_date == moment().tz('America/Sao_Paulo').format("YYYY-MM-DD")){
+	    try{
+	    	const res = await client.query(sql, sqlValues);
+	    	if(res.rows[0] === undefined){
+	    		return this.createPervert(msg, bot, type, roll, callback);
+	    	}
+	    	if(res.rows[0].last_roll_date === moment().tz('America/Sao_Paulo').format("YYYY-MM-DD")){
 	            bot.createMessage(msg.channel.id, "You already rolled " + type + "s today!");
 	            client.end();
 	            return;
-	        }else{
-	        	this.updatePervert(msg, bot, type, roll, res.rows[0].hentai_level, callback);
-	        }
-	    });
+	    	}
+	    	return this.updatePervert(msg, bot, type, roll, res.rows[0].hentai_level, callback);
+	    }catch(err) {
+	  		console.log(err.stack)
+		}
 	},
 
 	createPervert: function(msg, bot, type, roll, callback){
