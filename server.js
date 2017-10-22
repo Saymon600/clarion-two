@@ -21,8 +21,6 @@ require('./config/router.js')(app, express);
 require('./config/timer.js')(bot);
 require('./controller/messageController.js')(app, bot, moment);
 
-console.log(moment().tz('Asia/Tokyo').format("YYYY-MM-DD"))
-
 //init
 app.listen(port, function() {
     console.log(moment().format("LLL") + ': Clarion is running on port ' + port);
