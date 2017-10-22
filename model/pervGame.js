@@ -1,4 +1,5 @@
 const constants = require('./util/constants.js');
+const common = require('./util/common.js');
 const dbManager = require('../controller/databaseManager.js');
 const fs = require('fs');
 
@@ -90,16 +91,13 @@ module.exports = {
         dbManager.getPervertRank(msg, bot, type, (rows) =>{
             let message = [];
             message.push("List of some awesome people:");
-            const members = msg.channel.guild.members;
-            let memberName;
+            let member;
             for(var a = 0; a < rows.length; a++){
                 if(rows[a].last_roll_date === ''){
                     continue;
                 }
-                memberName = members.find(function findName(member){
-                    return member.id === rows[a].id;
-                });
-                message.push((a + 1) + ") " + memberName.username + ": " + rows[a].hentai_level + " "+ type +"s. Last played: " + rows[a].last_roll_date);
+                member = common.findMember(msg, rows[a].id);
+                message.push((a + 1) + ") " + member.username + ": " + rows[a].hentai_level + " "+ type +"s. Last played: " + rows[a].last_roll_date);
             }
 
             bot.createMessage(msg.channel.id, message.join("\n"));
