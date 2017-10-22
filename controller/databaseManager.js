@@ -175,7 +175,8 @@ module.exports = {
 	    });
 	},
 
-	testSeason: function (msg, bot, eternal, pervert, oniichan, callback){
+	testSeason: function async (msg, bot, eternal, pervert, oniichan, callback){
+		console.log('a');
 		// try {
 		// 	client = this.connect();
 		// 	await client.connect();
