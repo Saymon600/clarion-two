@@ -99,7 +99,7 @@ module.exports = {
                 memberName = members.find(function findName(member){
                     return member.id === rows[a].id;
                 });
-                message.push((a + 1) + ") " + memberName + ": " + rows[a].hentai_level + " "+ type +"s. Last played: " + rows[a].last_roll_date);
+                message.push((a + 1) + ") " + memberName.username + ": " + rows[a].hentai_level + " "+ type +"s. Last played: " + rows[a].last_roll_date);
             }
 
             bot.createMessage(msg.channel.id, message.join("\n"));
