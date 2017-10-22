@@ -129,7 +129,7 @@ module.exports = {
    	pf: function(msg, bot, fs){
 	    // var random = Math.floor((Math.random() * 20) + 1);
 	    var message = "";
-	    var random = 1;
+	    var random = 11;
 	    if(random === 1){
 	        message = [
 	            "",
@@ -143,24 +143,6 @@ module.exports = {
 	            "/!\\ /!\\ /!\\",
 	        ].join("\n");
 	        bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/../views/reaction_images/pf.jpg"),name:"pf.jpg"});
-	        // var members = msg.channel.guild.members;
-	        // members.forEach(function(member){
-	        // 	if(member.id === msg.author.id){
-	        // 		var roles = member.roles;
-	        // 		var hadRole = false;
-		       //  	roles.forEach(function(role){
-		       //  		if(role === constants.LOLICON_ROLE){
-		       //  			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
-		       //          	bot.createMessage(msg.channel.id, "You're already a lolicon! But hey, you're free now!");
-		       //          	hadRole = true;
-		       //  		}
-		       //  	});
-		       //  	if(!hadRole){
-		       //          bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
-	        //         	bot.createMessage(msg.channel.id, 'OHOHOHOHO! Enjoy your stay.');
-		       //  	}
-	        // 	}
-	       	// });
 	       	if(common.findIfHasRole(msg, msg.author.id, constants.LOLICON_ROLE)){
 				bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
 	        	bot.createMessage(msg.channel.id, "You're already a lolicon! But hey, you're free now!");
@@ -181,26 +163,15 @@ module.exports = {
 	            "/!\\ /!\\ /!\\",
 	        ].join("\n");
 	        bot.createMessage(msg.channel.id,message);
-	        var members = msg.channel.guild.members;
-	        members.forEach(function(member){
-	        	if(member.id === msg.author.id){
-	        		var roles = member.roles;
-	        		var hadRole = false;
-		        	roles.forEach(function(role){
-		        		if(role === constants.LOLICON_ROLE){
-		        			bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
-		        			message = "You're free to go!";
-		                	bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/../views/reaction_images/free.gif"),name:"free.gif"});
-		                	hadRole = true;
-		        		}
-		        	});
-		        	if(!hadRole){
-	                	bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
-	                	message = "You're under arrest!";
-                		bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/../views/reaction_images/prison.gif"),name:"prison.gif"});
-		        	}
-	        	}
-	       	});
+	       	if(common.findIfHasRole(msg, msg.author.id, constants.LOLICON_ROLE)){
+				bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
+	        	bot.createMessage(msg.channel.id, "You're already a lolicon! But hey, you're free now!");
+	        	bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/../views/reaction_images/free.gif"),name:"free.gif"});
+	       	}else{
+                bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.LOLICON_ROLE);
+            	message = "You're under arrest!";
+            	bot.createMessage(msg.channel.id,message,{file:fs.readFileSync(__dirname + "/../views/reaction_images/prison.gif"),name:"prison.gif"});
+	       	}
 	    }else{
 	        bot.createMessage(msg.channel.id,'Porra Fowz');
 	    }

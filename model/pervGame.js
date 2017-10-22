@@ -47,21 +47,6 @@ module.exports = {
                     role = constants.SISCON_ROLE;
                 break;
             }
-            // var members = msg.channel.guild.members;
-            // members.forEach(function(member){
-            //     if(member.id === msg.author.id){
-            //         var roles = member.roles;
-            //         var hadRole = false;
-            //         roles.forEach(function(mrole){
-            //             if(mrole === role){
-            //                 hadRole = true;
-            //             }
-            //         });
-            //         if(!hadRole){
-            //             bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, role);
-            //         }
-            //     }
-            // });
             if(!common.findIfHasRole(msg, msg.author.id, role)){
                 bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, role);
             }
