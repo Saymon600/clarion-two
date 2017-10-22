@@ -177,7 +177,7 @@ module.exports = {
 			let res;
 			for (var i = 0; i < sqlValues.length; i++) {
 				res = await client.query(sql, [sqlValues[i]]);
-				message = message + titles[i] +": <@" + res.rows[0].id + ">, with  " + res.rows[0].hentai_level + " " sqlValues[i] +"s\n";	
+				message = message + titles[i] +": <@" + res.rows[0].id + ">, with  " + res.rows[0].hentai_level + " " + sqlValues[i] +"s\n";	
 			}
 			await client.end();
 			bot.createMessage(msg.channel.id,message);
