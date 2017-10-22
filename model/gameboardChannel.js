@@ -55,8 +55,9 @@ module.exports = {
 
 	removeBastao: function(msg, bot){
        	const firekeeper = common.findMemberWithRole(msg, constants.FIREKEEPER_ROLE);
-       	if(!firekeeper){
+       	if(firekeeper === undefined){
        		bot.createMessage(msg.channel.id, 'There is no firekeeper');
+       		return;
        	}
        	bot.removeGuildMemberRole(msg.channel.guild.id, firekeeper.id, constants.FIREKEEPER_ROLE);
        	bot.createMessage(msg.channel.id, 'Storytime is over now.');
