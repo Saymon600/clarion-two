@@ -144,7 +144,12 @@ module.exports = {
             bot.createMessage(msg.channel.id, "Specify an user");
             return;
         }
-        dbManager.getPervertRolls(msg, bot, type, common.findMemberByName);
+        const member = common.findMemberByName(msg, params[0]);
+        if(member === undefined){
+            bot.createMessage(msg.channel.id, "Didn't find the user\nTeehee~");
+            return;
+        }
+        dbManager.getPervertRolls(msg, bot, type, member);
     },
 
     changeSeason: function(msg, bot){
