@@ -185,7 +185,7 @@ module.exports = {
             bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/../views/reaction_images/jii.jpg"),name:"jii.jpg"});
             return;
         }
-        dbManager.testSeason(msg, bot, constants.ETERNAL_ROLE, constants.PERVERT_ROLE, constants.ONIICHAN_ROLE, function(){
+        dbManager.testSeason(msg, bot, [constants.ETERNAL_ROLE, constants.PERVERT_ROLE, constants.ONIICHAN_ROLE], function(){
             bot.createMessage(constants.GAMEBOARD_CHANNEL, "Onii-chan, peace peace~");
         });
     },
