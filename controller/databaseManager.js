@@ -175,25 +175,25 @@ module.exports = {
 	    });
 	},
 
-	testSeason: function async (msg, bot, eternal, pervert, oniichan, callback){
-		try {
-			client = this.connect();
-			await client.connect();
-			sql = "SELECT id,hentai_level FROM perverts WHERE hentai_type = $1 ORDER BY hentai_level desc LIMIT 1";
-			let message = "Another season ended, here are some notable people:\n";
-			sqlValues = ["loli", "futa", "imouto"];
-			let titles = ["Wanted by FBI", "Most pervert neighbor", "Most creepy siscon"];
-			let res;
-			for (var i = 0; i < sqlValues.length; i++) {
-				res = await client.query(sql, sqlValues[i]);
-				message = message + titles[i] +": <@" + res.rows[0].id + ">, with  " + res.rows[0].hentai_level + sqlValues[i] +"s\n";	
-			}
-			await client.end();
-			bot.createMessage(msg.channel.id,message);
-			callback();
-	    } catch(err) {
-	  		console.log(err.stack)
-		}
+	testSeason: function (msg, bot, eternal, pervert, oniichan, callback){
+		// try {
+		// 	client = this.connect();
+		// 	await client.connect();
+		// 	sql = "SELECT id,hentai_level FROM perverts WHERE hentai_type = $1 ORDER BY hentai_level desc LIMIT 1";
+		// 	let message = "Another season ended, here are some notable people:\n";
+		// 	sqlValues = ["loli", "futa", "imouto"];
+		// 	let titles = ["Wanted by FBI", "Most pervert neighbor", "Most creepy siscon"];
+		// 	let res;
+		// 	for (var i = 0; i < sqlValues.length; i++) {
+		// 		res = await client.query(sql, sqlValues[i]);
+		// 		message = message + titles[i] +": <@" + res.rows[0].id + ">, with  " + res.rows[0].hentai_level + sqlValues[i] +"s\n";	
+		// 	}
+		// 	await client.end();
+		// 	bot.createMessage(msg.channel.id,message);
+		// 	callback();
+	 //    } catch(err) {
+	 //  		console.log(err.stack)
+		// }
 	}
 
 
