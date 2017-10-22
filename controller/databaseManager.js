@@ -59,17 +59,21 @@ module.exports = {
 	    });
 	},
 
-	getPervert: function(msg, bot, type){
+	getPervertRolls: function(msg, bot, type, anotherMember){
 		this.connect();
 		sql = "SELECT * FROM perverts WHERE id = $1 and hentai_type = $2;";
-	    sqlValues =[msg.author.id,type];
+	    sqlValues = (anotherMember === null) ? [msg.author.id,type] : [anotherMember.id,type];
 	    client.query(sql, sqlValues, (err,res) => {
 	        if (err) {return console.error(err.message);}
 	        var average = (res.rows[0].last_roll_1 + res.rows[0].last_roll_2 + res.rows[0].last_roll_3 + res.rows[0].last_roll_4 + res.rows[0].last_roll_5)/5;
 	        average = average.toFixed(2);
-	        var mensagem = "<@" + msg.author.id + ">, you have a total of " + res.rows[0].hentai_level + " " + type + "s\n";
+	        if(anotherMember){
+	        	var mensagem = anotherMember.username + " has a total of " + res.rows[0].hentai_level + " " + type + "s\n";
+	        }else{
+	        	var mensagem = "<@" + msg.author.id + ">, you have a total of " + res.rows[0].hentai_level + " " + type + "s\n";
+	        }
 	        mensagem += "Last 5 rolls are: " + parseInt(res.rows[0].last_roll_1) + ", " + parseInt(res.rows[0].last_roll_2) + ", " + parseInt(res.rows[0].last_roll_3) + ", " + parseInt(res.rows[0].last_roll_4) + ", " + parseInt(res.rows[0].last_roll_5) + "\n";
-	        mensagem += "Your average is " + average;
+	        mensagem += "Average is " + average;
 	        bot.createMessage(msg.channel.id, mensagem);
 	        client.end();
 	    });

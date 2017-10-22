@@ -145,6 +145,11 @@ module.exports = function(app, bot, moment) {
 	    	return perv.sorry(msg, bot);
 	    }
 
+	    //C027
+	    if(msg.content.startsWith("!lastlolis") && channel === constants.GAMEBOARD_CHANNEL){
+	    	return perv.getLastRolls(msg, bot, "loli");
+	    }
+
 	    //C994
 	    if(msg.content === "!changeseason" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return perv.changeSeason(msg, bot);

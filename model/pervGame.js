@@ -23,7 +23,7 @@ module.exports = {
  	},
 
    	stats: function(msg, bot, type){
-    	dbManager.getPervert(msg,bot, type);
+    	dbManager.getPervertRolls(msg, bot, type, null);
    	},
 
     informAboutRoll: function(msg, bot, type, roll, total){
@@ -130,12 +130,21 @@ module.exports = {
             bot.createMessage(msg.channel.id, "",{file:fs.readFileSync(__dirname + "/../views/reaction_images/jii.jpg"),name:"jii.jpg"});
             return;
         }
-        var params = msg.content.split(" ").slice(1);
+        const params = msg.content.split(" ").slice(1);
         if(params[0] === undefined || params[1] === undefined　|| Number.isNaN(parseInt(params[1]))){
             bot.createMessage(msg.channel.id, "わからない、お兄ちゃん");
             return;
         }
         dbManager.increasePervertsLevel(msg, bot, params[0], params[1]);
+    },
+
+    getLastRolls: function(msg, bot, type){
+        const params = msg.content.split(" ").slice(1);
+        if(params[0] === undefined){
+            bot.createMessage(msg.channel.id, "Specify an user");
+            return;
+        }
+        dbManager.getPervertRolls(msg, bot, type, common.findMemberByName);
     },
 
     changeSeason: function(msg, bot){
