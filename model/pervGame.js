@@ -139,10 +139,8 @@ module.exports = {
     },
 
     getLastRolls: function(msg, bot, type){
-        // const params = msg.content.split(" ").slice(1);
         const name = msg.content.substr(msg.content.indexOf(' ')+1);
-        console.log("aa" + name);
-        if(name === undefined){
+        if(name.startsWith("!last")){
             bot.createMessage(msg.channel.id, "Onii-chan, specify an user please~~");
             return;
         }
