@@ -139,12 +139,14 @@ module.exports = {
     },
 
     getLastRolls: function(msg, bot, type){
-        const params = msg.content.split(" ").slice(1);
-        if(params[0] === undefined){
+        // const params = msg.content.split(" ").slice(1);
+        const name = msg.content.substr(msg.content.indexOf(' ')+1);
+        console.log("aa" + name);
+        if(name === undefined){
             bot.createMessage(msg.channel.id, "Onii-chan, specify an user please~~");
             return;
         }
-        const member = common.findMemberByName(msg, params[0]);
+        const member = common.findMemberByName(msg, name);
         if(member === undefined){
             bot.createMessage(msg.channel.id, "Didn't find the user\nTeehee~");
             return;

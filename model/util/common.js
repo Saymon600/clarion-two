@@ -21,8 +21,8 @@ module.exports = {
 	findMemberWithRole: function(msg, role){
 		return msg.channel.guild.members.find((member) =>{
 			return member.roles.find((memberRole) =>{
-				return memberRole === role
-			})
-		})
+				return memberRole === role;
+			});
+		});
 	}
 }
