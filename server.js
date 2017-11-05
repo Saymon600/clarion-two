@@ -17,25 +17,17 @@ app.use(function (req, res, next) {
     next();
 });
 
-// require('./config/router.js')(app, express);
-// require('./config/timer.js')(bot);
-// require('./controller/messageController.js')(app, bot, moment);
+require('./config/router.js')(app, express);
+require('./config/timer.js')(bot);
+require('./controller/messageController.js')(app, bot, moment);
 
 //init
 app.listen(port, function() {
     console.log(moment().format("LLL") + ': Clarion is running on port ' + port);
 });
 
-// bot.connect();
+bot.connect();
 
 bot.on("ready", () => {
     console.log("Onii-chan, I'm ready");
 });
-
-var a = "aaa"
-var i = 2
-switch(a){
-	case 'aaa' && i === 2:
-		console.log('satan')
-	break;
-}
