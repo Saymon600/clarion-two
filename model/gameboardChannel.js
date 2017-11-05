@@ -193,6 +193,7 @@ module.exports = {
     	message = message + "!cs: you can't change my status, dummy\n";
     	message = message + "!pf: Prato feito or something like that\n";
     	message = message + "!lastlolis: Show last lolis from an user\n";
+    	message = message + "!giveluck: Try it if you're about to roll in a mobage\n";
     	message = message + "!stats: my stats\n";
 
     	bot.createMessage(msg.channel.id, message);

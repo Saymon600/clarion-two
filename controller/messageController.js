@@ -13,188 +13,129 @@ var lastplaying = '';
 
 module.exports = function(app, bot, moment) {
 
-	var defineAction = (msg, channel) =>{
+	var autismAction = (msg) =>{
 
-		//C001
-	    if(msg.content === "!ping" && channel === constants.GAMEBOARD_CHANNEL) {
-	        return bot.createMessage(channel, "p-pon!");
-	    }
+	}
 
-	    //C002
-	    if(msg.content.startsWith("!nanisore") && (channel === constants.GAMEBOARD_CHANNEL || channel === constants.RICE_CHANNEL)){
-    		return rice.executeJishoRequest(msg, bot, moment);
-	    }
+	var mobageAction = (msg) =>{
 
-	    //C003
-	    if(msg.content.startsWith("!roll") && channel === constants.GAMEBOARD_CHANNEL){
-	    	return gameboard.rollAction(msg, bot);
-	    }
+		switch(msg.content){
+			case "!giveluck":
+				return mobage.giveLuck(msg, bot, fs);
+		}
 
-    	//C004
-    	if(msg.content.startsWith("!choose") && (channel === constants.GAMEBOARD_CHANNEL || channel === constants.MOBAGE_CHANNEL)){
+    	if(msg.content.startsWith("!choose")){
     		return mobage.choose(msg, bot);
     	}
 
-    	//C005
-    	if(msg.content.startsWith("!ask") && (channel === constants.GAMEBOARD_CHANNEL || channel === constants.MOBAGE_CHANNEL)){
+    	if(msg.content.startsWith("!ask")){
     		return mobage.ask(msg, bot, fs);
     	}
 
-    	//C006
-    	if(msg.content === "!bastao" && channel === constants.GAMEBOARD_CHANNEL) {
-    		return gameboard.getBastao(msg, bot);
-    	}
-
-		//C007 
-		if(msg.content === "!sem-bastao" && channel === constants.GAMEBOARD_CHANNEL) {
-			return gameboard.removeBastao(msg, bot);
-		}
-
-		//C008
-    	if(msg.content.startsWith("!raid") && (channel === constants.GAMEBOARD_CHANNEL || channel === constants.MOBAGE_CHANNEL)){
+    	if(msg.content.startsWith("!raid")){
     		return mobage.raid(msg, bot);
     	}
 
-		//C009
-	    if(msg.content === "!spoiler" && channel === constants.GAMEBOARD_CHANNEL) {
-	    	return gameboard.spoiler(msg, bot);
-		}
-
-	    //C010
-	    if(msg.content.startsWith("!cn") && channel === constants.GAMEBOARD_CHANNEL){
-	    	return gameboard.changeName(msg, bot, fs);
-	    }
-
-	    //C011
-	    if(msg.content.startsWith("!cp") && channel === constants.GAMEBOARD_CHANNEL){
-	    	return gameboard.changePlaying(msg, bot, fs);
-	    }
-
-	    //C012
-	    if(msg.content.startsWith("!cs") && channel === constants.GAMEBOARD_CHANNEL){
-	    	return gameboard.changeStatus(msg, bot, fs);
-	    }
-
-	    //C013
-	    if(msg.content.startsWith("!pf") && channel === constants.GAMEBOARD_CHANNEL){
-	    	return gameboard.pf(msg, bot, fs);
-	    }
-
-	    //C014
-	    if(msg.content.startsWith("!stats") && channel === constants.GAMEBOARD_CHANNEL){
-	    	return gameboard.stats(msg, bot, moment);
-	    }
-
-	    //C015
-	    if(msg.content.indexOf("rol") !== -1 && channel == constants.MOBAGE_CHANNEL){
+	    if(msg.content.indexOf("rol")){
 	    	return mobage.gudako(msg, bot, fs);
 	    }
 
-   	    //C016
-	    if(msg.content.indexOf("whal") !== -1 && channel == constants.MOBAGE_CHANNEL){
+	    if(msg.content.indexOf("whal") !== -1){
 	    	return mobage.whale(msg, bot, fs);
 	    }
+	}
 
-	    //C017
-	    if(msg.content === "!loli" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.roll(msg, bot, "loli");
+	var riceAction = (msg) =>{
+	    if(msg.content.startsWith("!nanisore")){
+    		return rice.executeJishoRequest(msg, bot, moment);
 	    }
 
-	    //C018 
-	    if(msg.content === "!lolistats" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.stats(msg, bot, "loli");
-	    }
+	}
 
-	    //C019
-	    if(msg.content === "!lolirank" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.rank(msg, bot, "loli");
-	    }
+	var gameboardAction = (msg) =>{
 
-	    //C020
-	    if(msg.content === "!futa" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.roll(msg, bot, "futa");
-	    }
+		switch(msg.content){
+			case "!ping":
+				return bot.createMessage(channel, "p-pon!");
+			case "!bastao":
+				return gameboard.getBastao(msg, bot);
+			case "!sem-bastao":
+				return gameboard.removeBastao(msg, bot);
+			case "!spoiler":
+				return gameboard.spoiler(msg, bot);
+			case "!pf":
+				return gameboard.pf(msg, bot, fs);
+			case "!stats":
+				return gameboard.stats(msg, bot, moment);
+			case "!loli":
+				return perv.roll(msg, bot, "loli");
+			case "!lolistats":
+				return perv.stats(msg, bot, "loli");
+			case "!lolirank":
+				return perv.rank(msg, bot, "loli");
+			case "!futa":
+				return perv.roll(msg, bot, "futa");
+			case "!futastats":
+				return perv.stats(msg, bot, "futa");
+			case "!futarank":
+				return perv.rank(msg, bot, "futa");
+			case "!imouto":
+				return perv.roll(msg, bot, "imouto");
+			case "!imoutostats":
+				return perv.stats(msg, bot, "imouto");
+			case "!imoutorank":
+				return perv.rank(msg, bot, "imouto");
+			case "!changeseason":
+				return perv.changeSeason(msg, bot);
+			case "!resetimouto":
+				return perv.reset(msg, bot, "imouto");
+			case "!resetfuta":
+				return perv.reset(msg, bot, "futa");
+			case "!resetloli":
+				return perv.reset(msg, bot, "loli");
+			case "!releaseall":
+				return perv.releaseAll(msg, bot);
+			case "!help":
+				return gameboard.help(msg, bot);
+		}
 
-	    //C021 
-	    if(msg.content === "!futastats" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.stats(msg, bot, "futa");
-	    }
-
-	    //C022
-	    if(msg.content === "!futarank" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.rank(msg, bot, "futa");
-	    }
-
-	    //C023
-	    if(msg.content === "!imouto" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.roll(msg, bot, "imouto");
-	    }
-
-	    //C024 
-	    if(msg.content === "!imoutostats" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.stats(msg, bot, "imouto");
-	    }
-
-	    //C025
-	    if(msg.content === "!imoutorank" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.rank(msg, bot, "imouto");
-	    }
-
-	    //C026
-	    if(msg.content.startsWith("!sorry") && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.sorry(msg, bot);
-	    }
-
-	    //C027
-	    if(msg.content.startsWith("!lastlolis") && channel === constants.GAMEBOARD_CHANNEL){
+	    if(msg.content.startsWith("!lastlolis")){
 	    	return perv.getLastRolls(msg, bot, "loli");
 	    }
 
-	    //C028
-	    if(msg.content.startsWith("!lastfutas") && channel === constants.GAMEBOARD_CHANNEL){
+	    if(msg.content.startsWith("!lastfutas")){
 	    	return perv.getLastRolls(msg, bot, "futa");
 	    }
 
-	    //C029
-	    if(msg.content.startsWith("!lastimoutos") && channel === constants.GAMEBOARD_CHANNEL){
+	    if(msg.content.startsWith("!lastimoutos")){
 	    	return perv.getLastRolls(msg, bot, "imouto");
 	    }
 
-	    //C030
-	    if(msg.content === "!giveluck" && channel === constants.MOBAGE_CHANNEL){
-	    	return mobage.giveLuck(msg, bot, fs);
+	    if(msg.content.startsWith("!roll")){
+	    	return gameboard.rollAction(msg, bot);
 	    }
 
-	    //C994
-	    if(msg.content === "!changeseason" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.changeSeason(msg, bot);
+    	if(msg.content.startsWith("!choose")){
+    		return mobage.choose(msg, bot);
+    	}
+
+    	if(msg.content.startsWith("!ask")){
+    		return mobage.ask(msg, bot, fs);
+    	}
+
+	    if(msg.content.startsWith("!sorry")){
+	    	return perv.sorry(msg, bot);
 	    }
 
-	    //C995
-	    if(msg.content === "!resetimouto" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.reset(msg, bot, "imouto");
+	    if(msg.content.startsWith("!cn")){
+	    	return gameboard.changeName(msg, bot, fs);
 	    }
-
-	    //C996
-	    if(msg.content === "!resetfuta" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.reset(msg, bot, "futa");
+	    if(msg.content.startsWith("!cp")){
+	    	return gameboard.changePlaying(msg, bot, fs);
 	    }
-
-	    //C997
-	    if(msg.content === "!releaseall" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.releaseAll(msg, bot);
+	    if(msg.content.startsWith("!cs")){
+	    	return gameboard.changeStatus(msg, bot, fs);
 	    }
-
-	    //C998
-	    if(msg.content === "!resetloli" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return perv.reset(msg, bot, "loli");
-	    }
-
-	    //C999
-	    if(msg.content === "!help" && channel === constants.GAMEBOARD_CHANNEL){
-	    	return gameboard.help(msg, bot);
-	    }
-
 	}
 
 	bot.on("messageCreate", (msg) => {
@@ -202,16 +143,16 @@ module.exports = function(app, bot, moment) {
 		let channel = msg.channel.id;
 		switch(channel){
 			case constants.GAMEBOARD_CHANNEL:
-				defineAction(msg, channel);
+				gameboardAction(msg);
 			break;
 			case constants.MOBAGE_CHANNEL:
-				defineAction(msg, channel);
+				mobageAction(msg);
 			break;
 			case constants.RICE_CHANNEL:
-				defineAction(msg, channel);
+				riceAction(msg);
 			break;
 			case constants.AUTISM_CHANNEL:
-				defineAction(msg, channel);
+				autismAction(msg);
 			break;
 		}
 
@@ -219,24 +160,3 @@ module.exports = function(app, bot, moment) {
 
 	dbManager.getBotStatus(bot);
 };
-
-/*
-Table of Contents
-C001: ping
-C002: nanisore 
-C003: roll
-C004: choose
-C005: ask
-C006: bastao
-C007: sem-bastao
-C008: raid
-C009: spoiler
-C010: change nick
-C011: change playing game
-C012: change status
-C013: Porra Fowz
-C014: stats
-C015: roll mobage dock
-C016: whale mobage dock 
-C999: Help
-*/
