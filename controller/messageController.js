@@ -36,7 +36,7 @@ module.exports = function(app, bot, moment) {
     		return mobage.raid(msg, bot);
     	}
 
-	    if(msg.content.indexOf("rol")){
+	    if(msg.content.indexOf("rol") !== -1){
 	    	return mobage.gudako(msg, bot, fs);
 	    }
 
