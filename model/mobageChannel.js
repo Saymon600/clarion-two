@@ -101,9 +101,9 @@ module.exports = {
             return bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/07.jpg"),name:"07.jpg"});
         }
         if(random >= 1 && random <= 5){
-            return bot.createMessage(msg.channel.id,"Prepare to be spooked");
+            return bot.createMessage(msg.channel.id,"Prepare to be spooked",{file:fs.readFileSync(__dirname + "/../views/reaction_images/kirei.png"),name:"kirei.png"});
         }
-        return bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/failLuck.png"),name:"failLuck.jpg"});
+        return bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/failLuck.png"),name:"failLuck.png"});
     }
 
 }
