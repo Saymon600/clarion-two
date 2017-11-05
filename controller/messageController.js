@@ -56,7 +56,7 @@ module.exports = function(app, bot, moment) {
 
 		switch(msg.content){
 			case "!ping":
-				return bot.createMessage(channel, "p-pon!");
+				return bot.createMessage(msg.channel.id, "p-pon!");
 			case "!bastao":
 				return gameboard.getBastao(msg, bot);
 			case "!sem-bastao":
