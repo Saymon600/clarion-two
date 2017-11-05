@@ -93,6 +93,17 @@ module.exports = {
                 bot.createMessage(msg.channel.id,"https://www.youtube.com/watch?v=xwNYc01qY2k");
             }
         }
+    },
+
+    giveLuck: function(msg, bot, fs){
+        var random = Math.floor(Math.random() * 11);
+        if(random === 0){
+            return bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/07.jpg"),name:"07.jpg"});
+        }
+        if(random >= 1 && random <= 5){
+            return bot.createMessage(msg.channel.id,"Prepare to be spooked");
+        }
+        return bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/failLuck.png"),name:"failLuck.jpg"});
     }
 
 }

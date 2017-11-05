@@ -160,6 +160,11 @@ module.exports = function(app, bot, moment) {
 	    	return perv.getLastRolls(msg, bot, "imouto");
 	    }
 
+	    //C030
+	    if(msg.content === "!giveluck" && channel === constants.MOBAGE_CHANNEL){
+	    	return mobage.giveLuck(msg, bot, fs);
+	    }
+
 	    //C994
 	    if(msg.content === "!changeseason" && channel === constants.GAMEBOARD_CHANNEL){
 	    	return perv.changeSeason(msg, bot);
