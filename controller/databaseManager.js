@@ -207,7 +207,7 @@ module.exports = {
 		try{
 			this.connect();
 			sql = "insert into gacha_addicts (id, name, gems, maximum_slot_number, last_roll_date) values ($1, $2, $3, $4, $5)";
-			sqlValues = [msg.author.id, msg.author.name, 0, 20, moment().tz('America/Sao_Paulo').format("YYYY-MM-DD")];
+			sqlValues = [msg.author.id, msg.author.username, 0, 20, moment().tz('America/Sao_Paulo').format("YYYY-MM-DD")];
 			await client.query(sql, sqlValues);
 			client.end();
 		} catch(err) {
