@@ -164,6 +164,27 @@ module.exports = {
 	    } catch(err) {
 	  		console.log(err.stack)
 		}
+	},
+
+	getWhale: async function (msg, id, callback){
+		try{
+			this.connect();
+			sql = "SELECT last_roll_date FROM whales WHERE id = $1";
+			sqlValues = [id];
+			let res = await client.query(sql, [sqlValues[i]]);
+			const now = moment().tz('America/Sao_Paulo').format("YYYY-MM-DD");
+			if(res.rows[0].last_roll_date === now){
+				client.end();
+				return callback(true)
+			}
+			callback(false);
+			sql = "update whales set last_roll_date = $2 where id = $1";
+			sqlValues.push(now);
+			await client.query(sql, [sqlValues[i]]);
+			client.end();
+		} catch(err) {
+	  		console.log(err.stack)
+		}
 	}
 
 };

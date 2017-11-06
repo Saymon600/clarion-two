@@ -1,5 +1,6 @@
 const constants = require('./util/constants.js');
 const common = require('./util/common.js');
+const dbManager = require('../controller/databaseManager.js');
 
 module.exports = {
 
@@ -96,14 +97,19 @@ module.exports = {
     },
 
     giveLuck: function(msg, bot, fs){
-        var random = Math.floor(Math.random() * 11);
-        if(random === 0){
-            return bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/07.jpg"),name:"07.jpg"});
-        }
-        if(random >= 1 && random <= 5){
-            return bot.createMessage(msg.channel.id,"Prepare to be spooked",{file:fs.readFileSync(__dirname + "/../views/reaction_images/kirei.png"),name:"kirei.png"});
-        }
-        return bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/failLuck.png"),name:"failLuck.png"});
+        dbManager.getWhale(msg, msg.author.id, (alreadyRolled) =>{
+            if(alreadyRolled){
+                return bot.createMessage(msg.channel.id,"You already rolled today, onii-chan");
+            }
+            var random = Math.floor(Math.random() * 11);
+            if(random === 0){
+                return bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/07.jpg"),name:"07.jpg"});
+            }
+            if(random >= 1 && random <= 5){
+                return bot.createMessage(msg.channel.id,"Prepare to be spooked",{file:fs.readFileSync(__dirname + "/../views/reaction_images/kirei.png"),name:"kirei.png"});
+            }
+            return bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/failLuck.png"),name:"failLuck.png"});
+        });
     }
 
 }
