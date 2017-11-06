@@ -57,7 +57,7 @@ module.exports = {
 		for (var i = 0; i < parseInt(newServant.rarity); i++) {
 			rarity += ':star:';
 		}
-		bot.createMessage(msg.channel.id,`You rolled ${newServant.name} from ${newServant.original}! Rarity: ${rarity} Class: ${newServant.class} (Slot ${newSlot})`);
+		bot.createMessage(msg.channel.id,`You rolled **${newServant.name}** from ${newServant.original}! Rarity: ${rarity} Class: **${newServant.class}** (Slot ${newSlot})`);
 		if(addict.data === undefined){
 			await dbManager.createGachaAddict(msg);
 		}
