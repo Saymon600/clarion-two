@@ -181,7 +181,7 @@ module.exports = {
 			sql = (res.rows[0] === undefined) ? "insert into whales (id, last_roll_date) values ($1, $2)" 
 											  : "update whales set last_roll_date = $2 where id = $1";
 			sqlValues.push(now);
-			await client.query(sql, [sqlValues[i]]);
+			await client.query(sql, sqlValues);
 			client.end();
 		} catch(err) {
 	  		console.log(err.stack)
