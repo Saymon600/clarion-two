@@ -178,7 +178,8 @@ module.exports = {
 				return callback(true)
 			}
 			callback(false);
-			sql = "update whales set last_roll_date = $2 where id = $1";
+			sql = (res.rows[0].last_roll_date === undefined) ? "insert into whales (id, last_roll_date) values ($1, $2)" 
+															 : "update whales set last_roll_date = $2 where id = $1";
 			sqlValues.push(now);
 			await client.query(sql, [sqlValues[i]]);
 			client.end();
