@@ -173,7 +173,7 @@ module.exports = {
 			sqlValues = [id];
 			let res = await client.query(sql, sqlValues);
 			const now = moment().tz('America/Sao_Paulo').format("YYYY-MM-DD");
-			if(res.rows[0].last_roll_date === now){
+			if(res.rows[0] === undefined || res.rows[0].last_roll_date === now){
 				client.end();
 				return callback(true)
 			}
