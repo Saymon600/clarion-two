@@ -171,7 +171,7 @@ module.exports = {
 			this.connect();
 			sql = "SELECT last_roll_date FROM whales WHERE id = $1";
 			sqlValues = [id];
-			let res = await client.query(sql, [sqlValues[i]]);
+			let res = await client.query(sql, sqlValues);
 			const now = moment().tz('America/Sao_Paulo').format("YYYY-MM-DD");
 			if(res.rows[0].last_roll_date === now){
 				client.end();
