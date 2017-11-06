@@ -14,6 +14,7 @@ module.exports = {
 	          database: 'd5qsftiankav99',
 	          password: '32bc5c61e1d03e330f66dbd402ba9628e559e924d82477a847ad2cd99b39174e',
 	          port: 5432,
+	          ssl: true
 	        });
 		await client.connect();
 		return client;
@@ -164,7 +165,7 @@ module.exports = {
 	    } catch(err) {
 	  		console.log(err.stack)
 		}
-	},
+	},	
 
 	getWhale: async function (msg, id, callback){
 		try{
@@ -184,7 +185,121 @@ module.exports = {
 			await client.query(sql, sqlValues);
 			client.end();
 		} catch(err) {
-	  		console.log(err.stack)
+	  		console.log(err.stack);
+		}
+	},
+
+	getGachaAddict: async function (id){
+		try{
+			this.connect();
+			sql = "SELECT * FROM gacha_addicts WHERE id = $1";
+			sqlValues = [id];
+			let res = await client.query(sql, sqlValues);
+			client.end();
+			return (res.rows[0] !== undefined && res.rows[0].last_roll_date === moment().tz('America/Sao_Paulo').format("YYYY-MM-DD")) ? {rolled: true} : {rolled: false, data: res.rows[0]};
+			// return (res.rows[0] === undefined) ? {rolled: false} : {rolled: false, data: res.rows[0]};
+		} catch(err) {
+			console.log(err.stack);
+		}
+	},
+
+	createGachaAddict: async function (msg){
+		try{
+			this.connect();
+			sql = "insert into gacha_addicts (id, name, gems, maximum_slot_number, last_roll_date) values ($1, $2, $3, $4, $5)";
+			sqlValues = [msg.author.id, msg.author.name, 0, 20, moment().tz('America/Sao_Paulo').format("YYYY-MM-DD")];
+			await client.query(sql, sqlValues);
+			client.end();
+		} catch(err) {
+			console.log(err.stack);
+		}
+	},
+
+	updateGachaAddict: async function (addictId, newServantId, newSlot){
+		try{
+			this.connect();
+			sql = 'update gacha_addicts set last_roll_date = $1 where id = $2';
+			sqlValues = [moment().tz('America/Sao_Paulo').format("YYYY-MM-DD"), addictId];
+			await client.query(sql, sqlValues);
+			sql = 'insert into fgo_slots (id_addict, id_servant, slot_number) values ($1, $2, $3)'
+			sqlValues = [addictId, newServantId, newSlot];
+			await client.query(sql, sqlValues);
+			client.end();
+		} catch(err) {
+			console.log(err.stack);
+		}
+	},
+
+	getServantsByRarity: async function (rarity){
+		try{
+			this.connect();
+			sql = "SELECT * FROM fgo_servants WHERE rarity = $1";
+			if(rarity === '3'){
+				sql = "SELECT * FROM fgo_servants WHERE rarity <= $1";
+			}
+			sqlValues = [rarity];
+			let res = await client.query(sql, sqlValues);
+			client.end();
+			return res.rows;
+		} catch(err) {
+			console.log(err.stack);
+		}
+	},
+
+	getSlots: async function (id, slotOptions){
+		try{
+			this.connect();
+			sql = "SELECT * FROM fgo_slots WHERE id_addict = $1 order by slot_number";
+			sqlValues = [id];
+			if(slotOptions === 'slotData'){
+				sql = "SELECT * FROM fgo_slots f join fgo_servants s on (f.id_servant = s.id) WHERE f.id_addict = $1 order by f.slot_number";
+			}
+			if(slotOptions !== undefined && slotOptions.option === 'singleSlot'){
+				sql = "SELECT * FROM fgo_slots f join fgo_servants s on (f.id_servant = s.id) WHERE f.id_addict = $1 and f.slot_number = $2";
+				sqlValues.push(slotOptions.slotNumber);
+			}
+			let res = await client.query(sql, sqlValues);
+			client.end();
+			return res.rows;
+		} catch(err) {
+			console.log(err.stack);
+		}
+	},
+
+	removeSlot: async function (msg, bot, id, slots){
+		try{
+			this.connect();
+			for (var i = 0; i < slots.length; i++) {			
+				sql = "delete from fgo_slots where id_addict = $1 and slot_number = $2";
+				sqlValues = [id, slots[i]];
+				await client.query(sql, sqlValues);
+				sql = 'update gacha_addicts set gems = gems + 10 where id = $1';
+				sqlValues = [id]
+				await client.query(sql, sqlValues);
+			}
+			bot.createMessage(msg.channel.id, 'Slots deleted, nii-nii~');
+			client.end();
+		} catch(err){
+			console.log(err.stack);
+		}
+	},
+
+	changeSlots: async function (msg, bot, slots){
+		try{
+			this.connect();
+			sql = "select * from gacha_addicts where id = $1";
+			sqlValues = [msg.author.id];
+			let res = await client.query(sql, sqlValues);
+			if(res.rows[0] !== undefined && (res.rows[0].maximum_slot_number < slots[0] || res.rows[0].maximum_slot_number < slots[1])){
+				return bot.createMessage(msg.channel.id, "Can't do that, nii-nii... your highest available slot is " + res.rows[0].maximum_slot_number);
+			}
+			sql = 'update fgo_slots set slot_number = case when slot_number = $2 then $3 when slot_number = $3 then $2 else slot_number end where id_addict = $1';
+			sqlValues = [msg.author.id, slots[0], slots[1]];
+			await client.query(sql, sqlValues);
+			bot.createMessage(msg.channel.id, 'Slots swapped, nii-nii!');
+			client.end();
+		}catch(err){
+			console.log(err.stack);
 		}
 	}
 

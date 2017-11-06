@@ -30,4 +30,5 @@ bot.connect();
 
 bot.on("ready", () => {
     console.log("Onii-chan, I'm ready");
+    bot.createMessage("141583443896041472", "サービス開始。クラリオン、参ります");
 });

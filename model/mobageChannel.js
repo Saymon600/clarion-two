@@ -88,7 +88,6 @@ module.exports = {
         var random2 = Math.floor((Math.random() * 2) + 1);
         if(random === 12){
             if(random2 === 1){
-                //mastodon
                 bot.createMessage(msg.channel.id,"https://www.youtube.com/watch?v=v-Su1YXQYek");
             }else{
                 bot.createMessage(msg.channel.id,"https://www.youtube.com/watch?v=xwNYc01qY2k");

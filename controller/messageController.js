@@ -1,6 +1,7 @@
 const fs = require('fs');
 const request = require('request');
 const constants = require('./../model/util/constants.js');
+const common = require('./../model/util/common.js');
 const moment = require('moment');
 
 const rice = require('./../model/riceChannel.js');
@@ -8,7 +9,10 @@ const autism = require('./../model/autismChannel.js');
 const gameboard = require('./../model/gameboardChannel.js');
 const mobage = require('./../model/mobageChannel.js');
 const perv = require('./../model/pervGame.js');
+const gacha = require('./../model/gacha.js');
 const dbManager = require('./databaseManager.js');
+
+
 var lastplaying = '';
 
 module.exports = function(app, bot, moment) {
@@ -95,8 +99,33 @@ module.exports = function(app, bot, moment) {
 				return perv.reset(msg, bot, "loli");
 			case "!releaseall":
 				return perv.releaseAll(msg, bot);
+			case "!gacha":
+				return gacha.dailyGacha(msg, bot);
+			case "!rates":
+			case "!rate":
+				return gacha.showRates(msg, bot);
+			case "!myslots":
+			case "!myslot":
+				return gacha.showSlots(msg, bot, msg.author.id);
 			case "!help":
 				return gameboard.help(msg, bot);
+			case "!gachahelp":
+				return gacha.gachaHelp(msg, bot);
+		}
+		if(msg.content.startsWith("!slot") || msg.content.startsWith("!slots")){
+			return gacha.showSlots(msg, bot, common.findMemberByName(msg, msg.content.split(" ").splice(1).join(" ")).id);
+		}
+
+		if(msg.content.startsWith("!displayslot") || msg.content.startsWith("!showslot")){
+			return gacha.displaySlot(msg, bot);
+		}
+
+		if(msg.content.startsWith("!releaseslot") || msg.content.startsWith("!freeslot")){
+			return gacha.freeSlot(msg, bot);
+		}
+
+		if(msg.content.startsWith("!changeslot") || msg.content.startsWith("!swapslot")){
+			return gacha.changeSlot(msg, bot);
 		}
 
 	    if(msg.content.startsWith("!lastlolis")){
