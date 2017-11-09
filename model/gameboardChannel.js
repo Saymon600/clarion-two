@@ -166,7 +166,7 @@ module.exports = {
     	var uptime = moment.duration(bot.uptime);
     	var strUptime = this.zeroPad(uptime.hours(),2) + ":" + this.zeroPad(uptime.minutes(),2) + ":" + this.zeroPad(uptime.seconds(),2);
 
-    	message = message + "Uptime: " + strUptime + "\n";
+    	message += "Uptime: " + strUptime + "\n";
 
     	bot.createMessage(msg.channel.id,message);
    	},
@@ -178,23 +178,23 @@ module.exports = {
    		});*/
 
     	var message = "<@" + msg.author.id + ">, ";
-    	message = message + "Clarion commands:\n";
-    	message = message + "!ping: 10ms\n";
-    	message = message + "!nanisore: search something in Jisho database\n";
-    	message = message + "!roll: roll dices for you (number of dices + 'd' + dice sides, ex.: 1d6)\n";
-    	message = message + "!choose: make a choice for you (separate choices with , please)\n";
-    	message = message + "!ask: ask me something and I'll answer with yes or no\n";
-    	message = message + "!bastao: Tell a story in bonfire, my friend\n";
-    	message = message + "!sem-bastao: remove firekeepers from bonfire.\n";
-    	message = message + "!raid: idk what is this, but they'll ping you with some strange gbf raid code\n";
-    	message = message + "!spoiler: access the secret park\n";
-    	message = message + "!cn: Change my nick in this server.\n";
-    	message = message + "!cp: Change my playing game name.\n";
-    	message = message + "!cs: you can't change my status, dummy\n";
-    	message = message + "!pf: Prato feito or something like that\n";
-    	message = message + "!lastlolis: Show last lolis from an user\n";
-    	message = message + "!giveluck: Try it if you're about to roll in a mobage\n";
-    	message = message + "!stats: my stats\n";
+    	message += "Clarion commands:\n";
+    	message += "!ping: 10ms\n";
+    	message += "!nanisore: search something in Jisho database\n";
+    	message += "!roll: roll dices for you (number of dices + 'd' + dice sides, ex.: 1d6)\n";
+    	message += "!choose: make a choice for you (separate choices with , please)\n";
+    	message += "!ask: ask me something and I'll answer with yes or no\n";
+    	message += "!bastao: Tell a story in bonfire, my friend\n";
+    	message += "!sem-bastao: remove firekeepers from bonfire.\n";
+    	message += "!raid: idk what is this, but they'll ping you with some strange gbf raid code\n";
+    	message += "!spoiler: access the secret park\n";
+    	message += "!cn: Change my nick in this server.\n";
+    	message += "!cp: Change my playing game name.\n";
+    	message += "!cs: you can't change my status, dummy\n";
+    	message += "!pf: Prato feito or something like that\n";
+    	message += "!lastlolis: Show last lolis from an user\n";
+    	message += "!giveluck: Try it if you're about to roll in a mobage\n";
+    	message += "!stats: my stats\n";
 
     	bot.createMessage(msg.channel.id, message);
    	}
