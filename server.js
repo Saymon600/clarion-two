@@ -4,7 +4,7 @@ var port = process.env.PORT || 3030;
 const Eris = require("eris");
 const moment = require('moment');
 const m = require('moment-timezone');
-var bot = new Eris("MzYzODQ1NTI2NzExNTY2MzM2.DLMrYg.zG28pp2E8PR43uY3subsXrzFblI");
+var bot = new Eris(process.env.TOKEN);
 
 app.set('view engine', 'pug');
 
