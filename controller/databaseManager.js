@@ -9,10 +9,10 @@ module.exports = {
 
 	connect: async function(){
 		client = new Client({
-	          user: 'izhdpobumyufya',
+	          user: process.env.awsDB_User,
 	          host: 'ec2-54-221-207-192.compute-1.amazonaws.com',
-	          database: 'd5qsftiankav99',
-	          password: '32bc5c61e1d03e330f66dbd402ba9628e559e924d82477a847ad2cd99b39174e',
+	          database: process.env.awsDB_Name,
+	          password: process.env.awsDB_Password,
 	          port: 5432,
 	          ssl: true
 	        });
