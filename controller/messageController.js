@@ -8,6 +8,7 @@ const rice = require('./../model/riceChannel.js');
 const autism = require('./../model/autismChannel.js');
 const gameboard = require('./../model/gameboardChannel.js');
 const mobage = require('./../model/mobageChannel.js');
+const fifa = require('./../model/fifaChannel.js');
 const perv = require('./../model/pervGame.js');
 const gacha = require('./../model/gacha.js');
 const dbManager = require('./databaseManager.js');
@@ -19,6 +20,16 @@ module.exports = function(app, bot, moment) {
 
 	var autismAction = (msg) =>{
 
+	}
+
+	var fifaAction = (msg) =>{
+		if(msg.content.indexOf("shisui") !== -1){
+	    	return fifa.shisui(msg, bot, fs);
+	    }
+
+	    if(msg.content.indexOf("glamour") !== -1){
+	    	return fifa.shisuiRng(msg, bot, fs);
+	    }
 	}
 
 	var mobageAction = (msg) =>{
@@ -182,6 +193,9 @@ module.exports = function(app, bot, moment) {
 			break;
 			case constants.AUTISM_CHANNEL:
 				autismAction(msg);
+			break;
+			case constants.FIFA_CHANNEL:
+				fifaAction(msg);
 			break;
 		}
 
