@@ -111,11 +111,4 @@ module.exports = {
         });
     }
 
-    shisui: function(msg, bot, fs, random){
-        if(random === 3){
-          return bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/shisui.jpg"),name:"shisui.jpg"});
-        }
-        
-    }
-
 }
