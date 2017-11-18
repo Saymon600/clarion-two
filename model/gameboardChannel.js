@@ -153,18 +153,20 @@ module.exports = {
 	        bot.createMessage(msg.channel.id,'Porra Fowz');
 	    }
    	},
-
+    /*
    	zeroPad: function(num,size){
 		var zero = size - num.toString().length + 1;
 		return Array(+(zero > 0 && zero)).join("0") + num;
    	},
+    */
 
    	stats: function(msg, bot, moment){
    		var message = "その指は鉄、その髪は檻、その囁きは甘き毒。これがわたし\n";
     	// var message = "Clarion current stats:\n";
 
-    	var uptime = moment.duration(bot.uptime);
-    	var strUptime = this.zeroPad(uptime.hours(),2) + ":" + this.zeroPad(uptime.minutes(),2) + ":" + this.zeroPad(uptime.seconds(),2);
+    	//var uptime = moment.duration(bot.uptime, "milliseconds");
+      var strUptime = moment.duration(bot.uptime, "milliseconds").humanize();
+    	//var strUptime = this.zeroPad(uptime.hours(),2) + ":" + this.zeroPad(uptime.minutes(),2) + ":" + this.zeroPad(uptime.seconds(),2);
 
     	message += "Uptime: " + strUptime + "\n";
 
