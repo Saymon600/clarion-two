@@ -13,8 +13,8 @@ module.exports = {
 	          host: process.env.awsDB_Host,
 	          database: process.env.awsDB_Name,
 	          password: process.env.awsDB_Password,
-	          port: 5432,
-	          ssl: true
+	        port: 5432,
+	        ssl: true
 	        });
 		await client.connect();
 		return client;
