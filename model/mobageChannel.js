@@ -54,10 +54,8 @@ module.exports = {
 	},
 
   gudako: function(msg, bot, fs){
-      // var random = Math.floor((Math.random() * 20) + 1);
-      // var random2 = Math.floor((Math.random() * 8) + 1);
-      var random2 = 8;
-      var random = 3;
+      var random = Math.floor((Math.random() * 20) + 1);
+      var random2 = Math.floor((Math.random() * 8) + 1);
       if(random === 3){
           switch(random2){
               case 1:
