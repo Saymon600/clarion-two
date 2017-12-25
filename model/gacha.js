@@ -20,7 +20,7 @@ module.exports = {
 			if(addict.data !== undefined && slots.length >= addict.data.maximum_slot_number){
 				return bot.createMessage(msg.channel.id, 'Your slots are full, onii-chan.\n Try again after releasing a servant or buying a slot!');
 			}
-			this.rollGacha(msg, bot, addict, slots);
+			this.rollGacha(msg, bot, addict, slots, true);
 		} catch (err){
 			console.log(err.stack);
 		}
@@ -40,7 +40,7 @@ module.exports = {
 	},
 
 	// Rate up later
-	rollGacha: async function (msg, bot, addict, slots){
+	rollGacha: async function (msg, bot, addict, slots, updateRollDate){
 		let newSlot = this.findFreeSlot(slots);
 		let random = Math.floor(Math.random() * 101);
 		let possibleServants;
@@ -61,10 +61,10 @@ module.exports = {
 		if(addict.data === undefined){
 			await dbManager.createGachaAddict(msg);
 		}
-		dbManager.updateGachaAddict(msg.author.id, newServant.id, newSlot);
+		await dbManager.updateGachaAddict(msg.author.id, newServant.id, newSlot, updateRollDate);
 	},
 
-	prepareSlotsMessage: function (msg, userId, slots){
+	createSlotsMessage: async function (msg, bot, userId, slots){
 		let rarity = '';
 		let message = common.findMember(msg, userId).username + " Servants:\n";
 		let count = 1;
@@ -84,8 +84,11 @@ module.exports = {
 			}
 			rarity = '';
 			count++;
+			if(i === slots.length - 1 || count % 20 === 0){
+				await bot.createMessage(msg.channel.id, message);
+				message = '';
+			}
 		}
-		return message;
 	},
 
 	showSlots: async function (msg, bot, userId){
@@ -97,7 +100,7 @@ module.exports = {
 			if(slots.length === 0){
 				return bot.createMessage(msg.channel.id, "No servants were found, o-onii-chan...");
 			}
-			bot.createMessage(msg.channel.id, this.prepareSlotsMessage(msg, userId, slots));
+			this.createSlotsMessage(msg, bot, userId, slots);
 		} catch (err){
 			console.log(err.stack);
 		}
@@ -129,7 +132,22 @@ module.exports = {
         		return console.log('Something went wrong with slot ' + params[i]);
         	} 
         }
-        dbManager.removeSlot(msg, bot, msg.author.id, params);
+        dbManager.removeSlot(msg, bot, msg.author.id, this.prepareFreeSlotsGems(params));
+	},
+
+	prepareFreeSlotsGems: async function (id, params){
+		let selectSlots = [];
+		const slots = await dbManager.getSlots(id);
+		for (var i = 0; i < params.length; i++){
+			selectSlots[i].number = params[i];
+			for (var j = 0; j < slots.length; j++){
+				if(slots[j].slot_number === params[i]){
+					selectSlots[i].valour = (slots[j].rarity <= 3) ? 10: (slots[j].rarity === 4) ? 50: 100;
+					break;
+				}
+			}
+		}
+		return selectSlots;
 	},
 
 	changeSlot: function (msg, bot){
@@ -152,10 +170,34 @@ module.exports = {
 		bot.createMessage(msg.channel.id, message);
 	},
 
+	gachaAddictStats: async function (msg, bot){
+		const addict = await dbManager.getGachaAddict(msg.author.id);
+		const slots = await dbManager.getSlots(msg.author.id, "slotData");
+		if(addict.data === undefined){
+			return bot.createMessage(msg.channel.id, "You never rolled the gacha, o-onii-chan...");
+		}
+		let message = "Those are your stats, <@" + msg.author.id + ">!\n";
+		message += `${slots.length} servants\n`;
+		message += `${addict.data.gems} available gems\n`;
+		message += `${addict.data.maximum_slot_number} total slots\n`;
+		bot.createMessage(msg.channel.id, message);
+	},
+
+	gemGacha: async function (msg, bot){
+		const addict = await dbManager.getGachaAddict(msg.author.id);
+		if(addict.data === undefined || addict.data.gems < 15){
+			return bot.createMessage(msg.channel.id, "You don't have enough gems, o-onii-chan...");
+		}
+		const slots = await dbManager.getSlots(msg.author.id);
+		await this.rollGacha(msg, bot, addict, slots, false);
+		dbManager.decreaseGemsFromAddict(msg.author.id);
+	},
+
 	gachaHelp: function (msg, bot){
     	let message = "<@" + msg.author.id + ">, ";
     	message += "Command List:\n";
 		message += "gacha: your daily free servant roll\n";
+		message += "gemgacha: spend 15 gems to roll the gacha\n";		
 		message += "myslot: show your servants (alt: myslots)\n";
 		message += "slot: (+ username) show his servants (alt: slots)\n";
 		message += "displayslot: A pic of your servant might show up. (alt.: showslot)\n";
@@ -164,6 +206,7 @@ module.exports = {
 		// message += "\n";
 		// message += "\n";
 		message += "rates: show the current roll rates\n";
+		message += "mystats: show the number os servants and gems you have\n";
 		message += "Use ! to call commands, p-please\n";
     	bot.createMessage(msg.channel.id, message);
 	}

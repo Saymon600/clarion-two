@@ -120,12 +120,16 @@ module.exports = function(app, bot, moment) {
 				return perv.releaseAll(msg, bot);
 			case "!gacha":
 				return gacha.dailyGacha(msg, bot);
+			case "!gemgacha":
+				return gacha.gemGacha(msg, bot);
 			case "!rates":
 			case "!rate":
 				return gacha.showRates(msg, bot);
 			case "!myslots":
 			case "!myslot":
 				return gacha.showSlots(msg, bot, msg.author.id);
+			case "!mystats":
+				return gacha.gachaAddictStats(msg, bot);
 			case "!help":
 				return gameboard.help(msg, bot);
 			case "!gachahelp":

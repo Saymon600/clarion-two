@@ -9,13 +9,13 @@ module.exports = {
 
 	connect: async function(){
 		client = new Client({
-	          user: process.env.awsDB_User,
-	          host: process.env.awsDB_Host,
-	          database: process.env.awsDB_Name,
-	          password: process.env.awsDB_Password,
+			user: process.env.awsDB_User,
+			host: process.env.awsDB_Host,
+			database: process.env.awsDB_Name,
+			password: process.env.awsDB_Password,
 	        port: 5432,
 	        ssl: true
-	        });
+		});
 		await client.connect();
 		return client;
 	},
@@ -196,8 +196,9 @@ module.exports = {
 			sqlValues = [id];
 			let res = await client.query(sql, sqlValues);
 			client.end();
-			return (res.rows[0] !== undefined && res.rows[0].last_roll_date === moment().tz('America/Sao_Paulo').format("YYYY-MM-DD")) ? {rolled: true} : {rolled: false, data: res.rows[0]};
-			// return (res.rows[0] === undefined) ? {rolled: false} : {rolled: false, data: res.rows[0]};
+			return (res.rows[0].last_roll_date === moment().tz('America/Sao_Paulo').format("YYYY-MM-DD")) 
+				   ? {rolled: true, data: res.rows[0]} 
+			       : {rolled: false, data: res.rows[0]};
 		} catch(err) {
 			console.log(err.stack);
 		}
@@ -215,12 +216,14 @@ module.exports = {
 		}
 	},
 
-	updateGachaAddict: async function (addictId, newServantId, newSlot){
+	updateGachaAddict: async function (addictId, newServantId, newSlot, updateRollDate){
 		try{
 			this.connect();
-			sql = 'update gacha_addicts set last_roll_date = $1 where id = $2';
-			sqlValues = [moment().tz('America/Sao_Paulo').format("YYYY-MM-DD"), addictId];
-			await client.query(sql, sqlValues);
+			if(updateRollDate){
+				sql = 'update gacha_addicts set last_roll_date = $1 where id = $2';
+				sqlValues = [moment().tz('America/Sao_Paulo').format("YYYY-MM-DD"), addictId];
+				await client.query(sql, sqlValues);
+			}
 			sql = 'insert into fgo_slots (id_addict, id_servant, slot_number) values ($1, $2, $3)'
 			sqlValues = [addictId, newServantId, newSlot];
 			await client.query(sql, sqlValues);
@@ -266,18 +269,30 @@ module.exports = {
 		}
 	},
 
-	removeSlot: async function (msg, bot, id, slots){
+	removeSlot: async function (msg, bot, id, selectedSlots){
 		try{
 			this.connect();
-			for (var i = 0; i < slots.length; i++) {			
+			for (var i = 0; i < selectedSlots.length; i++) {			
 				sql = "delete from fgo_slots where id_addict = $1 and slot_number = $2";
-				sqlValues = [id, slots[i]];
+				sqlValues = [id, selectedSlots[i].number];
 				await client.query(sql, sqlValues);
-				sql = 'update gacha_addicts set gems = gems + 10 where id = $1';
-				sqlValues = [id]
+				sql = 'update gacha_addicts set gems = gems + $2 where id = $1';
+				sqlValues = [id, selectedSlots[i].valour];
 				await client.query(sql, sqlValues);
 			}
 			bot.createMessage(msg.channel.id, 'Slots deleted, nii-nii~');
+			client.end();
+		} catch(err){
+			console.log(err.stack);
+		}
+	},
+
+	decreaseGemsFromAddict: async function (id){
+		try{
+			this.connect();
+			sql = 'update gacha_addicts set gems = gems - 15 where id = $1';
+			sqlValues = [id]
+			await client.query(sql, sqlValues);
 			client.end();
 		} catch(err){
 			console.log(err.stack);
