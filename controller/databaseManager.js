@@ -272,6 +272,7 @@ module.exports = {
 	removeSlot: async function (msg, bot, id, selectedSlots){
 		try{
 			this.connect();
+			console.log('connect')
 			for (var i = 0; i < selectedSlots.length; i++) {			
 				sql = "delete from fgo_slots where id_addict = $1 and slot_number = $2";
 				sqlValues = [id, selectedSlots[i].number];

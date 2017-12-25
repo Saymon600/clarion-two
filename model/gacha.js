@@ -122,7 +122,7 @@ module.exports = {
 		}
 	},
 
-	freeSlot: function (msg, bot){
+	freeSlot: async function (msg, bot){
 		let params = msg.content.split(' ').slice(1).join(" ").replace(/\s/g,'').split(",");
         if(params[0] === undefined 　|| Number.isNaN(parseInt(params[0]))){
             return bot.createMessage(msg.channel.id, "eeh, which slot?");
@@ -131,8 +131,9 @@ module.exports = {
         	if(Number.isNaN(parseInt(params[i]))){
         		return console.log('Something went wrong with slot ' + params[i]);
         	} 
-        }
-		dbManager.removeSlot(msg, bot, msg.author.id, this.prepareFreeSlotsGems(msg.author.id, params));
+		}
+		const selectedSlots = await this.prepareFreeSlotsGems(msg.author.id, params)
+		dbManager.removeSlot(msg, bot, msg.author.id, selectedSlots);
 	},
 
 	prepareFreeSlotsGems: async function (id, params){
@@ -142,9 +143,8 @@ module.exports = {
 			selectSlots[i] = {};
 			selectSlots[i].number = params[i];
 			for (var j = 0; j < slots.length; j++){
-				if(slots[j].slot_number === params[i]){
+				if(slots[j].slot_number === parseInt(params[i])){
 					selectSlots[i].valour = (slots[j].rarity <= 3) ? 10: (slots[j].rarity === 4) ? 50: 100;
-					console.log(selectSlots[i].valour)
 					break;
 				}
 			}
