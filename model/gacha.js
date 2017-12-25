@@ -132,7 +132,7 @@ module.exports = {
         		return console.log('Something went wrong with slot ' + params[i]);
         	} 
         }
-        dbManager.removeSlot(msg, bot, msg.author.id, this.prepareFreeSlotsGems(params));
+        dbManager.removeSlot(msg, bot, msg.author.id, this.prepareFreeSlotsGems(msg.author.id, params));
 	},
 
 	prepareFreeSlotsGems: async function (id, params){
