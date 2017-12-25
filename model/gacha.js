@@ -123,7 +123,7 @@ module.exports = {
 	},
 
 	freeSlot: function (msg, bot){
-        let params = msg.content.split(' ').slice(1).join(" ").replace(/\s/g,'').split(",");
+		let params = msg.content.split(' ').slice(1).join(" ").replace(/\s/g,'').split(",");
         if(params[0] === undefined 　|| Number.isNaN(parseInt(params[0]))){
             return bot.createMessage(msg.channel.id, "eeh, which slot?");
         }
@@ -132,17 +132,19 @@ module.exports = {
         		return console.log('Something went wrong with slot ' + params[i]);
         	} 
         }
-        dbManager.removeSlot(msg, bot, msg.author.id, this.prepareFreeSlotsGems(msg.author.id, params));
+		dbManager.removeSlot(msg, bot, msg.author.id, this.prepareFreeSlotsGems(msg.author.id, params));
 	},
 
 	prepareFreeSlotsGems: async function (id, params){
 		let selectSlots = [];
 		const slots = await dbManager.getSlots(id);
 		for (var i = 0; i < params.length; i++){
+			selectSlots[i] = {};
 			selectSlots[i].number = params[i];
 			for (var j = 0; j < slots.length; j++){
 				if(slots[j].slot_number === params[i]){
 					selectSlots[i].valour = (slots[j].rarity <= 3) ? 10: (slots[j].rarity === 4) ? 50: 100;
+					console.log(selectSlots[i].valour)
 					break;
 				}
 			}
