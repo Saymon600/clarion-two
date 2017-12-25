@@ -147,6 +147,7 @@ module.exports = function(app, bot, moment) {
 			return gacha.freeSlot(msg, bot);
 		}
 
+
 		if(msg.content.startsWith("!changeslot") || msg.content.startsWith("!swapslot")){
 			return gacha.changeSlot(msg, bot);
 		}

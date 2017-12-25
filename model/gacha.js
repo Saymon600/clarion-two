@@ -138,13 +138,14 @@ module.exports = {
 
 	prepareFreeSlotsGems: async function (id, params){
 		let selectSlots = [];
-		const slots = await dbManager.getSlots(id);
+		const slots = await dbManager.getSlots(id, "slotData");
 		for (var i = 0; i < params.length; i++){
 			selectSlots[i] = {};
 			selectSlots[i].number = params[i];
 			for (var j = 0; j < slots.length; j++){
 				if(slots[j].slot_number === parseInt(params[i])){
-					selectSlots[i].valour = (parseInt(slots[j].rarity) <= 3) ? 10: (parseInt(slots[j].rarity) === 4) ? 50: 100;
+					let rarity = parseInt(slots[j].rarity);
+					selectSlots[i].valour = (rarity <= 3) ? 10: (rarity === 4) ? 50: 100;
 					break;
 				}
 			}

@@ -275,12 +275,12 @@ module.exports = {
 			for (var i = 0; i < selectedSlots.length; i++) {			
 				sql = "delete from fgo_slots where id_addict = $1 and slot_number = $2";
 				sqlValues = [id, selectedSlots[i].number];
-				await client.query(sql, sqlValues);
+				// await client.query(sql, sqlValues);
 				sql = 'update gacha_addicts set gems = gems + $2 where id = $1';
 				sqlValues = [id, selectedSlots[i].valour];
-				await client.query(sql, sqlValues);
+				// await client.query(sql, sqlValues);
 			}
-			bot.createMessage(msg.channel.id, 'Slots deleted, nii-nii~');
+			// bot.createMessage(msg.channel.id, 'Slots deleted, nii-nii~');
 			client.end();
 		} catch(err){
 			console.log(err.stack);
