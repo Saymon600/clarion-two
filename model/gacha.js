@@ -145,7 +145,7 @@ module.exports = {
 			for (var j = 0; j < slots.length; j++){
 				if(slots[j].slot_number === parseInt(params[i])){
 					let rarity = parseInt(slots[j].rarity);
-					selectSlots[i].valour = (rarity <= 3) ? 10: (rarity === 4) ? 50: 100;
+					selectSlots[i].valour = (rarity <= 3) ? 5: (rarity === 4) ? 50: 100;
 					break;
 				}
 			}
