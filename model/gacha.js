@@ -149,6 +149,9 @@ module.exports = {
 					break;
 				}
 			}
+			if(selectSlots[i].valour === undefined){
+				selectSlots[i].valour = 0;
+			}
 		}
 		return selectSlots;
 	},
