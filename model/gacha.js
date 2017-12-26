@@ -84,7 +84,7 @@ module.exports = {
 			}
 			rarity = '';
 			count++;
-			if(i === slots.length - 1 || count % 20 === 0){
+			if(i === slots.length - 1 || count % 15 === 0){
 				await bot.createMessage(msg.channel.id, message);
 				message = '';
 			}
