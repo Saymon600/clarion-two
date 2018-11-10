@@ -357,7 +357,11 @@ module.exports = {
 			let res = await client.query(sql,sqlValues);
 			if(res.rows[0] !== undefined){
 				let timestamp = moment(res.rows[0].date).format("DD/MM/YYYY HH:mm:ss");
-				message = "Onii-chan... This person lucksacked " + res.rows[0].brunada + " times and the last time was at " + timestamp ;
+				let brunadas = res.rows[0].brunada + " times";
+				if(parseInt(res.rows[0].brunada) === 1){
+					brunadas = "1 time";
+				}
+				message = "Onii-chan... This person lucksacked " + res.rows[0].brunada + " and the last time was at " + timestamp ;
 				if(parseInt(res.rows[0].brunada === 10)){
 					message = message + "\nI thinl this person should be purged.";
 				}
