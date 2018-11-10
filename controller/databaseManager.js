@@ -338,7 +338,7 @@ module.exports = {
 				message = "Lucksack registered!";
 			}
 			sqlValues = [brunada,timestamp,msg.mentions[0].id];
-			await  client.query(sql,sqlValues);
+			await client.query(sql,sqlValues);
 			bot.createMessage(msg.channel.id,message);
 			client.end();
 		}catch(err){
@@ -348,6 +348,7 @@ module.exports = {
 	
 	checkLucksack: async function(msg, bot){
 		try{
+			this.connect();
 			if(msg.mentions.length < 1){
 				bot.createMessage(msg.channel.id,"Onii-chan... I need you to mention someone or your drop rates will get worse");
 			}
@@ -364,6 +365,7 @@ module.exports = {
 				message = "Onii-chan, I didn't find anyone. This must be a sign.";
 			}
 			bot.createMessage(msg.channel.id,message);
+			client.end();
 		}catch(err){
 			console.log(err.stack);
 		}
