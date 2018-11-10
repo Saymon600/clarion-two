@@ -65,7 +65,19 @@ module.exports = function(app, bot, moment) {
 
 	    if(msg.content.indexOf("whal") !== -1){
 	    	return mobage.whale(msg, bot, fs);
-	    }
+		}
+
+		if(msg.content === "!ubhl"){
+    		return mobage.ubhl(msg, bot);
+    	}
+		
+		if(msg.content.startsWith("!lucksack")){
+    		return mobage.lucksack(msg, bot);
+		}
+		
+		if(msg.content.startsWith("!check")){
+    		return mobage.checkLucksack(msg, bot);
+    	}
 	}
 
 	var riceAction = (msg) =>{
@@ -147,7 +159,6 @@ module.exports = function(app, bot, moment) {
 			return gacha.freeSlot(msg, bot);
 		}
 
-
 		if(msg.content.startsWith("!changeslot") || msg.content.startsWith("!swapslot")){
 			return gacha.changeSlot(msg, bot);
 		}
@@ -182,10 +193,12 @@ module.exports = function(app, bot, moment) {
 
 	    if(msg.content.startsWith("!cn")){
 	    	return gameboard.changeName(msg, bot, fs);
-	    }
+		}
+		
 	    if(msg.content.startsWith("!cp")){
 	    	return gameboard.changePlaying(msg, bot, fs);
-	    }
+		}
+		
 	    if(msg.content.startsWith("!cs")){
 	    	return gameboard.changeStatus(msg, bot, fs);
 	    }

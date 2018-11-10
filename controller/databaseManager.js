@@ -316,6 +316,57 @@ module.exports = {
 		}catch(err){
 			console.log(err.stack);
 		}
+	},
+
+	registerLucksack: async function(msg, bot){
+		try{
+			if(msg.mentions.length < 1){
+				bot.createMessage(msg.channel.id,"Onii-chan... I need you to mention some scum lucksack.");
+			}
+			this.connect();
+			let sql = "select * from lucksacks where id = $1";
+			let sqlValues = [msg.mentions[0].id];
+			let brunada = 1;
+			let timestamp = moment().tz('America/Sao_Paulo').format("YYYY-MM-DD HH:mm:ss");
+			let res = await client.query(sql,sqlValues);
+			if(res.rows[0] !== undefined){
+				brunada = parseInt(res.rows[0].brunada) + 1;
+				sql = "update lucksacks set brunada = $1,date = $2 WHERE id = $3";
+				message = "Lucksack updated!";
+			}else{
+				sql = "insert into lucksacks (brunada,date,id) values ($1,$2,$3)";
+				message = "Lucksack registered!";
+			}
+			sqlValues = [brunada,timestamp,msg.mentions[0].id];
+			await  client.query(sql,sqlValues);
+			bot.createMessage(msg.channel.id,message);
+			client.end();
+		}catch(err){
+			console.log(err.stack);
+		}
+	},
+	
+	checkLucksack: async function(msg, bot){
+		try{
+			if(msg.mentions.length < 1){
+				bot.createMessage(msg.channel.id,"Onii-chan... I need you to mention someone or your drop rates will get worse");
+			}
+			let sql = "select * from lucksacks where id = $1";
+			let sqlValues = [msg.mentions[0].id];
+			let res = await client.query(sql,sqlValues);
+			if(res.rows[0] !== undefined){
+				let timestamp = moment(res.rows[0].date).format("DD/MM/YYYY HH:mm:ss");
+				message = "Onii-chan... This person lucksacked " + res.rows[0].brunada + " times and the last time was at " + timestamp ;
+				if(parseInt(res.rows[0].brunada === 10)){
+					message = message + "\nI thinl this person should be purged.";
+				}
+			}else{
+				message = "Onii-chan, I didn't find anyone. This must be a sign.";
+			}
+			bot.createMessage(msg.channel.id,message);
+		}catch(err){
+			console.log(err.stack);
+		}
 	}
 
 };

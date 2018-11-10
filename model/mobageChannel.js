@@ -112,6 +112,24 @@ module.exports = {
           }
           return bot.createMessage(msg.channel.id,"",{file:fs.readFileSync(__dirname + "/../views/reaction_images/failLuck.png"),name:"failLuck.png"});
       });
-  }
+  },
+
+    ubhl: function(msg, bot){
+        if(common.findIfHasRole(msg, msg.author.id, constants.UBHL_ROLE)){
+            bot.removeGuildMemberRole(msg.channel.guild.id,msg.author.id,constants.UBHL_ROLE);
+            bot.createMessage(msg.channel.id, "Largartão role removed");
+        }else{
+            bot.addGuildMemberRole(msg.channel.guild.id,msg.author.id, constants.UBHL_ROLE);
+            bot.createMessage(msg.channel.id, 'Largartão role added');
+        }
+    },
+
+    lucksack: function(msg, bot){
+        dbManager.registerLucksack(msg, bot);
+    },
+
+    checkLucksack: function(msg, bot){
+        dbManager.checkLucksack(msg, bot);
+    }
 
 }

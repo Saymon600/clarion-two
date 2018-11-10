@@ -158,7 +158,7 @@ module.exports = {
    		var message = "その指は鉄、その髪は檻、その囁きは甘き毒。これがわたし\n";
     	// var message = "Clarion current stats:\n";
 
-      var strUptime = moment.duration(bot.uptime, "milliseconds").humanize();
+      	var strUptime = moment.duration(bot.uptime, "milliseconds").humanize();
 
     	message += "Uptime: " + strUptime + "\n";
 
@@ -180,14 +180,18 @@ module.exports = {
     	message += "!ask: ask me something and I'll answer with yes or no\n";
     	message += "!bastao: Tell a story in bonfire, my friend\n";
     	message += "!sem-bastao: remove firekeepers from bonfire.\n";
-    	message += "!raid: idk what is this, but they'll ping you with some strange gbf raid code\n";
+		message += "!raid: idk what is this, but they'll ping you with some strange gbf raid code\n";
+		message += "!ubhl: gbf lizard killers role\n";
+		message += "!suco: idk what is this, but they'll ping you with something my owner doesn't know what it is\n";
     	message += "!spoiler: access the secret park\n";
     	message += "!cn: Change my nick in this server.\n";
     	message += "!cp: Change my playing game name.\n";
     	message += "!cs: you can't change my status, dummy\n";
     	message += "!pf: Prato feito or something like that\n";
     	message += "!lastlolis: Show last lolis from an user\n";
-    	message += "!giveluck: Try it if you're about to roll in a mobage\n";
+		message += "!giveluck: Try it if you're about to roll in a mobage\n";
+		message += "!lucksack: (+ mention the scum) I'll remember the last time this person(?) lucksacked\n";
+		message += "!check: (+ mention someone) I'll tell you if this person lucksacked\n";
     	message += "!stats: my stats\n";
 
     	bot.createMessage(msg.channel.id, message);
