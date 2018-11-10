@@ -361,7 +361,7 @@ module.exports = {
 				if(parseInt(res.rows[0].brunada) === 1){
 					brunadas = "1 time";
 				}
-				message = "Onii-chan... This person lucksacked " + res.rows[0].brunada + " and the last time was at " + timestamp ;
+				message = "Onii-chan... This person lucksacked " + brunadas + " and the last time was at " + timestamp ;
 				if(parseInt(res.rows[0].brunada === 10)){
 					message = message + "\nI thinl this person should be purged.";
 				}
